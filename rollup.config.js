@@ -15,13 +15,25 @@
 import filesize from 'rollup-plugin-filesize';
 import {terser} from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
+import minifyHTML from 'rollup-plugin-minify-html-literals';
+import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
 
-export default {
-  input: 'my-element.js',
+// Static assets will vary depending on the application
+const copyConfig = {
+  targets: [
+    {src: 'node_modules/@webcomponents', dest: 'build/node_modules'},
+    {src: 'images', dest: 'build'},
+    {src: 'data', dest: 'build'},
+    {src: 'index.html', dest: 'build'},
+  ],
+};
+
+const config = {
+  input: 'index.js',
   output: {
-    file: 'my-element.bundled.js',
-    format: 'esm',
+    dir: 'dev',
+    format: 'es',
   },
   onwarn(warning) {
     if (warning.code !== 'THIS_IS_UNDEFINED') {
@@ -31,6 +43,8 @@ export default {
   plugins: [
     replace({'Reflect.decorate': 'undefined'}),
     resolve(),
+    minifyHTML(),
+    copy(copyConfig),
     terser({
       module: true,
       warnings: true,
@@ -45,3 +59,9 @@ export default {
     }),
   ],
 };
+
+if (process.env.NODE_ENV !== 'development') {
+  config.plugins.push(terser());
+}
+
+export default config;

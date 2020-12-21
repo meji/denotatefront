@@ -1,4 +1,4 @@
-import {MyElement} from '../my-element.js';
+import {App} from '../app.js';
 import {fixture, html} from '@open-wc/testing';
 
 const assert = chai.assert;
@@ -6,11 +6,15 @@ const assert = chai.assert;
 suite('my-element', () => {
   test('is defined', () => {
     const el = document.createElement('my-element');
-    assert.instanceOf(el, MyElement);
+    assert.instanceOf(el, App);
   });
 
   test('renders with default values', async () => {
-    const el = await fixture(html`<my-element></my-element>`);
+    const el = await fixture(
+      html`
+        <App></App>
+      `
+    );
     assert.shadowDom.equal(
       el,
       `
@@ -22,7 +26,11 @@ suite('my-element', () => {
   });
 
   test('renders with a set name', async () => {
-    const el = await fixture(html`<my-element name="Test"></my-element>`);
+    const el = await fixture(
+      html`
+        <App name="Test"></App>
+      `
+    );
     assert.shadowDom.equal(
       el,
       `
@@ -34,7 +42,11 @@ suite('my-element', () => {
   });
 
   test('handles a click', async () => {
-    const el = (await fixture(html`<my-element></my-element>`)) as MyElement;
+    const el = (await fixture(
+      html`
+        <App></App>
+      `
+    )) as App;
     const button = el.shadowRoot!.querySelector('button')!;
     button.click();
     await el.updateComplete;
