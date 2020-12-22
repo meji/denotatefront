@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AuthorizationService } from "../auth/authorization-service";
 
-//const server = "http://localhost:8000";
 const server = process.env.API_URI;
 
 const authorizationService = new AuthorizationService();

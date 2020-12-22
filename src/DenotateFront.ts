@@ -1,28 +1,22 @@
-import { html, css, LitElement, property } from 'lit-element';
-import './routes/public/home';
+import { html, css, LitElement, property } from "lit-element";
+import "./routes/public/home";
 
 export class DenotateFront extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      padding: 25px;
-      color: var(--denotate-front-text-color, #000);
-    }
-  `;
-
-  @property({ type: String }) title = 'Hey there';
-
-  @property({ type: Number }) counter = 5;
-
-  __increment() {
-    this.counter += 1;
-  }
-
   render() {
     return html`
-      <h2>${this.title} Nr. ${this.counter}!</h2>
-      <button @click=${this.__increment}>increment</button>
-      <home-page></home-page>
+      <h2>Contenedor</h2>
+      <ul>
+        <li>
+          <a href="/admin">Admin</a>
+        </li>
+        <li>
+          <a href="/categoria">categoria</a>
+        </li>
+        <li>
+          <a href="/post">post</a>
+        </li>
+      </ul>
+      <slot></slot>
     `;
   }
 }
