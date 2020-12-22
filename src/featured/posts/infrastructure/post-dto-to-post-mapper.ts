@@ -1,5 +1,5 @@
-import { Post } from '../domain/post';
-import { PostDto } from './post-dto';
+import { Post } from "../domain/post";
+import { PostDto } from "./post-dto";
 
 export class PostDtoToPostMapper {
   map(postDto: PostDto): Post {
@@ -9,9 +9,9 @@ export class PostDtoToPostMapper {
       description: postDto.description,
       img: postDto.img,
       featured: postDto.featured,
-      author: postDto.author.$oid,
+      author: postDto.author ? postDto.author.$oid : undefined,
       cats: postDto.cats ? postDto.cats.map(cat => cat.$oid) : undefined,
-      tags: postDto.tags ? postDto.tags.map(tag => tag.$oid) : undefined,
+      tags: postDto.tags ? postDto.tags.map(tag => tag.$oid) : undefined
     };
   }
 }

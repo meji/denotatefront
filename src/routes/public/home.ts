@@ -8,12 +8,19 @@ export class Home extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     const postRepositoryFactory = PostRepositoryFactory.build();
-    postRepositoryFactory.findAll().then(response => {
-      this.posts = response;
-    });
+    postRepositoryFactory
+      .create({
+        title: "Esta es un post7668",
+        brief: "Esto es un briuef",
+        description: "Esta es una descrición",
+        img: "Esta es la url de la imagen",
+        featured: true
+      })
+      .then(response => {
+        this.posts = [response];
+      });
   }
   render() {
-    console.log(this.posts);
     return html`
       ${this.posts?.map(
         post =>

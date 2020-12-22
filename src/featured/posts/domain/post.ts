@@ -1,5 +1,5 @@
-import { ID } from '../../shared/id/id';
-import { User } from '../../users/domain/user';
+import { ID } from "../../shared/id/id";
+import { User } from "../../users/domain/user";
 
 export interface Post {
   title: string;
@@ -7,7 +7,7 @@ export interface Post {
   description?: string;
   img?: string;
   featured?: boolean;
-  author: ID;
+  author?: ID;
   cats?: ID[];
   tags?: ID[];
 }

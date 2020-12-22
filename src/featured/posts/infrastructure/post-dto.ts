@@ -1,4 +1,4 @@
-import { OID } from '../../shared/id/id';
+import { OID } from "../../shared/id/id";
 
 export interface PostDto {
   title: string;
@@ -6,7 +6,7 @@ export interface PostDto {
   description?: string;
   img?: string;
   featured?: boolean;
-  author: OID;
+  author?: OID;
   cats?: OID[];
   tags?: OID[];
 }

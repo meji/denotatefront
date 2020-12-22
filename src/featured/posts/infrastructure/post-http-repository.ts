@@ -1,12 +1,12 @@
-import { PostRepository } from '../domain/post-repository';
-import { PostDtoToPostMapper } from './post-dto-to-post-mapper';
-import { PostToPostDtoMapper } from './post-to-post-dto-mapper';
-import { Post } from '../domain/post';
-import { Tag } from '../../tags/domain/tag';
-import { Category } from '../../../routes/admin/category';
-import { ID } from '../../shared/id/id';
-import { http } from '../../shared/http/http';
-import { PostDto } from './post-dto';
+import { PostRepository } from "../domain/post-repository";
+import { PostDtoToPostMapper } from "./post-dto-to-post-mapper";
+import { PostToPostDtoMapper } from "./post-to-post-dto-mapper";
+import { Post } from "../domain/post";
+import { Tag } from "../../tags/domain/tag";
+import { Category } from "../../../routes/admin/category";
+import { ID } from "../../shared/id/id";
+import { http } from "../../shared/http/http";
+import { PostDto } from "./post-dto";
 
 export class PostHttpRepository implements PostRepository {
   constructor(
@@ -17,11 +17,31 @@ export class PostHttpRepository implements PostRepository {
     const response = await http.get<PostDto[]>(`/posts/`);
     return response.data.map(postDto => this.postDtoToPostMapper.map(postDto));
   }
-  // async findByTag(tag: Tag): Promise<Post[]> {}
-  // async findByCategory(category: Category): Promise<Post[]> {}
-  // async getById(id: ID): Promise<Post> {}
-  // async getByName(name: string): Promise<Post> {}
-  // async create(post: Post): Promise<Post> {}
+  async findByTag(tag: ID): Promise<Post[]> {
+    const response = await http.get<PostDto[]>(`/posts/?tag=${tag}`);
+    return response.data.map(postDto => this.postDtoToPostMapper.map(postDto));
+  }
+  async findByCategory(category: ID): Promise<Post[]> {
+    const response = await http.get<PostDto[]>(`/posts/?cat=${category}`);
+    return response.data.map(postDto => this.postDtoToPostMapper.map(postDto));
+  }
+  async findByTitle(title: string): Promise<Post[]> {
+    const response = await http.get<PostDto[]>(`/posts/?title=${title}`);
+    return response.data.map(postDto => this.postDtoToPostMapper.map(postDto));
+  }
+  async getById(id: ID): Promise<Post> {
+    const response = await http.get<PostDto>(`/posts/${id}`);
+    return this.postDtoToPostMapper.map(response.data);
+  }
+  async create(post: Post): Promise<Post> {
+    const postDtoIn = this.postToPostDtoMapper.map(post);
+    const postIn = await http.post<PostDto>("/posts/", postDtoIn, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return this.postDtoToPostMapper.map(postIn.data);
+  }
   // async update(post: Post): Promise<Post> {}
   // async delete(post: Post): Promise<void> {}
 }
