@@ -1,35 +1,32 @@
-import {Commands, Context, Route, Router} from '@vaadin/router';
-import './app';
-import {AuthGuard} from './featured/shared/auth/auth-guard';
-const routes: Route[] = [
+import './denotate-front.js';
+import { Router, Context, Commands } from '@vaadin/router';
+import { AuthGuard } from './src/featured/shared/auth/auth-guard';
+const routes = [
   {
     path: '/',
-    component: 'app-lit',
-    action: async () => {
-      await import('./app');
-    },
+    component: 'denotate-front',
     children: [
       {
-        path: ':category',
+        path: '/:category',
         component: 'category-page',
         action: async () => {
-          await import('./routes/public/category');
+          await import('./src/routes/public/category');
         },
         children: [
           {
-            path: ':post',
+            path: '/:post',
             component: 'post-page',
             action: async () => {
-              await import('./routes/public/post');
+              await import('./src/routes/public/post');
             },
           },
         ],
       },
       {
-        path: 'tag/:tag',
+        path: '/tag/:tag',
         component: 'tag-page',
         action: async () => {
-          await import('./routes/public/tag');
+          await import('./src/routes/public/tag');
         },
       },
     ],
@@ -41,7 +38,7 @@ const routes: Route[] = [
       return await new AuthGuard().pageEnabled(context, commands, '/');
     },
   },
-  {path: '(.*)', component: 'not-found'},
+  { path: '(.*)', component: 'not-found' },
 ];
 
 const outlet = document.getElementById('outlet');

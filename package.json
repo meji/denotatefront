@@ -1,70 +1,69 @@
 {
-  "name": "denotate",
+  "name": "denotate-front",
   "version": "0.0.0",
-  "description": "Denotate FrontEnd",
-  "main": "index.js",
-  "module": "index.js",
-  "type": "module",
+  "description": "Webcomponent denotate-front following open-wc recommendations",
+  "author": "denotate-front",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "clean": "rimraf my-element.{d.ts,d.ts.map,js,js.map} test/my-element.{d.ts,d.ts.map,js,js.map} test/my-element_test.{d.ts,d.ts.map,js,js.map}",
-    "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
-    "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint:lit-analyzer": "lit-analyzer",
-    "format": "prettier src/* --write",
-    "docs": "npm run docs:clean && npm run build && npm run analyze && npm run docs:build && npm run docs:assets && npm run docs:gen",
-    "docs:clean": "rimraf docs",
-    "docs:gen": "eleventy --config=.eleventy.cjs",
-    "docs:gen:watch": "eleventy --config=.eleventy.cjs --watch",
-    "docs:build": "rollup -c --file docs/my-element.bundled.js",
-    "docs:assets": "cp node_modules/prismjs/themes/prism-okaidia.css docs/",
-    "docs:serve": "es-dev-server --root-dir=docs --node-resolve --watch",
-    "analyze": "wca analyze \"src/**/*.ts\" --outFile custom-elements.json",
-    "serve": "es-dev-server --node-resolve --watch",
-    "test": "karma start karma.conf.cjs",
-    "test:watch": "karma start karma.conf.cjs --auto-watch=true --single-run=false",
-    "test:update-snapshots": "karma start karma.conf.cjs --update-snapshots",
-    "test:prune-snapshots": "karma start karma.conf.cjs --prune-snapshots",
-    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
+    "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index demo/index.html --node-resolve --open --watch\"",
+    "tsc:watch": "tsc --watch",
+    "prepublish": "tsc",
+    "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "test": "tsc && web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch",
+    "storybook": "concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
+    "storybook:build": "build-storybook"
   },
-  "keywords": [
-    "web-components",
-    "lit-element",
-    "typescript"
-  ],
-  "author": "The Polymer Authors",
-  "license": "BSD-3-Clause",
   "dependencies": {
     "@vaadin/router": "^1.7.2",
-    "lit-element": "^2.3.1"
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.10.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
-    "@open-wc/testing": "^2.5.10",
-    "@open-wc/testing-karma": "^3.3.11",
-    "@rollup/plugin-replace": "^2.3.1",
-    "@types/chai": "^4.2.11",
-    "@types/mocha": "^7.0.2",
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
-    "chai": "^4.2.0",
-    "deepmerge": "^4.2.2",
-    "es-dev-server": "^1.46.1",
-    "eslint": "^6.8.0",
-    "karma": "^4.4.1",
-    "karma-chai": "^0.1.0",
-    "karma-mocha": "^1.3.0",
-    "lit-analyzer": "^1.1.10",
-    "mocha": "^7.1.1",
+    "@types/node": "13.11.1",
+    "@web/dev-server": "^0.0.12",
+    "typescript": "~4.0.3",
+    "concurrently": "^5.1.0",
+    "tslib": "^1.11.0",
+    "eslint": "^6.1.0",
+    "@open-wc/eslint-config": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
     "prettier": "^2.0.4",
-    "rimraf": "^3.0.2",
-    "rollup": "^1.32.1",
-    "rollup-plugin-filesize": "^7.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.3.0",
-    "typescript": "^3.8.3",
-    "web-component-analyzer": "^1.0.3"
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^1.0.0",
+    "lint-staged": "^10.0.0",
+    "@web/test-runner": "^0.7.41",
+    "@open-wc/testing": "^2.0.0",
+    "@open-wc/demoing-storybook": "^2.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@open-wc/eslint-config",
+      "eslint-config-prettier"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }

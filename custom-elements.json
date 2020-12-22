@@ -1,50 +1,30 @@
 {
-  "version": "experimental",
+  "version": 2,
   "tags": [
     {
-      "name": "my-element",
-      "path": "./src/my-element.ts",
-      "description": "An example element.",
-      "attributes": [
-        {
-          "name": "name",
-          "description": "The name to say \"Hello\" to.",
-          "type": "string",
-          "default": "\"World\""
-        },
-        {
-          "name": "count",
-          "description": "The number of times the button has been clicked.",
-          "type": "number",
-          "default": "0"
-        }
-      ],
+      "name": "denotate-front",
+      "description": "A component with a title and an action counter",
       "properties": [
         {
-          "name": "name",
-          "attribute": "name",
-          "description": "The name to say \"Hello\" to.",
-          "type": "string",
-          "default": "\"World\""
+          "name": "title",
+          "type": "String",
+          "description": "The title of your component",
+          "default": "Hey there"
         },
         {
-          "name": "count",
-          "attribute": "count",
-          "description": "The number of times the button has been clicked.",
-          "type": "number",
-          "default": "0"
+          "name": "counter",
+          "type": "Number",
+          "description": "An action counter",
+          "default": 0
         }
       ],
-      "slots": [
+      "events": [],
+      "slots": [],
+      "cssProperties": [
         {
-          "name": "",
-          "description": "This element has a slot"
-        }
-      ],
-      "cssParts": [
-        {
-          "name": "button",
-          "description": "The button"
+          "name": "--denotate-front-text-color",
+          "description": "Main Text Color",
+          "type": "Color"
         }
       ]
     }
