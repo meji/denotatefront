@@ -2,8 +2,6 @@ import { PostRepository } from "../domain/post-repository";
 import { PostDtoToPostMapper } from "./post-dto-to-post-mapper";
 import { PostToPostDtoMapper } from "./post-to-post-dto-mapper";
 import { Post } from "../domain/post";
-import { Tag } from "../../tags/domain/tag";
-import { Category } from "../../../routes/admin/category";
 import { ID } from "../../shared/id/id";
 import { http } from "../../shared/http/http";
 import { PostDto } from "./post-dto";

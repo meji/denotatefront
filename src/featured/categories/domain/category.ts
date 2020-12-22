@@ -1,4 +1,4 @@
-import { ID } from '../../shared/id/id';
+import { ID } from "../../shared/id/id";
 
 export interface Category {
   title: string;
@@ -7,5 +7,5 @@ export interface Category {
   img?: string;
   featured?: boolean;
   posts?: ID[];
-  categories?: Category[];
+  cats?: ID[];
 }
