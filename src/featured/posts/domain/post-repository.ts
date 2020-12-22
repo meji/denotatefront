@@ -1,7 +1,6 @@
 import { Post } from "./post";
 import { ID } from "../../shared/id/id";
-import { Tag } from "../../tags/domain/tag";
-import { Category } from "../../../routes/admin/category";
+import { PostDto } from "../infrastructure/post-dto";
 
 export interface PostRepository {
   findAll(): Promise<Post[]>;
@@ -10,6 +9,6 @@ export interface PostRepository {
   findByTitle(title: string): Promise<Post[]>;
   getById(id: ID): Promise<Post>;
   create(post: Post): Promise<Post>;
-  // update(post: Post): Promise<Post>;
+  update(id: ID, data: Partial<Post>): Promise<Post>;
   // delete(post: Post): Promise<void>;
 }

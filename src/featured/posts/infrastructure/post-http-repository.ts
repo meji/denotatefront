@@ -42,6 +42,14 @@ export class PostHttpRepository implements PostRepository {
     });
     return this.postDtoToPostMapper.map(postIn.data);
   }
-  // async update(post: Post): Promise<Post> {}
+  async update(id: ID, data: Partial<Post>): Promise<Post> {
+    const postIn = await http.put<PostDto>(`/posts/${id}`, data, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(postIn, postIn);
+    return this.postDtoToPostMapper.map(postIn.data);
+  }
   // async delete(post: Post): Promise<void> {}
 }

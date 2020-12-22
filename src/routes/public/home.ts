@@ -9,8 +9,8 @@ export class Home extends LitElement {
     super.connectedCallback();
     const postRepositoryFactory = PostRepositoryFactory.build();
     postRepositoryFactory
-      .create({
-        title: "Esta es un post7668",
+      .update("5fe24ee1008e7fa200329aac", {
+        title: "Esta es un post78990",
         brief: "Esto es un briuef",
         description: "Esta es una descrición",
         img: "Esta es la url de la imagen",
