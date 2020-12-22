@@ -10,5 +10,5 @@ export interface PostRepository {
   getById(id: ID): Promise<Post>;
   create(post: Post): Promise<Post>;
   update(id: ID, data: Partial<Post>): Promise<Post>;
-  // delete(post: Post): Promise<void>;
+  delete(id: ID): Promise<Post>;
 }

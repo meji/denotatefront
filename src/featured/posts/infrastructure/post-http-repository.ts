@@ -51,5 +51,8 @@ export class PostHttpRepository implements PostRepository {
     console.log(postIn, postIn);
     return this.postDtoToPostMapper.map(postIn.data);
   }
-  // async delete(post: Post): Promise<void> {}
+  async delete(id: ID): Promise<Post> {
+    const postDeleted = await http.delete<PostDto>(`/posts/${id}`);
+    return this.postDtoToPostMapper.map(postDeleted.data);
+  }
 }
