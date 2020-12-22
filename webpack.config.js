@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = (env, argv) => ({
   mode: "development",
@@ -16,6 +17,7 @@ module.exports = (env, argv) => ({
   devtool: argv.mode === "production" ? "none" : "inline-source-map",
   plugins: [
     new CleanWebpackPlugin(),
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: "./index.html"
     }),
