@@ -1,8 +1,28 @@
-import { html, LitElement } from 'lit-element';
+import { html, css, LitElement, property } from 'lit-element';
 import './routes/public/home';
 
 export class DenotateFront extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      padding: 25px;
+      color: var(--denotate-front-text-color, #000);
+    }
+  `;
+
+  @property({ type: String }) title = 'Hey there';
+
+  @property({ type: Number }) counter = 5;
+
+  __increment() {
+    this.counter += 1;
+  }
+
   render() {
-    return html` <home-page></home-page> `;
+    return html`
+      <h2>${this.title} Nr. ${this.counter}!</h2>
+      <button @click=${this.__increment}>increment</button>
+      <home-page></home-page>
+    `;
   }
 }

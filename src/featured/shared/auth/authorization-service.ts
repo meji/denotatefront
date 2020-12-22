@@ -1,11 +1,10 @@
 export class AuthorizationService {
-  private readonly key = 'token';
+  private readonly key = 'auth-denotate-token';
 
   public isAuthorized(): Promise<boolean> {
     const token = this.getToken();
     return new Promise(resolve => {
       resolve(token !== null);
-      // resolve(true);
     });
   }
 
