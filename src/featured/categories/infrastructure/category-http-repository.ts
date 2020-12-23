@@ -12,23 +12,25 @@ export class CategoryHttpRepository implements CategoryRepository {
     private readonly categoryToCategoryDtoMapper: CategoryToCategoryDtoMapper
   ) {}
   async findAll(): Promise<Category[]> {
-    const response = await http.get<CategoryDto[]>(`/category/`);
+    const response = await http.get<CategoryDto[]>(`/categories/`);
     return response.data.map(categoryDto =>
       this.categoryDtoToCategoryMapper.map(categoryDto)
     );
   }
   async findByTitle(title: string): Promise<Category[]> {
-    const response = await http.get<CategoryDto[]>(`/category/?title=${title}`);
+    const response = await http.get<CategoryDto[]>(
+      `/categories/?title=${title}`
+    );
     return response.data.map(categoryDto =>
       this.categoryDtoToCategoryMapper.map(categoryDto)
     );
   }
   async getById(id: ID): Promise<Category> {
-    const response = await http.get<CategoryDto>(`/category/${id}`);
+    const response = await http.get<CategoryDto>(`/categories/${id}`);
     return this.categoryDtoToCategoryMapper.map(response.data);
   }
   async create(category: Partial<Category>): Promise<Category> {
-    const categoryIn = await http.post<CategoryDto>("/category/", category, {
+    const categoryIn = await http.post<CategoryDto>("/categories/", category, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -36,7 +38,7 @@ export class CategoryHttpRepository implements CategoryRepository {
     return this.categoryDtoToCategoryMapper.map(categoryIn.data);
   }
   async update(id: ID, data: Partial<Category>): Promise<Category> {
-    const categoryIn = await http.put<CategoryDto>(`/category/${id}`, data, {
+    const categoryIn = await http.put<CategoryDto>(`/categories/${id}`, data, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -44,7 +46,7 @@ export class CategoryHttpRepository implements CategoryRepository {
     return this.categoryDtoToCategoryMapper.map(categoryIn.data);
   }
   async delete(id: ID): Promise<Category> {
-    const categoryDeleted = await http.delete<CategoryDto>(`/category/${id}`);
+    const categoryDeleted = await http.delete<CategoryDto>(`/categories/${id}`);
     return this.categoryDtoToCategoryMapper.map(categoryDeleted.data);
   }
 }

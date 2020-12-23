@@ -1,12 +1,12 @@
-import { ID } from "../../shared/id/id";
+import { OID } from "../../shared/id/id";
 
-export interface User {
-  id: ID;
+export interface UserDto {
+  _id: OID;
   login: string;
   password: string;
   email: string;
   firstName?: string;
   lastName?: string;
   admin?: boolean;
-  posts?: ID[];
+  posts?: OID[];
 }

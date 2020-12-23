@@ -12,19 +12,19 @@ export class TagHttpRepository implements TagRepository {
     private readonly tagToTagDtoMapper: TagToTagDtoMapper
   ) {}
   async findAll(): Promise<Tag[]> {
-    const response = await http.get<TagDto[]>(`/tag/`);
+    const response = await http.get<TagDto[]>(`/tags/`);
     return response.data.map(tagDto => this.tagDtoToTagMapper.map(tagDto));
   }
   async findByTitle(title: string): Promise<Tag[]> {
-    const response = await http.get<TagDto[]>(`/tag/?title=${title}`);
+    const response = await http.get<TagDto[]>(`/tags/?title=${title}`);
     return response.data.map(tagDto => this.tagDtoToTagMapper.map(tagDto));
   }
   async getById(id: ID): Promise<Tag> {
-    const response = await http.get<TagDto>(`/tag/${id}`);
+    const response = await http.get<TagDto>(`/tags/${id}`);
     return this.tagDtoToTagMapper.map(response.data);
   }
   async create(tag: Partial<Tag>): Promise<Tag> {
-    const tagIn = await http.post<TagDto>("/tag/", tag, {
+    const tagIn = await http.post<TagDto>("/tags/", tag, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -32,7 +32,7 @@ export class TagHttpRepository implements TagRepository {
     return this.tagDtoToTagMapper.map(tagIn.data);
   }
   async update(id: ID, data: Partial<Tag>): Promise<Tag> {
-    const tagIn = await http.put<TagDto>(`/tag/${id}`, data, {
+    const tagIn = await http.put<TagDto>(`/tags/${id}`, data, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -40,7 +40,7 @@ export class TagHttpRepository implements TagRepository {
     return this.tagDtoToTagMapper.map(tagIn.data);
   }
   async delete(id: ID): Promise<Tag> {
-    const tagDeleted = await http.delete<TagDto>(`/tag/${id}`);
+    const tagDeleted = await http.delete<TagDto>(`/tags/${id}`);
     return this.tagDtoToTagMapper.map(tagDeleted.data);
   }
 }
