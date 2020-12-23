@@ -7,12 +7,18 @@ export class UserHttpService implements UserService {
   constructor(private readonly authorizationService: AuthorizationService) {}
 
   async login(user: Partial<User>): Promise<void> {
-    const token = (await http.post("/users/login", user)).data;
+    const token = (
+      await http.post("/users/login", user, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    ).data.token;
     this.authorizationService.setToken(token);
   }
   async logout(): Promise<void> {
-    const token = (await http.get("/users/logout")).data;
-    this.authorizationService.setToken(token);
+    await http.get("/users/logout");
+    this.authorizationService.removeToken();
   }
   async changePassword(data: {
     oldPswd: string;
