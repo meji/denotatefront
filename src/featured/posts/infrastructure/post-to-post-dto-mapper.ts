@@ -4,6 +4,7 @@ import { PostDto } from "./post-dto";
 export class PostToPostDtoMapper {
   map(post: Post): PostDto {
     return {
+      _id: { $oid: post.id },
       title: post.title,
       brief: post.brief,
       description: post.description,

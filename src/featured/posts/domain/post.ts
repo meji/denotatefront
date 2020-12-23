@@ -2,6 +2,7 @@ import { ID } from "../../shared/id/id";
 import { User } from "../../users/domain/user";
 
 export interface Post {
+  id: string;
   title: string;
   brief?: string;
   description?: string;

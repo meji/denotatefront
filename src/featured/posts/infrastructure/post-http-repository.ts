@@ -31,9 +31,8 @@ export class PostHttpRepository implements PostRepository {
     const response = await http.get<PostDto>(`/posts/${id}`);
     return this.postDtoToPostMapper.map(response.data);
   }
-  async create(post: Post): Promise<Post> {
-    const postDtoIn = this.postToPostDtoMapper.map(post);
-    const postIn = await http.post<PostDto>("/posts/", postDtoIn, {
+  async create(post: Partial<Post>): Promise<Post> {
+    const postIn = await http.post<PostDto>("/posts/", post, {
       headers: {
         "Content-Type": "application/json"
       }

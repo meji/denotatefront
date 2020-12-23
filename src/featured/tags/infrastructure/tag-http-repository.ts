@@ -23,9 +23,8 @@ export class TagHttpRepository implements TagRepository {
     const response = await http.get<TagDto>(`/tag/${id}`);
     return this.tagDtoToTagMapper.map(response.data);
   }
-  async create(tag: Tag): Promise<Tag> {
-    const tagDtoIn = this.tagToTagDtoMapper.map(tag);
-    const tagIn = await http.post<TagDto>("/tag/", tagDtoIn, {
+  async create(tag: Partial<Tag>): Promise<Tag> {
+    const tagIn = await http.post<TagDto>("/tag/", tag, {
       headers: {
         "Content-Type": "application/json"
       }

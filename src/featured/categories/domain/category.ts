@@ -1,6 +1,7 @@
 import { ID } from "../../shared/id/id";
 
 export interface Category {
+  id: string;
   title: string;
   brief?: string;
   description?: string;

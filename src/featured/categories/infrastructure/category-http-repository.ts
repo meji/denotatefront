@@ -27,17 +27,12 @@ export class CategoryHttpRepository implements CategoryRepository {
     const response = await http.get<CategoryDto>(`/category/${id}`);
     return this.categoryDtoToCategoryMapper.map(response.data);
   }
-  async create(category: Category): Promise<Category> {
-    const categoryDtoIn = this.categoryToCategoryDtoMapper.map(category);
-    const categoryIn = await http.post<CategoryDto>(
-      "/category/",
-      categoryDtoIn,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
+  async create(category: Partial<Category>): Promise<Category> {
+    const categoryIn = await http.post<CategoryDto>("/category/", category, {
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    });
     return this.categoryDtoToCategoryMapper.map(categoryIn.data);
   }
   async update(id: ID, data: Partial<Category>): Promise<Category> {

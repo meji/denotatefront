@@ -4,6 +4,7 @@ import { Category } from "../domain/category";
 export class CategoryToCategoryDtoMapper {
   map(category: Category): CategoryDto {
     return {
+      _id: { $oid: category.id },
       title: category.title,
       brief: category.brief,
       description: category.description,

@@ -8,7 +8,7 @@ export interface PostRepository {
   findByCategory(category: ID): Promise<Post[]>;
   findByTitle(title: string): Promise<Post[]>;
   getById(id: ID): Promise<Post>;
-  create(post: Post): Promise<Post>;
+  create(post: Partial<Post>): Promise<Post>;
   update(id: ID, data: Partial<Post>): Promise<Post>;
   delete(id: ID): Promise<Post>;
 }
