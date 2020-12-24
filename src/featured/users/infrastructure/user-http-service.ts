@@ -17,7 +17,6 @@ export class UserHttpService implements UserService {
     this.authorizationService.setToken(token);
   }
   async logout(): Promise<void> {
-    await http.get("/users/logout");
     this.authorizationService.removeToken();
   }
   async changePassword(data: {

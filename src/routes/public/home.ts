@@ -1,34 +1,43 @@
 import { LitElement, html, customElement, property } from "lit-element";
-import { Post } from "../../featured/posts/domain/post";
-import { PostRepositoryFactory } from "../../featured/posts/infrastructure/post-repository-factory";
+// import { Category } from "../../featured/categories/domain/category";
+// import { CategoryRepositoryFactory } from "../../featured/categories/infrastructure/category-repository-factory";
 
 @customElement("home-page")
 export class Home extends LitElement {
-  @property({ type: Array }) posts: Post[] | undefined;
+  // @property({ type: Array }) categories: Category[] | undefined;
   connectedCallback() {
     super.connectedCallback();
-    const postRepositoryFactory = PostRepositoryFactory.build();
-    postRepositoryFactory
-      .update("5fe24ee1008e7fa200329aac", {
-        title: "Esta es un post78990",
-        brief: "Esto es un briuef",
-        description: "Esta es una descrición",
-        img: "Esta es la url de la imagen",
-        featured: true
-      })
-      .then(response => {
-        this.posts = [response];
-      });
+    // const categoryRepositoryFactory = CategoryRepositoryFactory.build();
+    // categoryRepositoryFactory.findAll().then(response => {
+    //   this.categories = response;
+    // });
   }
   render() {
     return html`
-      ${this.posts?.map(
-        post =>
-          html`
-            <p>nombre: ${post.title}</p>
-          `
-      )}
-      <p>Hola</p>
+      <h1>Home</h1>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+        <li>
+          <a href="/logout">logout</a>
+        </li>
+        <li>
+          <a href="/admin">Admin</a>
+        </li>
+        <li>
+          <a href="/categoria">categoria</a>
+        </li>
+        <li>
+          <a href="/categoria/post">Post</a>
+        </li>
+        <li>
+          <a href="/tags/tag">tag</a>
+        </li>
+      </ul>
       <slot></slot>
     `;
   }
