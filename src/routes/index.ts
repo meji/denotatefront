@@ -11,7 +11,7 @@ export const routes = [
         path: "/",
         component: "admin-home",
         action: async (context: Context, commands: Commands) => {
-          import("./admin/home");
+          import("../pages/admin/home");
           return await new AuthGuard().pageEnabled(context, commands, "/");
         }
       }
@@ -19,18 +19,22 @@ export const routes = [
   },
   {
     path: "/",
+    action: async () => {
+      await import("../pages/public/container");
+    },
+    component: "container-c",
     children: [
       {
         path: "/",
         action: async () => {
-          await import("../app-lit");
+          await import("../pages/public/home");
         },
-        component: "app-lit"
+        component: "home-component"
       },
       {
         path: "/newsite",
         action: async () => {
-          await import("./admin/new-site");
+          await import("../pages/admin/new-site");
         },
         component: "new-site"
       },
@@ -60,21 +64,21 @@ export const routes = [
           {
             path: "/",
             action: async () => {
-              await import("./public/tag");
+              await import("../pages/public/tag");
             },
             component: "tag-page-index"
           },
           {
             path: "/:tag",
             action: async () => {
-              await import("./public/tag");
+              await import("../pages/public/tag");
             },
             component: "tag-page"
           },
           {
             path: "/(.*)",
             action: async () => {
-              await import("./public/not-found");
+              await import("../pages/public/not-found");
             },
             component: "not-found"
           }
@@ -86,21 +90,21 @@ export const routes = [
           {
             path: "/",
             action: async () => {
-              await import("./public/category");
+              await import("../pages/public/category");
             },
             component: "category-page"
           },
           {
             path: "/:post",
             action: async () => {
-              await import("./public/post");
+              await import("../pages/public/post");
             },
             component: "post-page"
           },
           {
             path: "/(.*)",
             action: async () => {
-              await import("./public/not-found");
+              await import("../pages/public/not-found");
             },
             component: "not-found"
           }
@@ -111,7 +115,7 @@ export const routes = [
   {
     path: "/(.*)",
     action: async () => {
-      await import("./public/not-found");
+      await import("../pages/public/not-found");
     },
     component: "not-found"
   }
