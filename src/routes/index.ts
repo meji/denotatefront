@@ -50,13 +50,10 @@ export const routes = [
       },
       {
         path: "/login",
-        action: async (context: Context, commands: Commands) => {
-          const userHttpService = new UserHttpService(
-            new AuthorizationService()
-          );
-          await userHttpService.login({ login: "jmmeji", password: "1234" });
+        action: async () => {
+          await import("../pages/admin/login");
         },
-        redirect: "/"
+        component: "login-page-c"
       },
       {
         path: "/tags",

@@ -31,10 +31,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@types/dom-inputevent": "^1.0.6",
     "@vaadin/router": "^1.7.2",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^6.0.0",
-    "lit-element": "^2.4.0"
+    "lit-element": "^2.4.0",
+    "lite-form": "^1.0.2"
   }
 }
