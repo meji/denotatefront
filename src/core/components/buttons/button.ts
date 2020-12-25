@@ -30,7 +30,7 @@ export class Button extends LitElement {
   el!: Element;
 
   handleClick(event: Event) {
-    const form = this.el.closest("form");
+    const form = this.closestElement("form");
     if (form && this.type == "submit") {
       event.preventDefault();
       const fakeSubmit = document.createElement("button");
@@ -52,5 +52,18 @@ export class Button extends LitElement {
         <slot></slot>
       </button>
     `;
+  }
+
+  private closestElement(
+    selector: any,
+    base = this,
+    __Closest = (el: any, found = el && el.closest(selector)): any =>
+      !el || el === document || el === window
+        ? null
+        : found
+        ? found
+        : __Closest(el.getRootNode().host)
+  ) {
+    return __Closest(base);
   }
 }

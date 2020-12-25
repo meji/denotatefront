@@ -20,7 +20,7 @@ export class Home extends LitElement {
   render() {
     return html`
       <h1>Login</h1>
-      <form>
+      <form onsubmit="#">
         <input-c
           id="login"
           type="text"
