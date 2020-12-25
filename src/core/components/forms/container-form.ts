@@ -13,26 +13,24 @@ export class ContainerForm extends LitElement {
     }
   `;
 
-  handleSubmit(e: any) {
+  handleSubmit = (e: any) => {
     e.preventDefault();
-    const form = this.shadowRoot!.querySelector("form");
-    form!.map((element: HTMLFormElement) => {
-      const key: string = element.name;
-      const value = element.value;
-      this.values = { ...this.values, [key]: value };
-    });
-    console.log(e.target, form); // successfully logs <form> element
-    window.setTimeout(() => {
-      console.log(form); // successfully logs <form> element
-      form!.reset(); // resets form
-    }, 2000);
-  }
+    alert("submitted");
+  };
+  // console.log(e.target, form); // successfully logs <form> element
+  // window.setTimeout(() => {
+  //   console.log(form); // successfully logs <form> element
+  //   form!.reset(); // resets form
+  // }, 2000);
+
   @property({ type: Object }) values = {};
   render() {
     return html`
-      <form @submit="${(e: any) => this.handleSubmit(e)}>
-        <slot></slot>
-      </form>
+      <div>
+        <form @submit="${(e: any) => this.handleSubmit(e)}">
+          <slot></slot>
+        </form>
+      </div>
     `;
   }
 }

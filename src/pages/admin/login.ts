@@ -1,4 +1,4 @@
-import { LitElement, html, customElement } from "lit-element";
+import { LitElement, html, customElement, query } from "lit-element";
 import "../../core/components/index";
 import "../../core/components/forms/container-form";
 import "../../core/components/forms/inputs/input-base";
@@ -8,19 +8,31 @@ import { Commands, Context } from "@vaadin/router";
 import { UserHttpService } from "../../featured/users/infrastructure/user-http-service";
 import { AuthorizationService } from "../../featured/shared/auth/authorization-service";
 
+var serializeForm = function(form: HTMLFormElement) {
+  var obj = {};
+  var formData = new FormData(form);
+  for (let key of formData.keys()) {
+    // @ts-ignore
+    obj[key] = formData.get(key);
+  }
+  return obj;
+};
+
 @customElement("login-page-c")
 export class Home extends LitElement {
-  handleSublmit = (e: any) => {
-    //   const userHttpService = new UserHttpService(new AuthorizationService())
-    // const values = this.shadowRoot.querySelector(form-c).values
-    //   await userHttpService.login({ login: "jmmeji", password: "1234" }).then(()=>window.location.href="/")
-    console.log(e.target!.values);
+  handleSublmit = async (e: any) => {
+    e.preventDefault();
+    const userHttpService = new UserHttpService(new AuthorizationService());
+    const values = serializeForm(e.target);
+    console.log(values);
+    await userHttpService.login(values);
+    // .then(() => (window.location.href = "/"));
   };
 
   render() {
     return html`
       <h1>Login</h1>
-      <form onsubmit="#">
+      <form @submit='${(e: any) => this.handleSublmit(e)}' id='login-form'>
         <input-c
           id="login"
           type="text"
@@ -36,6 +48,7 @@ export class Home extends LitElement {
           name="password"
         ></input-c>
         <button-c type="submit">Enviar</button-c>
+      </form>
       </form>
       <slot></slot>
     `;

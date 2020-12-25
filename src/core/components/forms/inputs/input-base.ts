@@ -90,7 +90,8 @@ export class Input extends LitElement {
           .name="${this.name}"
           .disabled="${this.disabled}"
           .required="${this.required}"
-          @change="${(e: any) => this.handleChange(e)}"
+          @input="${(e: any) => this.handleChange(e)}"
+          @keyup="${(e: any) => this.handleChange(e)}"
         />
         ${this.label
           ? html`
@@ -126,7 +127,6 @@ export class Input extends LitElement {
       container.appendChild(input);
     } else {
       input.value = value || "";
-      console.log(this.value);
     }
   }
   private closestElement(

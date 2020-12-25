@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
     "strict": true,
+    "strictPropertyInitialization": false,
     "sourceMap": true,
     "module": "es2020",
     "target": "es6",
