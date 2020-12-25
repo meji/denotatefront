@@ -92,6 +92,7 @@ export class Input extends LitElement {
           .required="${this.required}"
           @input="${(e: any) => this.handleChange(e)}"
           @keyup="${(e: any) => this.handleChange(e)}"
+          @keypress="${(e: any) => this.handleKeyPress(e)}"
         />
         ${this.label
           ? html`
@@ -102,6 +103,17 @@ export class Input extends LitElement {
     `;
   }
 
+  private handleKeyPress = (e: any) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      const fakeSubmit = document.createElement("button");
+      fakeSubmit.type = "submit";
+      fakeSubmit.style.display = "none";
+      this.closestElement("form").appendChild(fakeSubmit);
+      fakeSubmit.click();
+      fakeSubmit.remove();
+    }
+  };
   private handleChange = (e: any) => {
     const { value, name } = this;
     const el = this.closestElement("form");

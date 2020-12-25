@@ -24,9 +24,11 @@ export class Home extends LitElement {
     e.preventDefault();
     const userHttpService = new UserHttpService(new AuthorizationService());
     const values = serializeForm(e.target);
-    console.log(values);
-    await userHttpService.login(values);
-    // .then(() => (window.location.href = "/"));
+    const target = e.target;
+    await userHttpService.login(values).then(() => {
+      target.reset();
+      window.location.href = "/";
+    });
   };
 
   render() {

@@ -9,11 +9,11 @@ export const routes = [
     children: [
       {
         path: "/",
-        component: "admin-home",
         action: async (context: Context, commands: Commands) => {
           import("../pages/admin/home");
           return await new AuthGuard().pageEnabled(context, commands, "/");
-        }
+        },
+        component: "admin-home"
       }
     ]
   },

@@ -4,7 +4,7 @@ export class AuthorizationService {
   public isAuthorized(): Promise<boolean> {
     const token = this.getToken();
     return new Promise(resolve => {
-      resolve(token !== null);
+      resolve(token != "undefined" && token != null);
     });
   }
 
