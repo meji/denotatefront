@@ -1,10 +1,9 @@
-import { Image } from "../domain/image";
 import { ImageService } from "../domain/image-service";
 import { http } from "../../shared/http/http";
 
 export class ImageHttpService implements ImageService {
   async getImg(url: string): Promise<any> {
-    return await http.get(`/images/${url}`);
+    return await http.get(`/uploads/${url}`);
   }
   async uploadImage(image: any, name: string): Promise<string> {
     const headerExtension = name.split(".").pop();
@@ -13,7 +12,7 @@ export class ImageHttpService implements ImageService {
     });
     return response.data;
   }
-  async deleteImage(id): Promise<Boolean> {
-    return await http.delete(`/images/${id}`);
+  async deleteImage(name): Promise<{}> {
+    return await http.delete(`/images/?name={$name}`);
   }
 }
