@@ -62,21 +62,15 @@ export class CategoryForm extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      console.log(this.initialValues);
-      console.log(
-        JSON.stringify(this.values) != JSON.stringify(this.initialValues)
-      );
-
       if (this.id === undefined) {
         this.categoryRepository.create(this.values).then(() => {
-          window.location.reload();
+          this.requestUpdate();
         });
       } else if (
         JSON.stringify(this.values) !== JSON.stringify(this.initialValues)
       ) {
-        console.log("updating");
         this.categoryRepository.update(this.id, this.values).then(() => {
-          window.location.reload();
+          this.requestUpdate();
         });
       }
     });
@@ -85,7 +79,7 @@ export class CategoryForm extends LitElement {
   handleEraseImage = () => {
     this.values.img = "";
     this.categoryRepository.update(this.id, this.values).then(() => {
-      window.location.reload();
+      this.requestUpdate();
     });
   };
 
