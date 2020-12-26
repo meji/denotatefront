@@ -1,12 +1,19 @@
-import { LitElement, html, customElement, property, query } from "lit-element";
+import {
+  LitElement,
+  html,
+  customElement,
+  property,
+  query,
+  css
+} from "lit-element";
 import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
 import { SiteService } from "../infrastructure/site-service";
 import "color-picker-element";
+import { general } from "../../../../styles/general";
 
 @customElement("update-site-c")
 export class NewSite extends LitElement {
-  @property({ type: Boolean }) firstStep = true;
   @property({ type: Object }) values = {};
 
   handleSubmitNewSite = async (e: any) => {
@@ -29,6 +36,7 @@ export class NewSite extends LitElement {
     this.values["color"] = e.target.value;
   };
 
+  public static styles = [general];
   render() {
     return html`
       <h1>Actualizar datos del site</h1>

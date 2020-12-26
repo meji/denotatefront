@@ -16,6 +16,15 @@ export const general = css`
   h1 {
     font-size: 150%;
     margin: 0 0 var(--l);
+    font-family: var(--title-font);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--title-font);
   }
   form {
     width: 100%;
@@ -26,5 +35,8 @@ export const general = css`
   }
   ul li {
     list-style-type: none;
+  }
+  .form-group {
+    margin-bottom: var(--l);
   }
 `;

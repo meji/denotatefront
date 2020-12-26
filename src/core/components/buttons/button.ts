@@ -13,11 +13,12 @@ import { classMap } from "lit-html/directives/class-map";
 export class Button extends LitElement {
   public static styles = css`
     button {
+      font-family: var(--body-text-font);
       padding: calc(var(--m)) calc(var(--l) * 2);
       font-size: 100%;
       background: var(--main-color);
       border: 1px solid var(--main-color);
-      color: var(--background-color);
+      color: var(--text-body-color);
       border-radius: var(--rm);
     }
     button.s {

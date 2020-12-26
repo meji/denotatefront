@@ -16,7 +16,7 @@ export class Home extends LitElement {
     const target = e.target;
     await userHttpService.login(values).then(() => {
       target.reset();
-      window.location.href = "/";
+      window.location.href = "/admin";
     });
   };
 

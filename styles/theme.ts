@@ -3,8 +3,8 @@ import { css } from "lit-element";
 export const theme = css`
   #wrapper {
     --main-color: #ff016c;
-    --body-font: "Helvetica";
-    --title-font: "Helvetica";
+    --body-font: "Cardo", Helvetica, Sans Serif;
+    --title-font: "Josefin Sans", Helvetica, Sans Serif;
     --base-font-size: 14px;
     --font-size-small: 0.8rem;
     --font-size-big: 2rem;

@@ -6,6 +6,7 @@ export class Input extends LitElement {
   static styles = css`
     * {
       box-sizing: border-box;
+      font-family: var(--body-text-font);
     }
     .form-group {
       position: relative;
@@ -48,9 +49,11 @@ export class Input extends LitElement {
     }
     input:focus + label {
       color: var(--main-color);
-      background-color: var(--form-background-color);
       top: 0;
       transform: translateY(-50%) scale(0.9);
+      background: var(--form-background-color);
+      padding: 0 2px;
+      border-radius: var(--rl);
     }
     input:not(:placeholder-shown) + label {
       top: 0;

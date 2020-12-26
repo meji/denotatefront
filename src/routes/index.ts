@@ -32,6 +32,25 @@ export const routes = [
               await import("../featured/site/ui/update-site");
             },
             component: "update-site-c"
+          },
+          {
+            path: "/categories",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../featured/categories/ui/list");
+                },
+                component: "category-list-c"
+              },
+              {
+                path: "/:category",
+                action: async () => {
+                  await import("../featured/categories/ui/form");
+                },
+                component: "category-form-c"
+              }
+            ]
           }
         ]
       },

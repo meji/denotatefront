@@ -9,7 +9,7 @@ export class AdminContainer extends LitElement {
       grid-template-columns: 225px 1fr;
     }
     .content {
-      padding: var(--l) calc(var(--l) * 2);
+      padding: calc(var(--l) * 2) calc(var(--l) * 2);
     }
   `;
   render() {
