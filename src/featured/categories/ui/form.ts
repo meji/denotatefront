@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from "lit-element";
+import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
@@ -21,6 +21,7 @@ export class CategoryForm extends LitElement {
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
+  @query("#switcher") switcher;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -30,6 +31,11 @@ export class CategoryForm extends LitElement {
       this.id = id;
       this.values = { ...(await this.categoryRepository.getById(id)) };
       this.initialValues = { ...this.values };
+    }
+    if (this.values.featured) {
+      this.switcher.shadowRoot
+        .querySelector("input")
+        .setAttribute("checked", "checked");
     }
   }
   handleSwitchChange = e => {
@@ -67,7 +73,8 @@ export class CategoryForm extends LitElement {
           this.requestUpdate();
         });
       } else if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues)
+        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
+        this.values.featured != this.initialValues.featured
       ) {
         this.categoryRepository.update(this.id, this.values).then(() => {
           this.requestUpdate();
@@ -149,11 +156,12 @@ export class CategoryForm extends LitElement {
           ></input-c>
           <p>
             <switch-c
+              id="switcher"
               round
               label="Destacar"
               name="featured"
-              ?checked=${this.values.featured}
-              @blur="${e => this.handleSwitchChange(e)}"
+              ?checked="${this.values.featured}"
+              @input="${e => this.handleSwitchChange(e)}"
             ></switch-c>
           </p>
           <button-c type="submit" align="right">Enviar</button-c>

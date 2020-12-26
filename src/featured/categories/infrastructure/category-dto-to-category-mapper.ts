@@ -3,7 +3,6 @@ import { Category } from "../domain/category";
 
 export class CategoryDtoToCategoryMapper {
   map(categoryDto: CategoryDto): Category {
-    console.log("categoryDto", categoryDto);
     return {
       id: categoryDto._id.$oid,
       title: categoryDto.title,
