@@ -42,11 +42,17 @@ export class CategoryForm extends LitElement {
   handleSubmit = async (e: any) => {
     e.preventDefault();
     const target = e.target;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      console.log(this.values);
-    });
+    await this.uploadImage()
+      .then(() => {
+        const formValues = serializeForm(target);
+        this.values = { ...this.values, ...formValues };
+        this.categoryRepository.create(this.values);
+      })
+      .then(() => {
+        this.categoryRepository.findByTitle(this.title).then(response => {
+          window.location.href = `/${this.values.title}?id=${response[0].id}`;
+        });
+      });
   };
 
   public static styles = [general];
