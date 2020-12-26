@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "experimentalDecorators": true,
-    "strict": true,
+    "strict": false,
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "module": "es2020",

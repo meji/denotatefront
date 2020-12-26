@@ -9,7 +9,7 @@ export class Input extends LitElement {
     }
     .form-group {
       position: relative;
-      margin: 1rem 0;
+      margin: 0 0 var(--m);
     }
     input.outline {
       border: 1px solid --var(main-color);
@@ -21,8 +21,7 @@ export class Input extends LitElement {
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-      background-color: #fff;
-      color: gray;
+      color: transparent;
       padding: 0 0.3rem;
       margin: 0 0.5rem;
       transition: 0.1s ease-out;
@@ -33,22 +32,23 @@ export class Input extends LitElement {
       font-size: 1rem;
       outline: none;
       border: none;
-      border-radius: 0px;
+      border-radius: 0;
       padding: 1rem 0.6rem;
-      color: #333333;
+      color: var(--text-form-color);
       transition: 0.1s ease-out;
-      border-bottom: 1px solid #333333;
+      border: var(--border-form);
       background: transparent;
       cursor: text;
       margin-left: auto;
-      width: 95%;
+      width: 100%;
       margin-right: auto;
     }
     input:focus {
-      border-color: #b949d5;
+      border-color: var(--main-color);
     }
     input:focus + label {
-      color: #b949d5;
+      color: var(--main-color);
+      background-color: var(--form-background-color);
       top: 0;
       transform: translateY(-50%) scale(0.9);
     }

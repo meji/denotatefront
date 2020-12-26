@@ -11,20 +11,31 @@ import { classMap } from "lit-html/directives/class-map";
 
 @customElement("button-c")
 export class Button extends LitElement {
-  static styles = css`
-    * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
+  public static styles = css`
+    button {
+      padding: calc(var(--m)) calc(var(--l) * 2);
+      font-size: 100%;
+      background: var(--background-color);
+      border: 1px solid var(--main-color);
+      color: var(--main-color);
+      border-radius: var(--rm);
     }
-    :root {
-      background: green;
-      color: #fff;
+    button.s {
+      padding: var(--s) var(--m);
+    }
+    button:hover {
+      background: var(--main-color);
+      color: var(--background-color);
+      cursor: pointer;
+    }
+    button.right {
+      float: right;
     }
   `;
   @property({ type: Boolean }) submit = false;
   @property({ type: String }) size = "";
   @property({ type: String }) type = "";
+  @property({ type: String }) align = "";
 
   @query("button")
   el!: Element;
@@ -45,7 +56,7 @@ export class Button extends LitElement {
   render() {
     return html`
       <button
-        class="${this.size} ${this.type}"
+        class="${this.size} ${this.type} ${this.align}"
         type="${this.submit ? "submit" : "button"}"
         @click="${(e: any) => this.handleClick(e)}"
       >

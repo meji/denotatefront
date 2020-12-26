@@ -2,33 +2,26 @@ import { Commands, Context, RedirectResult } from "@vaadin/router";
 import { AuthorizationService } from "./authorization-service";
 import { PageEnabled } from "./page-enabled";
 import { SiteService } from "../../site/infrastructure/site-service";
+import { UserRepository } from "../../users/domain/user-repository";
+import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
 
 export class AuthGuard implements PageEnabled {
   private authService: AuthorizationService;
-  private siteService: SiteService;
-
+  private userRepository = UserRepositoryFactory.build();
   constructor() {
     this.authService = new AuthorizationService();
-    this.siteService = new SiteService();
   }
 
   public async pageEnabled(
     context: Context,
     commands: Commands,
     pathRedirect?: string
-  ): Promise<RedirectResult | undefined> {
+  ): Promise<any> {
     const isAuthenticated = await this.authService.isAuthorized();
-    if (
-      (await this.siteService.getSite()) &&
-      (await this.siteService.getSite()).new
-    ) {
-      console.warn(
-        "New  Site you need to configure your site",
-        context.pathname
-      );
-      return commands.redirect("/newsite");
-    }
-    if (!isAuthenticated) {
+    if (!(await this.userRepository.findAdmin())) {
+      console.warn("New  Site you need to configure your site");
+      return (window.location.href = "/newsite");
+    } else if (!isAuthenticated) {
       console.warn("User not authorized", context.pathname);
       return commands.redirect(pathRedirect ? pathRedirect : "/");
     }

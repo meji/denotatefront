@@ -23,6 +23,12 @@ export class UserHttpRepository implements UserRepository {
     return this.userDtoToUserMapper.map(response.data);
   }
 
+  async findAdmin(): Promise<boolean> {
+    const response = await http.get(`/users/isadmin`);
+    console.log("response", response);
+    return response.data;
+  }
+
   async signup(user: Partial<User>): Promise<token> {
     const userIn = await http.post<token>("/users/", user, {
       headers: {

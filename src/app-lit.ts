@@ -1,12 +1,30 @@
 import { html, css, LitElement, property, customElement } from "lit-element";
-import "./pages/public/home";
+import { theme } from "./../styles/theme";
+import { general } from "../styles/general";
+import "./core/components/index";
 
 @customElement("app-lit")
 export class AppLit extends LitElement {
+  public static styles = [
+    theme,
+    general,
+    css`
+      #wrapper {
+        background: var(--background-wrapper);
+        background-size: var(--background-wrapper-size);
+        min-width: 100%;
+        min-height: 100vh;
+        overflow: auto;
+        font-family: var(--body-font);
+      }
+    `
+  ];
+
   render() {
     return html`
-      <h2>Contenedor</h2>
-      <slot> </slot>
+      <div id="wrapper" class="dark">
+        <slot></slot>
+      </div>
     `;
   }
 }

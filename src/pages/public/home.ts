@@ -7,7 +7,6 @@ export class Home extends LitElement {
   render() {
     return html`
       <h1>Home</h1>
-      <input-base-c value="Holi" label="label"></input-base-c>
       <slot></slot>
     `;
   }

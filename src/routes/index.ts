@@ -5,115 +5,124 @@ import { AuthorizationService } from "../featured/shared/auth/authorization-serv
 
 export const routes = [
   {
-    path: "/admin",
-    children: [
-      {
-        path: "/",
-        action: async (context: Context, commands: Commands) => {
-          import("../pages/admin/home");
-          return await new AuthGuard().pageEnabled(context, commands, "/");
-        },
-        component: "admin-home"
-      }
-    ]
-  },
-  {
     path: "/",
     action: async () => {
-      await import("../pages/public/container");
+      await import("../app-lit");
     },
-    component: "container-c",
+    component: "app-lit",
     children: [
       {
-        path: "/",
-        action: async () => {
-          await import("../pages/public/home");
-        },
-        component: "home-component"
+        path: "/admin",
+        children: [
+          {
+            path: "/",
+            action: async (context: Context, commands: Commands) => {
+              import("../pages/admin/home");
+              return await new AuthGuard().pageEnabled(context, commands, "/");
+            },
+            component: "admin-home"
+          }
+        ]
       },
       {
         path: "/newsite",
         action: async () => {
-          await import("../pages/admin/new-site");
+          await import("../featured/site/ui/new-site");
         },
         component: "new-site"
       },
       {
-        path: "/logout",
-        action: async (context: Context, commands: Commands) => {
-          const userHttpService = new UserHttpService(
-            new AuthorizationService()
-          );
-          await userHttpService.logout().then(() => commands.redirect("/"));
-        },
-        redirect: "/"
-      },
-      {
         path: "/login",
         action: async () => {
-          await import("../pages/admin/login");
+          await import("../pages/special/login");
         },
         component: "login-page-c"
       },
       {
-        path: "/tags",
+        path: "/",
+        action: async () => {
+          await import("../pages/public/container");
+        },
+        component: "container-c",
         children: [
           {
             path: "/",
             action: async () => {
-              await import("../pages/public/tag");
+              await import("../pages/public/home");
             },
-            component: "tag-page-index"
+            component: "home-component"
           },
           {
-            path: "/:tag",
-            action: async () => {
-              await import("../pages/public/tag");
+            path: "/logout",
+            action: async (context: Context, commands: Commands) => {
+              const userHttpService = new UserHttpService(
+                new AuthorizationService()
+              );
+              await userHttpService.logout().then(() => commands.redirect("/"));
             },
-            component: "tag-page"
+            redirect: "/"
           },
           {
-            path: "/(.*)",
-            action: async () => {
-              await import("../pages/public/not-found");
-            },
-            component: "not-found"
+            path: "/tags",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../pages/public/tag");
+                },
+                component: "tag-page-index"
+              },
+              {
+                path: "/:tag",
+                action: async () => {
+                  await import("../pages/public/tag");
+                },
+                component: "tag-page"
+              },
+              {
+                path: "/(.*)",
+                action: async () => {
+                  await import("../pages/public/not-found");
+                },
+                component: "not-found"
+              }
+            ]
+          },
+          {
+            path: "/:category",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../pages/public/category");
+                },
+                component: "category-page"
+              },
+              {
+                path: "/:post",
+                action: async () => {
+                  await import("../pages/public/post");
+                },
+                component: "post-page"
+              },
+              {
+                path: "/(.*)",
+                action: async () => {
+                  await import("../pages/public/not-found");
+                },
+                component: "not-found"
+              }
+            ]
           }
         ]
       },
       {
-        path: "/:category",
-        children: [
-          {
-            path: "/",
-            action: async () => {
-              await import("../pages/public/category");
-            },
-            component: "category-page"
-          },
-          {
-            path: "/:post",
-            action: async () => {
-              await import("../pages/public/post");
-            },
-            component: "post-page"
-          },
-          {
-            path: "/(.*)",
-            action: async () => {
-              await import("../pages/public/not-found");
-            },
-            component: "not-found"
-          }
-        ]
+        path: "/(.*)",
+        action: async () => {
+          await import("../pages/public/not-found");
+        },
+        component: "not-found"
       }
     ]
-  },
-  {
-    path: "/(.*)",
-    action: async () => {
-      await import("../pages/public/not-found");
-    },
-    component: "not-found"
   }
 ];

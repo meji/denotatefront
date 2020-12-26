@@ -1,35 +1,32 @@
 import { LitElement, html, customElement, css, property } from "lit-element";
 
-@customElement("form-c")
+@customElement("form-container-c")
 export class ContainerForm extends LitElement {
-  static styles = css`
-    * {
-      box-sizing: border-box;
-      padding: 0;
+  public static styles = css`
+    :host {
+      display: block;
+      max-width: 90%;
       margin: 0;
+      background: var(--form-background-color);
+      border-radius: var(--rl);
+      padding: var(--l);
     }
-    :root {
-      background: red;
+    .medium {
+      width: 400px;
+    }
+    .large {
+      width: 800px;
+    }
+    .small {
+      width: 400px;
     }
   `;
+  @property({ type: String }) size = "medium";
 
-  handleSubmit = (e: any) => {
-    e.preventDefault();
-    alert("submitted");
-  };
-  // console.log(e.target, form); // successfully logs <form> element
-  // window.setTimeout(() => {
-  //   console.log(form); // successfully logs <form> element
-  //   form!.reset(); // resets form
-  // }, 2000);
-
-  @property({ type: Object }) values = {};
   render() {
     return html`
-      <div>
-        <form @submit="${(e: any) => this.handleSubmit(e)}">
-          <slot></slot>
-        </form>
+      <div class="form-container ${this.size}">
+        <slot></slot>
       </div>
     `;
   }

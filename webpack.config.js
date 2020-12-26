@@ -71,7 +71,8 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, "styles"),
+        //include: /stylesheets|node_modules/,
         use: ["style-loader", "css-loader"]
       },
       {
@@ -104,6 +105,6 @@ module.exports = (env, argv) => ({
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js", ".css"]
   }
 });
