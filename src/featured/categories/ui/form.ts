@@ -12,7 +12,7 @@ export class CategoryForm extends LitElement {
   private categoryRepository = CategoryRepositoryFactory.build();
   private imageService = new ImageHttpService();
 
-  @property({ type: Object }) values: Category;
+  @property({ type: Object }) values: Partial<Category> = {};
   @property({ type: Boolean }) new: false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -25,7 +25,7 @@ export class CategoryForm extends LitElement {
   };
 
   handleUpdatePictureChange = e => {
-    var target = e.target;
+    const target = e.target;
     setTimeout(() => {
       this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
       this.imgName = target.shadowRoot.host.fileName[0];
