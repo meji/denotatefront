@@ -9,7 +9,7 @@ export class Input extends LitElement {
     }
     .form-group {
       position: relative;
-      margin: 0 0 var(--m);
+      margin: 0 0 var(--l);
     }
     input.outline {
       border: 1px solid --var(main-color);
@@ -37,7 +37,7 @@ export class Input extends LitElement {
       color: var(--text-form-color);
       transition: 0.1s ease-out;
       border: var(--border-form);
-      background: transparent;
+      background: var(--form-background-color);
       cursor: text;
       margin-left: auto;
       width: 100%;

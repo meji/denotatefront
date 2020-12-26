@@ -2,7 +2,6 @@ import { LitElement, html, customElement, property } from "lit-element";
 import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
-import { SiteService } from "../infrastructure/site-service";
 
 @customElement("new-site")
 export class NewSite extends LitElement {

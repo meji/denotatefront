@@ -25,7 +25,6 @@ export class UserHttpRepository implements UserRepository {
 
   async findAdmin(): Promise<boolean> {
     const response = await http.get(`/users/isadmin`);
-    console.log("response", response);
     return response.data;
   }
 

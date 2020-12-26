@@ -1,32 +1,58 @@
-import { LitElement, html, customElement, property } from "lit-element";
+import { LitElement, html, customElement, property, query } from "lit-element";
 import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
-import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
 import { SiteService } from "../infrastructure/site-service";
+import "color-picker-element";
 
 @customElement("update-site-c")
 export class NewSite extends LitElement {
   @property({ type: Boolean }) firstStep = true;
+  @property({ type: Object }) values = {};
 
   handleSubmitNewSite = async (e: any) => {
     e.preventDefault();
     const siteService = new SiteService();
     const target = e.target;
-    const values = serializeForm(target);
-    await siteService.createSite(values).then(() => {
-      target.reset();
-      window.location.href = "/login";
-    });
+    const formValues = serializeForm(target);
+    this.values = { ...this.values, ...formValues };
+    if (await siteService.getSite()) {
+      await siteService.updateSite(this.values).then(() => {
+        location.reload();
+      });
+    } else {
+      await siteService.createSite(this.values).then(() => {
+        location.reload();
+      });
+    }
+  };
+  handleColorChange = e => {
+    this.values["color"] = e.target.value;
   };
 
   render() {
     return html`
-      <h1>Nuevo Site</h1>
-      <form-container-c>
+      <h1>Actualizar datos del site</h1>
+      <form-container-c class="transparent">
+        <p>Elige un color para el site</p>
+        <color-picker
+          id="picker"
+          @input="${(e: any) => this.handleColorChange(e)}"
+          formats="hex,rgb"
+          selectedformat="hex"
+        ></color-picker>
         <form
           @submit="${(e: any) => this.handleSubmitNewSite(e)}"
           id="site-form"
         >
+          <p>Elige si quieres el tema claro u oscuro</p>
+          <p>
+            <label
+              ><input type="radio" name="theme" value="dark" />Oscuro</label
+            >
+            <label
+              ><input type="radio" name="theme" value="light" />Claro</label
+            >
+          </p>
           <input-c
             id="title"
             type="text"
@@ -48,14 +74,7 @@ export class NewSite extends LitElement {
             placeholder="Logo"
             name="logo"
           ></input-c>
-          <input-c
-            id="color"
-            type="text"
-            label="Color"
-            placeholder="Color"
-            name="color"
-          ></input-c>
-          <button-c type="submit">Enviar</button-c>
+          <button-c type="submit" align="right">Enviar</button-c>
         </form>
         <slot></slot>
       </form-container-c>

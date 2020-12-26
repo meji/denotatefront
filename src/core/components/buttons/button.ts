@@ -15,17 +15,17 @@ export class Button extends LitElement {
     button {
       padding: calc(var(--m)) calc(var(--l) * 2);
       font-size: 100%;
-      background: var(--background-color);
+      background: var(--main-color);
       border: 1px solid var(--main-color);
-      color: var(--main-color);
+      color: var(--background-color);
       border-radius: var(--rm);
     }
     button.s {
       padding: var(--s) var(--m);
     }
     button:hover {
-      background: var(--main-color);
-      color: var(--background-color);
+      background: var(--background-color);
+      color: var(--main-color);
       cursor: pointer;
     }
     button.right {

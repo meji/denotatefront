@@ -4,11 +4,27 @@ export const general = css`
   * {
     font-family: var(--body-font);
     font-size: 16px;
-    margin: 0;
-    padding: 0;
     color: var(--text-body-color);
+  }
+  a {
+    text-decoration: none;
+    color: var(--main-color);
+  }
+  a:hover {
+    cursor: pointer;
+  }
+  h1 {
+    font-size: 150%;
+    margin: 0 0 var(--l);
   }
   form {
     width: 100%;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  ul li {
+    list-style-type: none;
   }
 `;

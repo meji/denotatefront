@@ -13,14 +13,25 @@ export const routes = [
     children: [
       {
         path: "/admin",
+        action: async (context: Context, commands: Commands) => {
+          import("../pages/admin/container");
+          return await new AuthGuard().pageEnabled(context, commands, "/");
+        },
+        component: "admin-container-c",
         children: [
           {
             path: "/",
-            action: async (context: Context, commands: Commands) => {
-              import("../pages/admin/home");
-              return await new AuthGuard().pageEnabled(context, commands, "/");
+            component: "admin-posts-c",
+            action: async () => {
+              import("../pages/admin/posts");
+            }
+          },
+          {
+            path: "/update-site",
+            action: async () => {
+              await import("../featured/site/ui/update-site");
             },
-            component: "admin-home"
+            component: "update-site-c"
           }
         ]
       },
@@ -34,7 +45,7 @@ export const routes = [
       {
         path: "/login",
         action: async () => {
-          await import("../pages/special/login");
+          await import("../featured/users/ui/login");
         },
         component: "login-page-c"
       },

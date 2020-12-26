@@ -2,6 +2,7 @@ import { css } from "lit-element";
 
 export const theme = css`
   #wrapper {
+    --main-color: #ff016c;
     --body-font: "Helvetica";
     --title-font: "Helvetica";
     --base-font-size: 14px;
@@ -12,7 +13,8 @@ export const theme = css`
     --base-p: 0.25rem;
     --s: calc(var(--base-p) * 2.5);
     --m: calc(var(--base-p) * 4);
-    --l: calc(var(--base-p) * 8);
+    --l: calc(var(--base-p) * 6);
+    --xl: calc(var(--base-p) * 8);
 
     --rs: 2px;
     --rm: 4px;
@@ -35,17 +37,18 @@ export const theme = css`
     --dot-space: 18px;
     --dot-difference: calc(var(--dot-space) - var(--dot-size));
   }
+
   #wrapper.dark {
-    --main-color: #ff016c;
     --on-primary-color: #fff;
     --text-body-color: #fff;
     --text-title-color: #fff;
     --text-form-color: #efefef;
-    --text-notice-color: #666;
-    --label-color: var(--text-notice-color);
+    --text-lighter-color: #666;
+    --label-color: var(--text-lighter-color);
     --label-focused-color: #ccc;
-    --form-background-color: #000;
+    --form-background-color: rgb(0, 0, 0);
     --background-color: #222;
+    --background-total-color: #000;
     --text-error: #ff0000;
     --form-md-background: #333;
     --form-dark-background: #444;
@@ -67,9 +70,9 @@ export const theme = css`
         center,
       #666666;
   }
+
   #wrapper.light {
     /*Colors*/
-    --main-color: #a60146;
     --on-primary-color: #fff;
     --on-total-color: #000000;
     --secondary-color: #ff016c;
@@ -77,12 +80,13 @@ export const theme = css`
     --text-body-color: #333;
     --text-title-color: #333;
     --text-form-color: #444;
-    --text-notice-color: #777;
+    --text-lighter-color: #777;
     --text-error: #ff0000;
-    --label-color: var(--text-notice-color);
+    --label-color: var(--text-lighter-color);
     --label-focused-color: #aaa;
     --form-background-color: #fff;
     --background-color: #f0f0f0;
+    --background-total-color: #fff;
     --form-md-background: #fcfcfc;
     --form-dark-background: #ddd;
     --border-form: 1px solid #dddddd;

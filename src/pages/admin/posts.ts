@@ -1,10 +1,10 @@
 import { LitElement, html, customElement } from "lit-element";
 
-@customElement("admin-home")
-export class Home extends LitElement {
+@customElement("admin-posts-c")
+export class AdminPost extends LitElement {
   render() {
     return html`
-      <admin-menu />
+      <h1>Posts</h1>
       <slot></slot>
     `;
   }
