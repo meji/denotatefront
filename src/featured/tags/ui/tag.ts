@@ -9,12 +9,3 @@ export class TagPage extends LitElement {
     `;
   }
 }
-@customElement("tag-page-index")
-export class TagPageIndex extends LitElement {
-  render() {
-    return html`
-      <h1>Tag Home</h1>
-      <slot></slot>
-    `;
-  }
-}

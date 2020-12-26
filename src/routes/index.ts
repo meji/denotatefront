@@ -44,11 +44,37 @@ export const routes = [
                 component: "category-list-c"
               },
               {
-                path: "/:category",
+                path: "/new",
                 action: async () => {
                   await import("../featured/categories/ui/form");
                 },
                 component: "category-form-c"
+              },
+              {
+                path: "/edit",
+                action: async () => {
+                  await import("../featured/categories/ui/form");
+                },
+                component: "category-form-c"
+              }
+            ]
+          },
+          {
+            path: "/posts",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../featured/posts/ui/list");
+                },
+                component: "post-list-c"
+              },
+              {
+                path: "/:category",
+                action: async () => {
+                  await import("../featured/posts/ui/form");
+                },
+                component: "post-form-c"
               }
             ]
           }
@@ -69,6 +95,16 @@ export const routes = [
         component: "login-page-c"
       },
       {
+        path: "/logout",
+        action: async (context: Context, commands: Commands) => {
+          const userHttpService = new UserHttpService(
+            new AuthorizationService()
+          );
+          await userHttpService.logout().then(() => commands.redirect("/"));
+        },
+        redirect: "/"
+      },
+      {
         path: "/",
         action: async () => {
           await import("../pages/public/container");
@@ -76,36 +112,19 @@ export const routes = [
         component: "container-c",
         children: [
           {
-            path: "/",
-            action: async () => {
-              await import("../pages/public/home");
-            },
-            component: "home-component"
-          },
-          {
-            path: "/logout",
-            action: async (context: Context, commands: Commands) => {
-              const userHttpService = new UserHttpService(
-                new AuthorizationService()
-              );
-              await userHttpService.logout().then(() => commands.redirect("/"));
-            },
-            redirect: "/"
-          },
-          {
             path: "/tags",
             children: [
               {
                 path: "/",
                 action: async () => {
-                  await import("../pages/public/tag");
+                  await import("../featured/tags/ui/list");
                 },
-                component: "tag-page-index"
+                component: "tag-list-c"
               },
               {
                 path: "/:tag",
                 action: async () => {
-                  await import("../pages/public/tag");
+                  await import("../featured/tags/ui/tag");
                 },
                 component: "tag-page"
               },
@@ -143,6 +162,13 @@ export const routes = [
                 component: "not-found"
               }
             ]
+          },
+          {
+            path: "/(.*)",
+            action: async () => {
+              await import("../pages/public/not-found");
+            },
+            component: "not-found"
           }
         ]
       },

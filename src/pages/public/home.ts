@@ -1,8 +1,8 @@
 import { LitElement, html, customElement, property } from "lit-element";
 import "../../core/components/forms/inputs/input-base";
 
-@customElement("home-component")
-export class Home extends LitElement {
+@customElement("home-c")
+export class HomeComponent extends LitElement {
   connectedCallback() {}
   render() {
     return html`

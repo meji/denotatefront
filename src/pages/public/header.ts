@@ -1,8 +1,7 @@
 import { LitElement, html, customElement } from "lit-element";
-import { LitElementLight } from "../../featured/shared/lit-light-element/lit-light-element";
 
 @customElement("header-c")
-export class Header extends LitElementLight {
+export class Header extends LitElement {
   render() {
     return html`
       <header id="header">
