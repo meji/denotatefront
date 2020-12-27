@@ -40,7 +40,9 @@ export class Home extends LitElement {
               placeholder="password"
               name="password"
             ></input-c>
-            <button-c type="submit">Enviar</button-c>
+            <p class="btn-container">
+              <button-c type="submit">Enviar</button-c>
+            </p>
           </form>
           <slot></slot>
         </form-container-c>

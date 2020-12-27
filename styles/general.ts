@@ -39,7 +39,8 @@ export const general = css`
   .form-group {
     margin-bottom: var(--l);
   }
-  .btn-container {
+  .btn-container,
+  ::slotted(.btn-container) {
     overflow: hidden;
   }
   .image-preview-container {

@@ -7,7 +7,6 @@ import {
   eventOptions,
   query
 } from "lit-element";
-import { classMap } from "lit-html/directives/class-map";
 
 @customElement("button-c")
 export class Button extends LitElement {
@@ -16,10 +15,15 @@ export class Button extends LitElement {
       font-family: var(--body-text-font);
       padding: calc(var(--m)) calc(var(--l) * 2);
       font-size: 100%;
-      background: var(--main-color);
       border: 1px solid var(--main-color);
-      color: var(--text-body-color);
       border-radius: var(--rm);
+      background: var(--background-color);
+      color: var(--main-color);
+    }
+    button:hover span.text {
+      //mix-blend-mode: difference;
+      color: var(--body-text-color);
+      //filter: brightness(0.5);
     }
     button.small {
       padding: var(--s) var(--m);
@@ -28,9 +32,9 @@ export class Button extends LitElement {
       padding: calc(var(--s) / 2) var(--s);
     }
     button:hover {
-      background: var(--background-color);
-      color: var(--main-color);
+      color: var(--text-body-color);
       cursor: pointer;
+      background: var(--main-color);
     }
     button.right {
       float: right;
@@ -64,7 +68,7 @@ export class Button extends LitElement {
         type="${this.submit ? "submit" : "button"}"
         @click="${(e: any) => this.handleClick(e)}"
       >
-        <slot></slot>
+        <span class="text"><slot></slot></span>
       </button>
     `;
   }

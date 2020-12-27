@@ -6,14 +6,15 @@ import { SiteService } from "./featured/site/infrastructure/site-service";
 
 @customElement("app-lit")
 export class AppLit extends LitElement {
-  @property({ type: String }) color = "#fff";
+  @property({ type: String }) color = "#4bac95";
   @property({ type: String }) theme = "light";
 
   async connectedCallback() {
     super.connectedCallback();
     const siteService = new SiteService();
-    this.color = (await siteService.getSite()).color;
-    this.theme = (await siteService.getSite()).theme;
+    const site = await siteService.getSite();
+    this.color = site.color;
+    this.theme = site.theme;
   }
 
   _handleChangeTheme = e => {

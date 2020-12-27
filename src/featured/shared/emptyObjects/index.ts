@@ -27,10 +27,10 @@ export const emptyPost: Partial<Post> = {
   author: ""
 };
 export const emptySite: Partial<Site> = {
-  theme: "",
+  theme: "light",
   title: "",
   brief: "",
   logo: "",
-  color: "",
+  color: "#ff016c",
   new: true
 };

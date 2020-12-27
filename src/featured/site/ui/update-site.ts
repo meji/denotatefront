@@ -27,7 +27,6 @@ export class UpdateSite extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-
     const site = await this.siteService.getSite();
     if (site) {
       this.values = { ...site };
@@ -86,15 +85,9 @@ export class UpdateSite extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      if (this.siteService.getSite()) {
-        this.siteService.updateSite(this.values).then(() => {
-          location.reload();
-        });
-      } else {
-        this.siteService.createSite(this.values).then(() => {
-          location.reload();
-        });
-      }
+      this.siteService.updateSite(this.values).then(() => {
+        this.requestUpdate();
+      });
     });
   };
 

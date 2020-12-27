@@ -2,10 +2,16 @@ import { LitElement, html, customElement, property } from "lit-element";
 import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
+import { SiteService } from "../infrastructure/site-service";
+import { emptySite } from "../../shared/emptyObjects";
+import { general } from "../../../../styles/general";
+import { AuthorizationService } from "../../shared/auth/authorization-service";
 
 @customElement("first-user-c")
 export class FirstUser extends LitElement {
   private userRepository = UserRepositoryFactory.build();
+  private siteService = new SiteService();
+  private autorizationService = new AuthorizationService();
 
   async connectedCallback() {
     super.connectedCallback();
@@ -18,11 +24,15 @@ export class FirstUser extends LitElement {
     e.preventDefault();
     const target = e.target;
     const values = serializeForm(target);
-    await this.userRepository.signup({ ...values, admin: true }).then(() => {
-      target.reset();
-      window.location.href = "/login";
-    });
+    await this.userRepository
+      .signup({ ...values, admin: true })
+      .then(response => {
+        this.siteService.createSite(emptySite);
+        this.autorizationService.setToken(response);
+        window.location.href = "/admin/update-site";
+      });
   };
+  public static style = [general];
 
   render() {
     return html`
@@ -68,7 +78,9 @@ export class FirstUser extends LitElement {
               placeholder="Password"
               name="password"
             ></input-c>
-            <button-c type="submit" align="right">Enviar</button-c>
+            <p class="btn-container" style="overflow: hidden">
+              <button-c type="submit" align="right">Enviar</button-c>
+            </p>
           </form>
         </form-container-c>
       </special-container-c>
