@@ -39,4 +39,17 @@ export const general = css`
   .form-group {
     margin-bottom: var(--l);
   }
+  .btn-container {
+    overflow: hidden;
+  }
+  .image-preview-container {
+    width: 100%;
+    height: 300px;
+    margin-bottom: var(--l);
+  }
+  .image-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;

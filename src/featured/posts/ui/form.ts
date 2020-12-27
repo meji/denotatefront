@@ -62,7 +62,7 @@ export class PostForm extends LitElement {
   public static styles = [general];
   render() {
     return html`
-      <h1>Edición de categoría</h1>
+      <h1>Post: ${this.values.title}</h1>
       <form-container-c class="transparent" size="large">
         <form @submit="${(e: any) => this.handleSubmit(e)}" id="category-form">
           <div class="form-group">

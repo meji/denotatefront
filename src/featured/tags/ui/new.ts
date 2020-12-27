@@ -12,7 +12,7 @@ import { Commands, Context, Router } from "@vaadin/router";
 const tagRepository = TagRepositoryFactory.build();
 
 @customElement("tag-new-c")
-export class TagForm extends LitElement {
+export class TagNew extends LitElement {
   private imageService = new ImageHttpService();
   @property({ type: Object })
   values: Partial<Tag> = emptyTag;
@@ -110,7 +110,7 @@ export class TagForm extends LitElement {
             id="title"
             type="text"
             label="Título"
-            placeholder="Título de la categoría"
+            placeholder="Título de la tag"
             name="title"
             value="${this.values.title}"
           ></input-c>

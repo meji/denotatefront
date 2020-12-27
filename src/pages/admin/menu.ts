@@ -47,6 +47,9 @@ export class Home extends LitElement {
               <a href="/admin">Posts</a>
             </li>
             <li>
+              <a href="/admin/posts/new">New Posts</a>
+            </li>
+            <li>
               <a href="/admin/categories">Categorías</a>
             </li>
             <li>

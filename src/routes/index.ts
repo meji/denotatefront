@@ -96,6 +96,32 @@ export const routes = [
                 component: "post-list-c"
               },
               {
+                path: "/new",
+                action: async () => {
+                  await import("../featured/posts/ui/new");
+                },
+                component: "post-new-c"
+              },
+              {
+                path: "/edit",
+                action: async () => {
+                  await import("../featured/posts/ui/form");
+                },
+                component: "post-form-c"
+              }
+            ]
+          },
+          {
+            path: "/posts",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../featured/posts/ui/list");
+                },
+                component: "post-list-c"
+              },
+              {
                 path: "/:category",
                 action: async () => {
                   await import("../featured/posts/ui/form");

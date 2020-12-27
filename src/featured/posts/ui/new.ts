@@ -1,23 +1,23 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
-import { Category } from "../domain/category";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
+import { Post } from "../domain/post";
+import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
 import "../../../utils/uploader";
 import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyCategory } from "../../shared/emptyObjects";
+import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 
-const categoryRepository = CategoryRepositoryFactory.build();
+const postRepository = PostRepositoryFactory.build();
 
-@customElement("category-new-c")
-export class CategoryNew extends LitElement {
+@customElement("post-new-c")
+export class PostNew extends LitElement {
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Category> = emptyCategory;
+  values: Partial<Post> = emptyPost;
   @property({ type: Object })
-  initialValues: Partial<Category> = emptyCategory;
+  initialValues: Partial<Post> = emptyPost;
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -58,8 +58,8 @@ export class CategoryNew extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      categoryRepository.create(this.values).then(response => {
-        Router.go(`/admin/categories/edit?id=${response.id}`);
+      postRepository.create(this.values).then(response => {
+        Router.go(`/admin/posts/edit?id=${response.id}`);
       });
     });
   };
@@ -71,14 +71,14 @@ export class CategoryNew extends LitElement {
   public static styles = [general];
   render() {
     return html`
-      <h1>Nueva Categoría</h1>
+      <h1>Nuevo Post</h1>
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {
             e.preventDefault();
             this.handleSubmit(e.target);
           }}"
-          id="category-form"
+          id="post-form"
         >
           <div class="form-group">
             ${!!this.values.img
@@ -98,7 +98,7 @@ export class CategoryNew extends LitElement {
                 `
               : html`
                   <p>
-                    Sube la imagen principal de la categoria
+                    Sube la imagen principal de la post
                     <small>(recomendado 1920pxx800px)</small>
                   </p>
                   <uploader-lab
@@ -110,7 +110,7 @@ export class CategoryNew extends LitElement {
             id="title"
             type="text"
             label="Título"
-            placeholder="Título de la categoría"
+            placeholder="Título del post"
             name="title"
             value="${this.values.title}"
           ></input-c>
