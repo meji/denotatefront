@@ -14,3 +14,13 @@ export const getId = (): ID => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
+
+export const countErrors = (e: HTMLElement): number => {
+  let counter = 0;
+  e.shadowRoot.querySelectorAll("input-c").forEach(e => {
+    if (e.shadowRoot.querySelector("input").validationMessage) {
+      counter++;
+    }
+  });
+  return counter;
+};

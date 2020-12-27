@@ -1,6 +1,6 @@
 import { LitElement, html, customElement, property } from "lit-element";
 import "../../../pages/special/container";
-import { serializeForm } from "../../../utils/utils";
+import { countErrors, serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
 import { general } from "../../../../styles/general";
 
@@ -68,7 +68,10 @@ export class NewUser extends LitElement {
 
   handleSubmitRegister = async (e: any) => {
     e.preventDefault();
-    this._countErrors();
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
     if (this.validityError === "") {
       e.preventDefault();
       const target = e.target;
@@ -79,14 +82,5 @@ export class NewUser extends LitElement {
           window.location.href = `/admin/users/edit?id=${response}`;
         });
     }
-  };
-  _countErrors = () => {
-    this.shadowRoot.querySelectorAll("input-c").forEach(e => {
-      if (e.shadowRoot.querySelector("input").validationMessage) {
-        this.validityError = "Revisa los errores del formulario";
-      } else {
-        this.validityError = "";
-      }
-    });
   };
 }
