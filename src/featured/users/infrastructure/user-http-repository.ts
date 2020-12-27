@@ -29,8 +29,8 @@ export class UserHttpRepository implements UserRepository {
     return response.data;
   }
 
-  async update(user: Partial<User>): Promise<User> {
-    const response = await http.put<UserDto>("/users/", user, {
+  async update(id: ID, user: Partial<User>): Promise<User> {
+    const response = await http.put<UserDto>(`/users/${id}`, user, {
       headers: {
         "Content-Type": "application/json"
       }

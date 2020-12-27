@@ -5,7 +5,7 @@ type token = string;
 export interface UserRepository {
   findUserById(id: ID): Promise<User>;
   findAllUsers(): Promise<User[]>;
-  update(user: Partial<User>): Promise<User>;
+  update(id: ID, user: Partial<User>): Promise<User>;
   delete(id: ID): Promise<User>;
   findAdmin(): Promise<boolean>;
 }

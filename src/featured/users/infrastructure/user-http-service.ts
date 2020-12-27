@@ -34,6 +34,12 @@ export class UserHttpService implements UserService {
     oldPswd: string;
     newPswd: string;
   }): Promise<User> {
-    return (await http.put("/users/pswd", data)).data;
+    return (
+      await http.put("/users/pswd", data, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    ).data.message;
   }
 }

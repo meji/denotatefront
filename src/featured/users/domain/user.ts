@@ -6,7 +6,7 @@ export interface User {
   password: string;
   email: string;
   firstName?: string;
-  lastName?: string;
+  secondName?: string;
   admin?: boolean;
   posts?: ID[];
 }

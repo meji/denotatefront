@@ -6,7 +6,7 @@ export interface UserDto {
   password: string;
   email: string;
   firstName?: string;
-  lastName?: string;
+  secondName?: string;
   admin?: boolean;
   posts?: OID[];
 }

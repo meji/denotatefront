@@ -65,6 +65,9 @@ export class Home extends LitElement {
               <a href="/admin/users">Usuarios</a>
             </li>
             <li>
+              <a href="/admin/users/new">Usuarios New</a>
+            </li>
+            <li>
               <a href="/admin/update-site">Configuración</a>
             </li>
             <li>

@@ -9,7 +9,7 @@ export class UserDtoToUserMapper {
       password: userDto.password,
       email: userDto.email,
       firstName: userDto.firstName,
-      lastName: userDto.lastName,
+      secondName: userDto.secondName,
       admin: userDto.admin,
       posts: userDto.posts
         ? userDto.posts.map(postdto => postdto.$oid)

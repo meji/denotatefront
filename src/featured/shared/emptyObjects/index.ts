@@ -2,6 +2,8 @@ import { Category } from "../../categories/domain/category";
 import { Tag } from "../../tags/domain/tag";
 import { Post } from "../../posts/domain/post";
 import { Site } from "../../site/domain/site";
+import { User } from "../../users/domain/user";
+import { ID } from "../id/id";
 
 export const emptyCategory: Partial<Category> = {
   title: "",
@@ -33,4 +35,12 @@ export const emptySite: Partial<Site> = {
   logo: "",
   color: "#4bac95",
   new: true
+};
+
+export const emptyUser: Partial<User> = {
+  login: "",
+  password: "",
+  email: "",
+  firstName: "",
+  secondName: ""
 };
