@@ -42,4 +42,13 @@ export class UserHttpRepository implements UserRepository {
     const userDeleted = await http.delete<UserDto>(`/users/${id}`);
     return this.userDtoToUserMapper.map(userDeleted.data);
   }
+  async newUser(user: Partial<User>): Promise<void> {
+    return (
+      await http.post("/users/new", user, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    ).data;
+  }
 }

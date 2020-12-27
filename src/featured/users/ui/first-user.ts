@@ -1,12 +1,12 @@
 import { LitElement, html, customElement, property } from "lit-element";
 import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
-import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
-import { SiteService } from "../infrastructure/site-service";
+import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
+import { SiteService } from "../../site/infrastructure/site-service";
 import { emptySite } from "../../shared/emptyObjects";
 import { general } from "../../../../styles/general";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
-import { UserHttpService } from "../../users/infrastructure/user-http-service";
+import { UserHttpService } from "../infrastructure/user-http-service";
 
 @customElement("first-user-c")
 export class FirstUser extends LitElement {

@@ -8,4 +8,5 @@ export interface UserRepository {
   update(id: ID, user: Partial<User>): Promise<User>;
   delete(id: ID): Promise<User>;
   findAdmin(): Promise<boolean>;
+  newUser(user: Partial<User>): Promise<void>;
 }

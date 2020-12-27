@@ -99,15 +99,15 @@ export class EditUser extends LitElement {
           <input-c
             id="password"
             type="password"
-            label="contraseña"
-            placeholder="Password"
+            label="Contraseña"
+            placeholder="Contraseña"
             name="oldPswd"
           ></input-c>
           <input-c
             id="new-password"
             type="password"
             label="nueva contraseña"
-            placeholder="Password"
+            placeholder="Nueva contraseña"
             name="newPswd"
           ></input-c>
           <p class="btn-container" style="overflow: hidden">

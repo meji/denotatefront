@@ -1,12 +1,77 @@
-import { LitElement, html, customElement } from "lit-element";
+import { LitElement, html, customElement, property } from "lit-element";
+import "../../../pages/special/container";
+import { serializeForm } from "../../../utils/utils";
+import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
+import { general } from "../../../../styles/general";
 
-@customElement("users-new-c")
-export class UsersNew extends LitElement {
+@customElement("user-new-c")
+export class NewUser extends LitElement {
+  private userRepository = UserRepositoryFactory.build();
+
+  handleSubmitRegister = async (e: any) => {
+    e.preventDefault();
+    const target = e.target;
+    const values = serializeForm(target);
+    await this.userRepository
+      .newUser({ ...values, admin: false })
+      .then(response => {
+        window.location.href = `/admin/users/edit?id=${response}`;
+      });
+  };
+  public static style = [general];
+
   render() {
     return html`
-      <main>
-        <slot></slot>
-      </main>
+      <h1>Nuevo usuario</h1>
+      <form-container-c class="transparent">
+        <form
+          @submit="${(e: any) => this.handleSubmitRegister(e)}"
+          id="register-form"
+        >
+          <input-c
+            id="firstName"
+            type="text"
+            label="Nombre"
+            placeholder="Nombre"
+            name="firstName"
+            required="true"
+          ></input-c>
+          <input-c
+            id="secondName"
+            type="text"
+            label="Apellidos"
+            placeholder="Apellidos"
+            name="secondName"
+          ></input-c>
+          <input-c
+            id="login"
+            type="text"
+            label="Login"
+            placeholder="Login"
+            name="login"
+            required="true"
+          ></input-c>
+          <input-c
+            id="email"
+            type="email"
+            label="Email"
+            placeholder="Email"
+            name="email"
+            required="true"
+          ></input-c>
+          <input-c
+            id="password"
+            type="password"
+            label="Password"
+            placeholder="Password"
+            name="password"
+            required="true"
+          ></input-c>
+          <p class="btn-container" style="overflow: hidden">
+            <button-c type="submit" align="right">Enviar</button-c>
+          </p>
+        </form>
+      </form-container-c>
     `;
   }
 }

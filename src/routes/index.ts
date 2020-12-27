@@ -142,7 +142,7 @@ export const routes = [
       {
         path: "/newsite",
         action: async () => {
-          await import("../featured/site/ui/first-user");
+          await import("../featured/users/ui/first-user");
         },
         component: "first-user-c"
       },
