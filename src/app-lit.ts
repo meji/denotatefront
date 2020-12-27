@@ -16,6 +16,19 @@ export class AppLit extends LitElement {
     this.theme = (await siteService.getSite()).theme;
   }
 
+  _handleChangeTheme = e => {
+    this.theme = e.detail.theme;
+  };
+
+  async firstUpdated() {
+    await new Promise(r => setTimeout(r, 0));
+    this.addEventListener("change-theme", this._handleChangeTheme);
+  }
+  disconnectedCallback() {
+    this.removeEventListener("change-theme", this._handleChangeTheme);
+    super.disconnectedCallback();
+  }
+
   public static styles = [
     theme,
     general,

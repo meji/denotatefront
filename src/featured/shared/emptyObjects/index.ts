@@ -1,6 +1,7 @@
 import { Category } from "../../categories/domain/category";
 import { Tag } from "../../tags/domain/tag";
 import { Post } from "../../posts/domain/post";
+import { Site } from "../../site/domain/site";
 
 export const emptyCategory: Partial<Category> = {
   title: "",
@@ -24,4 +25,12 @@ export const emptyPost: Partial<Post> = {
   img: "",
   featured: false,
   author: ""
+};
+export const emptySite: Partial<Site> = {
+  theme: "",
+  title: "",
+  brief: "",
+  logo: "",
+  color: "",
+  new: true
 };
