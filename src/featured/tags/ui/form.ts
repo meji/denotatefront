@@ -1,11 +1,4 @@
-import {
-  css,
-  customElement,
-  html,
-  LitElement,
-  property,
-  query
-} from "lit-element";
+import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Tag } from "../domain/tag";
@@ -16,10 +9,9 @@ import { ImageHttpService } from "../../images/infrastructure/image-http-service
 import { emptyTag } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 
-const tagRepository = TagRepositoryFactory.build();
-
 @customElement("tag-form-c")
 export class TagForm extends LitElement {
+  private tagRepository = TagRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
   values: Partial<Tag> = emptyTag;
@@ -38,7 +30,7 @@ export class TagForm extends LitElement {
     const id = urlParams.get("id");
     if (id) {
       this.id = id;
-      this.values = { ...(await tagRepository.getById(id)) };
+      this.values = { ...(await this.tagRepository.getById(id)) };
       this.initialValues = { ...this.values };
     }
     if (this.values.featured) {
@@ -66,6 +58,8 @@ export class TagForm extends LitElement {
       await this.imageService
         .uploadImage(this.imgData, this.imgName)
         .then(response => {
+          this.imgData = "";
+          this.imgName = "";
           return (this.values.img = response);
         });
     }
@@ -77,12 +71,11 @@ export class TagForm extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      tagRepository.create(this.values);
       if (
         JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
         this.values.featured != this.initialValues.featured
       ) {
-        tagRepository.update(this.id, this.values).then(() => {
+        this.tagRepository.update(this.id, this.values).then(() => {
           this.requestUpdate();
         });
       }
@@ -91,44 +84,32 @@ export class TagForm extends LitElement {
 
   handleEraseImage = () => {
     this.values.img = "";
-    tagRepository.update(this.id, this.values).then(() => {
+    this.tagRepository.update(this.id, this.values).then(() => {
       this.requestUpdate();
     });
   };
 
-  public static styles = [
-    general,
-    css`
-      .image-container {
-        width: 100%;
-        height: 300px;
-      }
-      .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .button-container {
-        overflow: hidden;
-      }
-    `
-  ];
+  public static styles = [general];
   render() {
     return html`
       <h1>
-        Tag: ${this.values.title}
-        <style>
-          button-c {
-            float: right;
-          }
-        </style>
-        <button-c
-          size="extrasmall"
-          @click="${() => {
-            Router.go(`/${this.values.title}?id="${this.id}"`);
-          }}"
-          >Ver Tag</button-c
-        >
+        "Tag: " ${this.values.title}
+        ${this.id
+          ? html`
+              <style>
+                button-c {
+                  float: right;
+                }
+              </style>
+              <button-c
+                size="extrasmall"
+                @click="${() => {
+                  Router.go(`/${this.values.title}?id="${this.id}"`);
+                }}"
+                >Ver Tag</button-c
+              >
+            `
+          : null}
       </h1>
       <form-container-c class="transparent" size="large">
         <form
@@ -142,19 +123,19 @@ export class TagForm extends LitElement {
             ${!!this.values.img
               ? html`
                   <p>Imagen destacada:</p>
-                  <div class="image-container">
+                  <div class="image-preview-container">
                     <img
                       src="${process.env.API_URI}/uploads/${this.values.img}"
                     />
                   </div>
-                  <p class="button-container">
+                  <div class="btn-container">
                     <button-c
                       @click="${() => {
                         this.handleEraseImage();
                       }}"
                       >Borrar imagen</button-c
                     >
-                  </p>
+                  </div>
                 `
               : html`
                   <p>
@@ -170,7 +151,7 @@ export class TagForm extends LitElement {
             id="title"
             type="text"
             label="Título"
-            placeholder="Título de la categoría"
+            placeholder="Título de la tag"
             name="title"
             value="${this.values.title}"
           ></input-c>

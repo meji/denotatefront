@@ -47,6 +47,8 @@ export class TagNew extends LitElement {
       await this.imageService
         .uploadImage(this.imgData, this.imgName)
         .then(response => {
+          this.imgData = "";
+          this.imgName = "";
           return (this.values.img = response);
         });
     }

@@ -47,6 +47,8 @@ export class CategoryNew extends LitElement {
       await this.imageService
         .uploadImage(this.imgData, this.imgName)
         .then(response => {
+          this.imgData = "";
+          this.imgName = "";
           return (this.values.img = response);
         });
     }
@@ -84,17 +86,19 @@ export class CategoryNew extends LitElement {
             ${!!this.values.img
               ? html`
                   <p>Imagen destacada:</p>
-                  <p>
+                  <div class="image-preview-container">
                     <img
                       src="${process.env.API_URI}/uploads/${this.values.img}"
                     />
-                  </p>
-                  <button-c
-                    @click="${() => {
-                      this.handleEraseImage();
-                    }}"
-                    >Borrar imagen</button-c
-                  >
+                  </div>
+                  <div class="btn-container">
+                    <button-c
+                      @click="${() => {
+                        this.handleEraseImage();
+                      }}"
+                      >Borrar imagen</button-c
+                    >
+                  </div>
                 `
               : html`
                   <p>
