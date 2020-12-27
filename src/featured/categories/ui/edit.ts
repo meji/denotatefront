@@ -93,7 +93,7 @@ export class CategoryForm extends LitElement {
   render() {
     return html`
       <h1>
-        "Categoría: " ${this.values.title}
+        Categoría: ${this.values.title}
         ${this.id
           ? html`
               <style>

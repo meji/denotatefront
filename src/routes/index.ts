@@ -53,7 +53,7 @@ export const routes = [
               {
                 path: "/edit",
                 action: async () => {
-                  await import("../featured/categories/ui/form");
+                  await import("../featured/categories/ui/edit");
                 },
                 component: "category-form-c"
               }
@@ -79,7 +79,7 @@ export const routes = [
               {
                 path: "/edit",
                 action: async () => {
-                  await import("../featured/tags/ui/form");
+                  await import("../featured/tags/ui/edit");
                 },
                 component: "tag-form-c"
               }
@@ -105,7 +105,7 @@ export const routes = [
               {
                 path: "/edit",
                 action: async () => {
-                  await import("../featured/posts/ui/form");
+                  await import("../featured/posts/ui/edit");
                 },
                 component: "post-form-c"
               }
@@ -124,7 +124,7 @@ export const routes = [
               {
                 path: "/:category",
                 action: async () => {
-                  await import("../featured/posts/ui/form");
+                  await import("../featured/posts/ui/edit");
                 },
                 component: "post-form-c"
               }

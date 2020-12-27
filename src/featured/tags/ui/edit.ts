@@ -1,22 +1,22 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
-import { Post } from "../domain/post";
-import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
+import { Tag } from "../domain/tag";
+import { TagRepositoryFactory } from "../infrastructure/tag-repository-factory";
 import "../../../utils/uploader";
 import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyPost } from "../../shared/emptyObjects";
+import { emptyTag } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 
-@customElement("post-form-c")
-export class PostForm extends LitElement {
-  private postRepository = PostRepositoryFactory.build();
+@customElement("tag-form-c")
+export class TagForm extends LitElement {
+  private tagRepository = TagRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Post> = emptyPost;
+  values: Partial<Tag> = emptyTag;
   @property({ type: Object })
-  initialValues: Partial<Post> = emptyPost;
+  initialValues: Partial<Tag> = emptyTag;
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -30,7 +30,7 @@ export class PostForm extends LitElement {
     const id = urlParams.get("id");
     if (id) {
       this.id = id;
-      this.values = { ...(await this.postRepository.getById(id)) };
+      this.values = { ...(await this.tagRepository.getById(id)) };
       this.initialValues = { ...this.values };
     }
     if (this.values.featured) {
@@ -75,7 +75,7 @@ export class PostForm extends LitElement {
         JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
         this.values.featured != this.initialValues.featured
       ) {
-        this.postRepository.update(this.id, this.values).then(() => {
+        this.tagRepository.update(this.id, this.values).then(() => {
           this.requestUpdate();
         });
       }
@@ -84,7 +84,7 @@ export class PostForm extends LitElement {
 
   handleEraseImage = () => {
     this.values.img = "";
-    this.postRepository.update(this.id, this.values).then(() => {
+    this.tagRepository.update(this.id, this.values).then(() => {
       this.requestUpdate();
     });
   };
@@ -93,7 +93,7 @@ export class PostForm extends LitElement {
   render() {
     return html`
       <h1>
-        "Post: " ${this.values.title}
+        Tag: ${this.values.title}
         ${this.id
           ? html`
               <style>
@@ -106,7 +106,7 @@ export class PostForm extends LitElement {
                 @click="${() => {
                   Router.go(`/${this.values.title}?id="${this.id}"`);
                 }}"
-                >Ver Post</button-c
+                >Ver Tag</button-c
               >
             `
           : null}
@@ -117,7 +117,7 @@ export class PostForm extends LitElement {
             e.preventDefault();
             this.handleSubmit(e.target);
           }}"
-          id="post-form"
+          id="tag-form"
         >
           <div class="form-group">
             ${!!this.values.img
@@ -139,7 +139,7 @@ export class PostForm extends LitElement {
                 `
               : html`
                   <p>
-                    Sube la imagen principal de la post
+                    Sube la imagen principal de la tag
                     <small>(recomendado 1920pxx800px)</small>
                   </p>
                   <uploader-lab
@@ -151,7 +151,7 @@ export class PostForm extends LitElement {
             id="title"
             type="text"
             label="Título"
-            placeholder="Título de la post"
+            placeholder="Título de la tag"
             name="title"
             value="${this.values.title}"
           ></input-c>
