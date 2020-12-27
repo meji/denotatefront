@@ -72,14 +72,14 @@ export const routes = [
               {
                 path: "/new",
                 action: async () => {
-                  await import("../featured/tags/ui/form");
+                  await import("../featured/tags/ui/new");
                 },
-                component: "tag-form-c"
+                component: "tag-new-c"
               },
               {
                 path: "/edit",
                 action: async () => {
-                  await import("../featured/categories/ui/form");
+                  await import("../featured/tags/ui/form");
                 },
                 component: "tag-form-c"
               }

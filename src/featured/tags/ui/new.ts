@@ -1,11 +1,4 @@
-import {
-  css,
-  customElement,
-  html,
-  LitElement,
-  property,
-  query
-} from "lit-element";
+import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Tag } from "../domain/tag";
@@ -18,7 +11,7 @@ import { Commands, Context, Router } from "@vaadin/router";
 
 const tagRepository = TagRepositoryFactory.build();
 
-@customElement("tag-form-c")
+@customElement("tag-new-c")
 export class TagForm extends LitElement {
   private imageService = new ImageHttpService();
   @property({ type: Object })
@@ -34,18 +27,6 @@ export class TagForm extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    if (id) {
-      this.id = id;
-      this.values = { ...(await tagRepository.getById(id)) };
-      this.initialValues = { ...this.values };
-    }
-    if (this.values.featured) {
-      this.switcher.shadowRoot
-        .querySelector("input")
-        .setAttribute("checked", "checked");
-    }
   }
   handleSwitchChange = e => {
     this.values = {
@@ -77,59 +58,20 @@ export class TagForm extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      tagRepository.create(this.values);
-      if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
-        this.values.featured != this.initialValues.featured
-      ) {
-        tagRepository.update(this.id, this.values).then(() => {
-          this.requestUpdate();
-        });
-      }
+      tagRepository.create(this.values).then(response => {
+        Router.go(`/admin/tags/edit?id=${response.id}`);
+      });
     });
   };
 
   handleEraseImage = () => {
     this.values.img = "";
-    tagRepository.update(this.id, this.values).then(() => {
-      this.requestUpdate();
-    });
   };
 
-  public static styles = [
-    general,
-    css`
-      .image-container {
-        width: 100%;
-        height: 300px;
-      }
-      .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .button-container {
-        overflow: hidden;
-      }
-    `
-  ];
+  public static styles = [general];
   render() {
     return html`
-      <h1>
-        Tag: ${this.values.title}
-        <style>
-          button-c {
-            float: right;
-          }
-        </style>
-        <button-c
-          size="extrasmall"
-          @click="${() => {
-            Router.go(`/${this.values.title}?id="${this.id}"`);
-          }}"
-          >Ver Tag</button-c
-        >
-      </h1>
+      <h1>Nueva Tag</h1>
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {
@@ -142,19 +84,17 @@ export class TagForm extends LitElement {
             ${!!this.values.img
               ? html`
                   <p>Imagen destacada:</p>
-                  <div class="image-container">
+                  <p>
                     <img
                       src="${process.env.API_URI}/uploads/${this.values.img}"
                     />
-                  </div>
-                  <p class="button-container">
-                    <button-c
-                      @click="${() => {
-                        this.handleEraseImage();
-                      }}"
-                      >Borrar imagen</button-c
-                    >
                   </p>
+                  <button-c
+                    @click="${() => {
+                      this.handleEraseImage();
+                    }}"
+                    >Borrar imagen</button-c
+                  >
                 `
               : html`
                   <p>

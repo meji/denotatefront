@@ -1,4 +1,11 @@
-import { customElement, html, LitElement, property, query } from "lit-element";
+import {
+  css,
+  customElement,
+  html,
+  LitElement,
+  property,
+  query
+} from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
@@ -71,11 +78,7 @@ export class CategoryForm extends LitElement {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
       categoryRepository.create(this.values);
-      if (this.id === undefined) {
-        categoryRepository.create(this.values).then(() => {
-          this.requestUpdate();
-        });
-      } else if (
+      if (
         JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
         this.values.featured != this.initialValues.featured
       ) {
@@ -93,27 +96,39 @@ export class CategoryForm extends LitElement {
     });
   };
 
-  public static styles = [general];
+  public static styles = [
+    general,
+    css`
+      .image-container {
+        width: 100%;
+        height: 300px;
+      }
+      .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .button-container {
+        overflow: hidden;
+      }
+    `
+  ];
   render() {
     return html`
       <h1>
-        ${this.id ? "Categoría: " + this.values.title : "Edición de categoría"}
-        ${this.id
-          ? html`
-              <style>
-                button-c {
-                  float: right;
-                }
-              </style>
-              <button-c
-                size="extrasmall"
-                @click="${() => {
-                  Router.go(`/${this.values.title}?id="${this.id}"`);
-                }}"
-                >Ver Categoría</button-c
-              >
-            `
-          : null}
+        Categoría: ${this.values.title}
+        <style>
+          button-c {
+            float: right;
+          }
+        </style>
+        <button-c
+          size="extrasmall"
+          @click="${() => {
+            Router.go(`/${this.values.title}?id="${this.id}"`);
+          }}"
+          >Ver Categoría</button-c
+        >
       </h1>
       <form-container-c class="transparent" size="large">
         <form
@@ -127,17 +142,19 @@ export class CategoryForm extends LitElement {
             ${!!this.values.img
               ? html`
                   <p>Imagen destacada:</p>
-                  <p>
+                  <div class="image-container">
                     <img
                       src="${process.env.API_URI}/uploads/${this.values.img}"
                     />
+                  </div>
+                  <p class="button-container">
+                    <button-c
+                      @click="${() => {
+                        this.handleEraseImage();
+                      }}"
+                      >Borrar imagen</button-c
+                    >
                   </p>
-                  <button-c
-                    @click="${() => {
-                      this.handleEraseImage();
-                    }}"
-                    >Borrar imagen</button-c
-                  >
                 `
               : html`
                   <p>
