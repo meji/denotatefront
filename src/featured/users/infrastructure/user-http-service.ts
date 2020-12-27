@@ -19,6 +19,17 @@ export class UserHttpService implements UserService {
   async logout(): Promise<void> {
     this.authorizationService.removeToken();
   }
+  async signup(user: Partial<User>): Promise<void> {
+    const token = (
+      await http.post("/users/", user, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    ).data.token;
+    this.authorizationService.setToken(token);
+  }
+
   async changePassword(data: {
     oldPswd: string;
     newPswd: string;

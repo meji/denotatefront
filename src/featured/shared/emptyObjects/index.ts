@@ -31,6 +31,6 @@ export const emptySite: Partial<Site> = {
   title: "",
   brief: "",
   logo: "",
-  color: "#ff016c",
+  color: "#4bac95",
   new: true
 };

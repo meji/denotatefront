@@ -6,12 +6,13 @@ import { SiteService } from "../infrastructure/site-service";
 import { emptySite } from "../../shared/emptyObjects";
 import { general } from "../../../../styles/general";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
+import { UserHttpService } from "../../users/infrastructure/user-http-service";
 
 @customElement("first-user-c")
 export class FirstUser extends LitElement {
-  private userRepository = UserRepositoryFactory.build();
+  private userService = new UserHttpService(new AuthorizationService());
   private siteService = new SiteService();
-  private autorizationService = new AuthorizationService();
+  private userRepository = UserRepositoryFactory.build();
 
   async connectedCallback() {
     super.connectedCallback();
@@ -24,13 +25,10 @@ export class FirstUser extends LitElement {
     e.preventDefault();
     const target = e.target;
     const values = serializeForm(target);
-    await this.userRepository
-      .signup({ ...values, admin: true })
-      .then(response => {
-        this.siteService.createSite(emptySite);
-        this.autorizationService.setToken(response);
-        window.location.href = "/admin/update-site";
-      });
+    await this.userService.signup({ ...values, admin: true }).then(response => {
+      this.siteService.createSite(emptySite);
+      window.location.href = "/admin/update-site";
+    });
   };
   public static style = [general];
 

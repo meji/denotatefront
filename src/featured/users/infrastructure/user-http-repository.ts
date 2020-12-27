@@ -5,6 +5,7 @@ import { User } from "../domain/user";
 import { UserDto } from "./user-dto";
 import { http } from "../../shared/http/http";
 import { ID } from "../../shared/id/id";
+import { AuthorizationService } from "../../shared/auth/authorization-service";
 type token = string;
 
 export class UserHttpRepository implements UserRepository {
@@ -26,15 +27,6 @@ export class UserHttpRepository implements UserRepository {
   async findAdmin(): Promise<boolean> {
     const response = await http.get(`/users/isadmin`);
     return response.data;
-  }
-
-  async signup(user: Partial<User>): Promise<token> {
-    const userIn = await http.post<token>("/users/", user, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return userIn.data;
   }
 
   async update(user: Partial<User>): Promise<User> {
