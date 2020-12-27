@@ -7,6 +7,7 @@ import "../../../utils/uploader";
 import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyCategory } from "../../shared/emptyObjects";
+import { Commands, Context, Router } from "@vaadin/router";
 
 @customElement("category-form-c")
 export class CategoryForm extends LitElement {
@@ -95,6 +96,22 @@ export class CategoryForm extends LitElement {
     return html`
       <h1>
         ${this.id ? "Categoría: " + this.values.title : "Edición de categoría"}
+        ${this.id
+          ? html`
+              <style>
+                button-c {
+                  float: right;
+                }
+              </style>
+              <button-c
+                size="extrasmall"
+                @click="${() => {
+                  Router.go(`/${this.values.title}?id="${this.id}"`);
+                }}"
+                >Ver Categoría</button-c
+              >
+            `
+          : null}
       </h1>
       <form-container-c class="transparent" size="large">
         <form

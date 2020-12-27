@@ -21,8 +21,11 @@ export class Button extends LitElement {
       color: var(--text-body-color);
       border-radius: var(--rm);
     }
-    button.s {
+    button.small {
       padding: var(--s) var(--m);
+    }
+    button.extrasmall {
+      padding: calc(var(--s) / 2) var(--s);
     }
     button:hover {
       background: var(--background-color);
