@@ -5,6 +5,8 @@ import { TagDtoToTagMapper } from "./tag-dto-to-tag-mapper";
 import { TagToTagDtoMapper } from "./tag-to-tag-dto-mapper";
 import { Tag } from "../domain/tag";
 import { TagDto } from "./tag-dto";
+import { Category } from "../../categories/domain/category";
+import { CategoryDto } from "../../categories/infrastructure/category-dto";
 
 export class TagHttpRepository implements TagRepository {
   constructor(

@@ -1,23 +1,22 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
 import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
-import { Category } from "../domain/category";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
+import { Tag } from "../domain/tag";
+import { TagRepositoryFactory } from "../infrastructure/tag-repository-factory";
 import "../../../utils/uploader";
 import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyCategory } from "../../shared/emptyObjects";
+import { emptyTag } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 
-const categoryRepository = CategoryRepositoryFactory.build();
-
-@customElement("category-form-c")
-export class CategoryForm extends LitElement {
+@customElement("tag-form-c")
+export class TagForm extends LitElement {
+  private tagRepository = TagRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Category> = emptyCategory;
+  values: Partial<Tag> = emptyTag;
   @property({ type: Object })
-  initialValues: Partial<Category> = emptyCategory;
+  initialValues: Partial<Tag> = emptyTag;
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -31,7 +30,7 @@ export class CategoryForm extends LitElement {
     const id = urlParams.get("id");
     if (id) {
       this.id = id;
-      this.values = { ...(await categoryRepository.getById(id)) };
+      this.values = { ...(await this.tagRepository.getById(id)) };
       this.initialValues = { ...this.values };
     }
     if (this.values.featured) {
@@ -70,16 +69,15 @@ export class CategoryForm extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      categoryRepository.create(this.values);
       if (this.id === undefined) {
-        categoryRepository.create(this.values).then(() => {
+        this.tagRepository.create(this.values).then(() => {
           this.requestUpdate();
         });
       } else if (
         JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
         this.values.featured != this.initialValues.featured
       ) {
-        categoryRepository.update(this.id, this.values).then(() => {
+        this.tagRepository.update(this.id, this.values).then(() => {
           this.requestUpdate();
         });
       }
@@ -88,7 +86,7 @@ export class CategoryForm extends LitElement {
 
   handleEraseImage = () => {
     this.values.img = "";
-    categoryRepository.update(this.id, this.values).then(() => {
+    this.tagRepository.update(this.id, this.values).then(() => {
       this.requestUpdate();
     });
   };
@@ -97,7 +95,7 @@ export class CategoryForm extends LitElement {
   render() {
     return html`
       <h1>
-        ${this.id ? "Categoría: " + this.values.title : "Edición de categoría"}
+        ${this.id ? "Tag: " + this.values.title : "Edición de tag"}
         ${this.id
           ? html`
               <style>
@@ -110,7 +108,7 @@ export class CategoryForm extends LitElement {
                 @click="${() => {
                   Router.go(`/${this.values.title}?id="${this.id}"`);
                 }}"
-                >Ver Categoría</button-c
+                >Ver Tag</button-c
               >
             `
           : null}
@@ -121,7 +119,7 @@ export class CategoryForm extends LitElement {
             e.preventDefault();
             this.handleSubmit(e.target);
           }}"
-          id="category-form"
+          id="tag-form"
         >
           <div class="form-group">
             ${!!this.values.img
@@ -153,7 +151,7 @@ export class CategoryForm extends LitElement {
             id="title"
             type="text"
             label="Título"
-            placeholder="Título de la categoría"
+            placeholder="Título de la tag"
             name="title"
             value="${this.values.title}"
           ></input-c>

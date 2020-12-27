@@ -11,7 +11,7 @@ import { Commands, Context, Router } from "@vaadin/router";
 
 const categoryRepository = CategoryRepositoryFactory.build();
 
-@customElement("category-form-c")
+@customElement("category-new-c")
 export class CategoryForm extends LitElement {
   private imageService = new ImageHttpService();
   @property({ type: Object })
@@ -27,18 +27,6 @@ export class CategoryForm extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    if (id) {
-      this.id = id;
-      this.values = { ...(await categoryRepository.getById(id)) };
-      this.initialValues = { ...this.values };
-    }
-    if (this.values.featured) {
-      this.switcher.shadowRoot
-        .querySelector("input")
-        .setAttribute("checked", "checked");
-    }
   }
   handleSwitchChange = e => {
     this.values = {
@@ -70,51 +58,20 @@ export class CategoryForm extends LitElement {
     await this.uploadImage().then(() => {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
-      categoryRepository.create(this.values);
-      if (this.id === undefined) {
-        categoryRepository.create(this.values).then(() => {
-          this.requestUpdate();
-        });
-      } else if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
-        this.values.featured != this.initialValues.featured
-      ) {
-        categoryRepository.update(this.id, this.values).then(() => {
-          this.requestUpdate();
-        });
-      }
+      categoryRepository.create(this.values).then(response => {
+        Router.go(`/admin/categories/edit?id=${response.id}`);
+      });
     });
   };
 
   handleEraseImage = () => {
     this.values.img = "";
-    categoryRepository.update(this.id, this.values).then(() => {
-      this.requestUpdate();
-    });
   };
 
   public static styles = [general];
   render() {
     return html`
-      <h1>
-        ${this.id ? "Categoría: " + this.values.title : "Edición de categoría"}
-        ${this.id
-          ? html`
-              <style>
-                button-c {
-                  float: right;
-                }
-              </style>
-              <button-c
-                size="extrasmall"
-                @click="${() => {
-                  Router.go(`/${this.values.title}?id="${this.id}"`);
-                }}"
-                >Ver Categoría</button-c
-              >
-            `
-          : null}
-      </h1>
+      <h1>Nueva Categoría</h1>
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {

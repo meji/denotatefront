@@ -46,9 +46,9 @@ export const routes = [
               {
                 path: "/new",
                 action: async () => {
-                  await import("../featured/categories/ui/form");
+                  await import("../featured/categories/ui/new");
                 },
-                component: "category-form-c"
+                component: "category-new-c"
               },
               {
                 path: "/edit",
@@ -56,6 +56,32 @@ export const routes = [
                   await import("../featured/categories/ui/form");
                 },
                 component: "category-form-c"
+              }
+            ]
+          },
+          {
+            path: "/tags",
+            children: [
+              {
+                path: "/",
+                action: async () => {
+                  await import("../featured/tags/ui/list");
+                },
+                component: "tag-list-c"
+              },
+              {
+                path: "/new",
+                action: async () => {
+                  await import("../featured/tags/ui/form");
+                },
+                component: "tag-form-c"
+              },
+              {
+                path: "/edit",
+                action: async () => {
+                  await import("../featured/categories/ui/form");
+                },
+                component: "tag-form-c"
               }
             ]
           },

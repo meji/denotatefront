@@ -50,6 +50,15 @@ export class Home extends LitElement {
               <a href="/admin/categories">Categorías</a>
             </li>
             <li>
+              <a href="/admin/categories/new">Categorías new</a>
+            </li>
+            <li>
+              <a href="/admin/tags">Tags</a>
+            </li>
+            <li>
+              <a href="/admin/tags/new">New Tag</a>
+            </li>
+            <li>
               <a href="/admin/users">Usuarios</a>
             </li>
             <li>
