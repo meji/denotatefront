@@ -9,29 +9,6 @@ export class AppLit extends LitElement {
   @property({ type: String }) color = "#4bac95";
   @property({ type: String }) theme = "light";
 
-  async connectedCallback() {
-    super.connectedCallback();
-    const siteService = new SiteService();
-    const site = await siteService.getSite();
-    if (site) {
-      this.color = site.color;
-      this.theme = site.theme;
-    }
-  }
-
-  _handleChangeTheme = e => {
-    this.theme = e.detail.theme;
-  };
-
-  async firstUpdated() {
-    await new Promise(r => setTimeout(r, 0));
-    this.addEventListener("change-theme", this._handleChangeTheme);
-  }
-  disconnectedCallback() {
-    this.removeEventListener("change-theme", this._handleChangeTheme);
-    super.disconnectedCallback();
-  }
-
   public static styles = [
     theme,
     general,
@@ -60,5 +37,27 @@ export class AppLit extends LitElement {
         <slot></slot>
       </div>
     `;
+  }
+  async connectedCallback() {
+    super.connectedCallback();
+    const siteService = new SiteService();
+    const site = await siteService.getSite();
+    if (site) {
+      this.color = site.color;
+      this.theme = site.theme;
+    }
+  }
+
+  _handleChangeTheme = e => {
+    this.theme = e.detail.theme;
+  };
+
+  async firstUpdated() {
+    await new Promise(r => setTimeout(r, 0));
+    this.addEventListener("change-theme", this._handleChangeTheme);
+  }
+  disconnectedCallback() {
+    this.removeEventListener("change-theme", this._handleChangeTheme);
+    super.disconnectedCallback();
   }
 }

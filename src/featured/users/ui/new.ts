@@ -7,18 +7,8 @@ import { general } from "../../../../styles/general";
 @customElement("user-new-c")
 export class NewUser extends LitElement {
   private userRepository = UserRepositoryFactory.build();
-
-  handleSubmitRegister = async (e: any) => {
-    e.preventDefault();
-    const target = e.target;
-    const values = serializeForm(target);
-    await this.userRepository
-      .newUser({ ...values, admin: false })
-      .then(response => {
-        window.location.href = `/admin/users/edit?id=${response}`;
-      });
-  };
   public static style = [general];
+  @property({ type: String }) validityError = "";
 
   render() {
     return html`
@@ -70,8 +60,33 @@ export class NewUser extends LitElement {
           <p class="btn-container" style="overflow: hidden">
             <button-c type="submit" align="right">Enviar</button-c>
           </p>
+          <p class="error">${this.validityError}</p>
         </form>
       </form-container-c>
     `;
   }
+
+  handleSubmitRegister = async (e: any) => {
+    e.preventDefault();
+    this._countErrors();
+    if (this.validityError === "") {
+      e.preventDefault();
+      const target = e.target;
+      const values = serializeForm(target);
+      await this.userRepository
+        .newUser({ ...values, admin: false })
+        .then(response => {
+          window.location.href = `/admin/users/edit?id=${response}`;
+        });
+    }
+  };
+  _countErrors = () => {
+    this.shadowRoot.querySelectorAll("input-c").forEach(e => {
+      if (e.shadowRoot.querySelector("input").validationMessage) {
+        this.validityError = "Revisa los errores del formulario";
+      } else {
+        this.validityError = "";
+      }
+    });
+  };
 }

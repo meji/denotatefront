@@ -37,59 +37,6 @@ export class UpdateSite extends LitElement {
         .setAttribute("checked", "checked");
     }
   }
-  handleUpdatePictureChange = e => {
-    const target = e.target;
-    setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
-
-  handleSwitchChange = e => {
-    this.values = {
-      ...this.values,
-      theme: e.target.shadowRoot.host.el().checked ? "dark" : "light"
-    };
-    const changeTheme = new CustomEvent("change-theme", {
-      detail: { theme: this.values.theme },
-      bubbles: true,
-      composed: true
-    });
-    this.dispatchEvent(changeTheme);
-  };
-
-  handleColorChange = e => {
-    this.values["color"] = e.target.value;
-  };
-  uploadImage = async () => {
-    if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.logo = response);
-        });
-    }
-    return;
-  };
-  handleEraseImage = () => {
-    this.values.logo = "";
-    this.siteService.updateSite(this.values).then(() => {
-      this.requestUpdate();
-    });
-  };
-  handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const target = e.target;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      this.siteService.updateSite(this.values).then(() => {
-        this.requestUpdate();
-      });
-    });
-  };
 
   public static styles = [general];
   render() {
@@ -166,4 +113,57 @@ export class UpdateSite extends LitElement {
       </form-container-c>
     `;
   }
+  handleUpdatePictureChange = e => {
+    const target = e.target;
+    setTimeout(() => {
+      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
+      this.imgName = target.shadowRoot.host.fileName[0];
+    }, 100);
+  };
+
+  handleSwitchChange = e => {
+    this.values = {
+      ...this.values,
+      theme: e.target.shadowRoot.host.el().checked ? "dark" : "light"
+    };
+    const changeTheme = new CustomEvent("change-theme", {
+      detail: { theme: this.values.theme },
+      bubbles: true,
+      composed: true
+    });
+    this.dispatchEvent(changeTheme);
+  };
+
+  handleColorChange = e => {
+    this.values["color"] = e.target.value;
+  };
+  uploadImage = async () => {
+    if (this.imgData && this.imgName) {
+      await this.imageService
+        .uploadImage(this.imgData, this.imgName)
+        .then(response => {
+          this.imgData = "";
+          this.imgName = "";
+          return (this.values.logo = response);
+        });
+    }
+    return;
+  };
+  handleEraseImage = () => {
+    this.values.logo = "";
+    this.siteService.updateSite(this.values).then(() => {
+      this.requestUpdate();
+    });
+  };
+  handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const target = e.target;
+    await this.uploadImage().then(() => {
+      const formValues = serializeForm(target);
+      this.values = { ...this.values, ...formValues };
+      this.siteService.updateSite(this.values).then(() => {
+        this.requestUpdate();
+      });
+    });
+  };
 }

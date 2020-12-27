@@ -1,74 +1,12 @@
 import { LitElement, html, customElement, css, property } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
+import { this_styles } from "./styles";
 
 @customElement("input-c")
 export class Input extends LitElement {
-  static styles = css`
-    * {
-      box-sizing: border-box;
-      font-family: var(--body-text-font);
-    }
-    .form-group {
-      position: relative;
-      margin: 0 0 var(--l);
-    }
-    input.outline {
-      border: 1px solid --var(main-color);
-      border-radius: 5px;
-    }
-    label {
-      position: absolute;
-      font-size: 1rem;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      color: transparent;
-      padding: 0 0.3rem;
-      margin: 0 0.5rem;
-      transition: 0.1s ease-out;
-      transform-origin: left top;
-      pointer-events: none;
-    }
-    input {
-      font-size: 1rem;
-      outline: none;
-      border: none;
-      border-radius: 0;
-      padding: 1rem 0.6rem;
-      color: var(--text-form-color);
-      transition: 0.1s ease-out;
-      border: var(--border-form);
-      background: var(--form-background-color);
-      cursor: text;
-      margin-left: auto;
-      width: 100%;
-      margin-right: auto;
-    }
-    input:focus {
-      border-color: var(--main-color);
-    }
-    input:focus + label {
-      color: var(--main-color);
-      top: 0;
-      transform: translateY(-50%) scale(0.9);
-      background: var(--form-background-color);
-      padding: 0 2px;
-      border-radius: var(--rl);
-    }
-    input:not(:placeholder-shown) + label {
-      top: 0;
-      transform: translateY(-50%) scale(0.9);
-    }
-    input:focus:not(.outline) ~ label,
-    input:not(:placeholder-shown):not(.outline) ~ label {
-      padding-left: 0px;
-    }
-    input:disabled,
-    input:disabled ~ .label {
-      opacity: 0.5;
-    }
-  `;
+  static styles = [this_styles];
   @property({ type: String }) value = "";
+  @property({ type: String }) errMsg = "";
   @property({ type: String }) name = "";
   @property({ type: String }) placeholder = "";
   @property({ type: String }) label = "";
@@ -96,16 +34,23 @@ export class Input extends LitElement {
           @input="${(e: any) => this.handleChange(e)}"
           @keyup="${(e: any) => this.handleChange(e)}"
           @keypress="${(e: any) => this.handleKeyPress(e)}"
+          @blur="${(e: any) => {
+            this.checkValidity(e.target);
+          }}"
         />
         ${this.label
           ? html`
               <label>${this.label}</label>
             `
           : null}
+        ${this.errMsg
+          ? html`
+              <p class="err">${this.errMsg}</p>
+            `
+          : null}
       </div>
     `;
   }
-
   private handleKeyPress = (e: any) => {
     if (e.key == "Enter") {
       e.preventDefault();
@@ -156,4 +101,8 @@ export class Input extends LitElement {
   ) {
     return __Closest(base);
   }
+
+  checkValidity = (input: HTMLInputElement) => {
+    this.errMsg = input.validationMessage ? input.validationMessage : "";
+  };
 }
