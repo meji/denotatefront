@@ -3,8 +3,8 @@ import "../../../pages/special/container";
 import { serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
 
-@customElement("new-site")
-export class NewSite extends LitElement {
+@customElement("first-user-c")
+export class FirstUser extends LitElement {
   private userRepository = UserRepositoryFactory.build();
 
   async connectedCallback() {
