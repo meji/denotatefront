@@ -11,7 +11,7 @@ import { general } from "../../../../styles/general";
 import { TagRepositoryFactory } from "../infrastructure/tag-repository-factory";
 import { Tag } from "../domain/tag";
 
-@customElement("tag-c")
+@customElement("tag-home-c")
 export class CategoryList extends LitElement {
   private tagRepository = TagRepositoryFactory.build();
 
