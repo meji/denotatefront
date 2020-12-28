@@ -6,6 +6,7 @@ import {
   property,
   query
 } from "lit-element";
+import { this_styles } from "./styles";
 // import { md } from "./md";
 const SimpleMde = require("simplemde");
 @customElement("md-editor-bis-c")
@@ -16,6 +17,22 @@ export class MdEditor extends LitElement {
   @property({ type: String }) initialValue;
   // @property() rederedValue = md.render(this.value);
   simpleMde;
+  public static styles = [this_styles];
+  render() {
+    return html`
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+      />
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet"
+      />
+      <div @input="${e => this._hadleChange(e)}">
+        <textarea id="textarea_id"> </textarea>
+      </div>
+    `;
+  }
   async firstUpdated() {
     await new Promise(r => setTimeout(r, 0));
     const properties = {
@@ -32,19 +49,4 @@ export class MdEditor extends LitElement {
   _hadleChange = e => {
     this.value = this.simpleMde.value();
   };
-  render() {
-    return html`
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
-      />
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        rel="stylesheet"
-      />
-      <div @input="${e => this._hadleChange(e)}">
-        <textarea id="textarea_id"> </textarea>
-      </div>
-    `;
-  }
 }
