@@ -12,4 +12,7 @@ export const publicStyles = css`
     margin: var(--m) auto;
     display: block;
   }
+  :host {
+    --background-wrapper: var(--bakground-color);
+  }
 `;
