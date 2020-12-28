@@ -5,9 +5,9 @@ export const theme = css`
     --main-color: #ff016c;
     --body-font: "Cardo", Helvetica, Sans Serif;
     --title-font: "Josefin Sans", Helvetica, Sans Serif;
-    --base-font-size: 14px;
+    --base-font-size: 16px;
     --font-size-small: 0.8rem;
-    --font-size-big: 2rem;
+    --font-size-big: 20px;
     --line-height: 1.4;
 
     --base-p: 0.25rem;

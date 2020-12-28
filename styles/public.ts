@@ -4,8 +4,8 @@ export const publicStyles = css`
   h1 {
     margin-top: var(--l);
   }
-  #description * {
-    font-size: 20px;
+  #description {
+    font-size: var(--font-size-big);
   }
   #description img {
     max-width: 100%;
@@ -26,12 +26,29 @@ export const publicStyles = css`
     object-fit: cover;
     border-radius: var(--rl);
   }
-    .link {
-      cursor: pointer;
-      text-decoration: none;
+  .link {
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .description a {
+    color: var(--main-color);
+  }
+  .modules-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    margin: calc(var(--l) * 2) 0;
+  }
+  @media (max-width: 768px) {
+    .modules-container {
+      width: 100%;
+      grid-template-columns: 1fr;
+      grid-column-gap: 0;
     }
-    .description a {
-      color: var(--main-color);
-    }
+  }
+  .brief {
+    font-weight: 800;
+    margin: var(--m) 0;
+    font-size: var(--font-size-big);
   }
 `;

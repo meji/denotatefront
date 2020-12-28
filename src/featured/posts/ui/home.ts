@@ -34,7 +34,7 @@ export class PostHome extends LitElement {
             title="${this.post.title}"
           />
         </div>
-        <p>${this.post.brief}</p>
+        <div class="brief">${this.post.brief}</div>
         <div id="description"></div>
         <slot></slot>
       </body-container-c>

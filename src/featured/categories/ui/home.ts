@@ -15,7 +15,7 @@ export class CategoryHome extends LitElement {
   categoryRepository = CategoryRepositoryFactory.build();
   postRepository = PostRepositoryFactory.build();
   @property() category: Partial<Category>;
-  @property() posts = [emptyPost];
+  @property() posts = [];
   public static styles = [general, publicStyles];
 
   render() {
@@ -31,11 +31,17 @@ export class CategoryHome extends LitElement {
           />
         </div>
         <div class="description">${this.category.description}</div>
-        ${this.posts.map(post => {
-          return html`
-            <post-module-c .post="${post}"></post-module-c>
-          `;
-        })}
+        ${this.posts.length > 0
+          ? html`
+              <ul class="modules-container">
+                ${this.posts.map(post => {
+                  return html`
+                    <li><post-module-c .post="${post}"></post-module-c></li>
+                  `;
+                })}
+              </ul>
+            `
+          : ""}
         <slot></slot>
       </body-container-c>
     `;
