@@ -104,7 +104,7 @@ export class CategoryForm extends LitElement {
               <button-c
                 size="extrasmall"
                 @click="${() => {
-                  Router.go(`/${this.values.title}?id="${this.id}"`);
+                  Router.go(`/${this.values.title}?id=${this.id}`);
                 }}"
                 >Ver Categoría</button-c
               >
