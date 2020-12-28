@@ -9,7 +9,7 @@ import {
 // import { md } from "./md";
 const SimpleMde = require("simplemde");
 @customElement("md-editor-bis-c")
-export class MdEditorBis extends LitElement {
+export class MdEditor extends LitElement {
   @query("#container") previewcontainer;
   @query("#textarea_id") mdeditor;
   @property({ type: String }) value = "";

@@ -13,9 +13,9 @@ import "../../../utils/uploader";
 import "../../../utils/switch";
 import { general } from "../../../../styles/general";
 import { Site } from "../domain/site";
+import "color-picker-element";
 import { emptySite } from "../../shared/emptyObjects";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import "../../../core/components/markdownEditor/mdEditorBis";
 
 @customElement("update-site-c")
 export class UpdateSite extends LitElement {
