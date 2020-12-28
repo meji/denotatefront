@@ -15,4 +15,23 @@ export const publicStyles = css`
   :host {
     --background-wrapper: var(--bakground-color);
   }
+  .img-container.featured {
+    width: 100%;
+    height: 300px;
+    margin-bottom: var(--l);
+  }
+  .img-container.featured img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--rl);
+  }
+    .link {
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .description a {
+      color: var(--main-color);
+    }
+  }
 `;

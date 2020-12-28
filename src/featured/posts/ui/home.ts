@@ -27,6 +27,13 @@ export class PostHome extends LitElement {
     return html`
       <body-container-c>
         <h1>${this.post.title}</h1>
+        <div class="img-container featured">
+          <img
+            src="${process.env.API_URI + "/uploads/" + this.post.img}"
+            alt="${this.post.title}"
+            title="${this.post.title}"
+          />
+        </div>
         <p>${this.post.brief}</p>
         <div id="description"></div>
         <slot></slot>
