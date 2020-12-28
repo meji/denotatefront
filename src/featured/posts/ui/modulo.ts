@@ -22,7 +22,7 @@ export class PostHome extends LitElement {
     return html`
       <div class="module">
         <img
-          src="${process.env.API_URI + this.post.img}"
+          src="${process.env.API_URI + "/uploads/" + this.post.img}"
           alt="${this.post.title}"
           title="${this.post.title}"
         />
