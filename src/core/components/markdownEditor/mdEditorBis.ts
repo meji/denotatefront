@@ -18,11 +18,6 @@ export class MdEditorBis extends LitElement {
     await new Promise(r => setTimeout(r, 0));
     const properties = { element: this.mdeditor };
     const simpleMde = new SimpleMde(properties);
-    // @ts-ignore
-    this.shadowRoot.innerHTML = `<style type="text/css">${css.replace(
-      /\\/g,
-      "\\\\"
-    )}</style>${html}`;
   }
 
   _hadleChange = e => {
