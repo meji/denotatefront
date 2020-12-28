@@ -15,9 +15,9 @@ export const adminRoutes = {
   children: [
     {
       path: "/",
-      component: "admin-posts-c",
+      component: "admin-post-list-c",
       action: async () => {
-        import("../../pages/admin/posts");
+        import("../../featured/posts/ui/admin-list");
       }
     },
     {

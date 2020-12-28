@@ -4,9 +4,9 @@ export const adminCatsRoutes = {
     {
       path: "/",
       action: async () => {
-        await import("../../featured/categories/ui/list");
+        await import("../../featured/categories/ui/admin-list");
       },
-      component: "category-list-c"
+      component: "admin-category-list-c"
     },
     {
       path: "/new",

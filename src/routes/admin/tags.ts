@@ -4,9 +4,9 @@ export const adminTagsRoutes = {
     {
       path: "/",
       action: async () => {
-        await import("../../featured/tags/ui/list");
+        await import("../../featured/tags/ui/admin.list");
       },
-      component: "tag-list-c"
+      component: "admin-tag-list-c"
     },
     {
       path: "/new",

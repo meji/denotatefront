@@ -4,9 +4,9 @@ export const adminUsersRoutes = {
     {
       path: "/",
       action: async () => {
-        await import("../../featured/users/ui/list");
+        await import("../../featured/users/ui/admin-list");
       },
-      component: "users-list-c"
+      component: "admin-user-list-c"
     },
     {
       path: "/new",
