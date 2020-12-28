@@ -29,6 +29,7 @@ export class PostHttpRepository implements PostRepository {
   }
   async getById(id: ID): Promise<Post> {
     const response = await http.get<PostDto>(`/posts/${id}`);
+    console.log(response);
     return this.postDtoToPostMapper.map(response.data);
   }
   async create(post: Partial<Post>): Promise<Post> {

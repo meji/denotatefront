@@ -24,8 +24,59 @@ export const general = css`
   h4,
   h5,
   h6 {
-    font-family: var(--title-font);
+    font-family: var(--title-font) !important;
   }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5 {
+    margin: 3rem 0 1.38rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h1,
+  .h1 {
+    margin-top: 0;
+    font-size: 3.052rem;
+  }
+
+  h2,
+  .h2 {
+    font-size: 2.441rem;
+  }
+
+  h3,
+  .h3 {
+    font-size: 1.953rem;
+  }
+
+  h4,
+  .h4 {
+    font-size: 1.563rem;
+  }
+
+  h5,
+  .h5 {
+    font-size: 1.25rem;
+  }
+
+  small,
+  .text_small {
+    font-size: 0.8rem;
+  }
+
   form {
     width: 100%;
   }
@@ -36,21 +87,8 @@ export const general = css`
   ul li {
     list-style-type: none;
   }
-  .form-group {
-    margin-bottom: var(--l);
-  }
-  .btn-container,
-  ::slotted(.btn-container) {
-    overflow: hidden;
-  }
-  .image-preview-container {
-    width: 100%;
-    height: 300px;
-    margin-bottom: var(--l);
-  }
-  .image-preview-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .link {
+    cursor: pointer;
+    text-decoration: none;
   }
 `;

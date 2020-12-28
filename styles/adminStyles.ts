@@ -1,6 +1,6 @@
 import { css } from "lit-element";
 
-export const admin = css`
+export const adminStyles = css`
   .admin-heaad-container {
     display: flex;
     justify-content: space-between;
@@ -32,5 +32,8 @@ export const admin = css`
     height: auto;
     opacity: 1;
     padding: var(--m) 0;
+  }
+  .form-group {
+    margin-bottom: var(--l);
   }
 `;

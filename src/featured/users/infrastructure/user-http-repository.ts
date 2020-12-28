@@ -5,8 +5,6 @@ import { User } from "../domain/user";
 import { UserDto } from "./user-dto";
 import { http } from "../../shared/http/http";
 import { ID } from "../../shared/id/id";
-import { AuthorizationService } from "../../shared/auth/authorization-service";
-type token = string;
 
 export class UserHttpRepository implements UserRepository {
   constructor(
@@ -15,7 +13,7 @@ export class UserHttpRepository implements UserRepository {
   ) {}
 
   async findAllUsers(): Promise<User[]> {
-    const response = await http.get<UserDto[]>(`/users/`);
+    const response = await http.get<UserDto[]>(`/users/all`);
     return response.data.map(userDto => this.userDtoToUserMapper.map(userDto));
   }
 

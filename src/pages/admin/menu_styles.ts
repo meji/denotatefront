@@ -2,7 +2,7 @@ import { css } from "lit-element";
 
 export const this_styles = css`
   #menu-container {
-    height: 100vh;
+    min-height: 100vh;
     background: var(--background-color);
     width: 200px;
     padding: var(--l) var(--s);

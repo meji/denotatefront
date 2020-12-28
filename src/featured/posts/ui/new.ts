@@ -9,6 +9,7 @@ import { ImageHttpService } from "../../images/infrastructure/image-http-service
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 import "../../../core/components/markdownEditor/mdEditorBis";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 const postRepository = PostRepositoryFactory.build();
 
@@ -70,7 +71,7 @@ export class PostNew extends LitElement {
     this.values.img = "";
   };
 
-  public static styles = [general];
+  public static styles = [general, adminStyles];
   render() {
     return html`
       <h1>Nuevo Post</h1>

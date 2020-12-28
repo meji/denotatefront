@@ -39,9 +39,18 @@ export class Button extends LitElement {
     button.right {
       float: right;
     }
+    button.transparent {
+      border: none;
+      background: transparent !important;
+      opacity: 0.7;
+    }
+    button.transparent:hover {
+      opacity: 1;
+    }
   `;
   @property({ type: Boolean }) submit = false;
   @property({ type: String }) size = "";
+  @property({ type: String }) class = "";
   @property({ type: String }) type = "";
   @property({ type: String }) align = "";
 
@@ -64,7 +73,7 @@ export class Button extends LitElement {
   render() {
     return html`
       <button
-        class="${this.size} ${this.type} ${this.align}"
+        class="${this.size} ${this.type} ${this.align} ${this.class}"
         type="${this.submit ? "submit" : "button"}"
         @click="${(e: any) => this.handleClick(e)}"
       >

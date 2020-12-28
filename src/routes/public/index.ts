@@ -6,7 +6,7 @@ import { usersRoutes } from "./users";
 export const publicRoute = {
   path: "/",
   action: async () => {
-    await import("../../pages/public/container");
+    await import("../../core/components/containers/public-container");
   },
   component: "container-c",
   children: [
