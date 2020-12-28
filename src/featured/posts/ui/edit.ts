@@ -8,6 +8,7 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
+import "../../../core/components/markdownEditor/mdEditorBis";
 
 @customElement("post-form-c")
 export class PostForm extends LitElement {
@@ -23,71 +24,6 @@ export class PostForm extends LitElement {
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
   @query("#switcher") switcher;
-
-  async connectedCallback() {
-    super.connectedCallback();
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    if (id) {
-      this.id = id;
-      this.values = { ...(await this.postRepository.getById(id)) };
-      this.initialValues = { ...this.values };
-    }
-    if (this.values.featured) {
-      this.switcher.shadowRoot
-        .querySelector("input")
-        .setAttribute("checked", "checked");
-    }
-  }
-  handleSwitchChange = e => {
-    this.values = {
-      ...this.values,
-      featured: e.target.shadowRoot.host.el().checked
-    };
-  };
-
-  handleUpdatePictureChange = e => {
-    const target = e.target;
-    setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
-  uploadImage = async () => {
-    if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.img = response);
-        });
-    }
-    return;
-  };
-
-  handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
-        this.values.featured != this.initialValues.featured
-      ) {
-        this.postRepository.update(this.id, this.values).then(() => {
-          this.requestUpdate();
-        });
-      }
-    });
-  };
-
-  handleEraseImage = () => {
-    this.values.img = "";
-    this.postRepository.update(this.id, this.values).then(() => {
-      this.requestUpdate();
-    });
-  };
 
   public static styles = [general];
   render() {
@@ -163,14 +99,12 @@ export class PostForm extends LitElement {
             name="brief"
             value="${this.values.brief}"
           ></input-c>
-          <input-c
-            id="description"
-            type="text"
-            label="Descripción corta"
-            placeholder="Descripción corta"
-            name="description"
-            value="${this.values.description}"
-          ></input-c>
+          <md-editor-bis-c
+            initialValue="${this.values.description}"
+            @input=${e => {
+              this.values.description = e.target.value;
+            }}
+          ></md-editor-bis-c>
           <p>
             <switch-c
               id="switcher"
@@ -187,4 +121,68 @@ export class PostForm extends LitElement {
       </form-container-c>
     `;
   }
+  async connectedCallback() {
+    super.connectedCallback();
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    if (id) {
+      this.id = id;
+      this.values = { ...(await this.postRepository.getById(id)) };
+      this.initialValues = { ...this.values };
+    }
+    if (this.values.featured) {
+      this.switcher.shadowRoot
+        .querySelector("input")
+        .setAttribute("checked", "checked");
+    }
+  }
+  handleSwitchChange = e => {
+    this.values = {
+      ...this.values,
+      featured: e.target.shadowRoot.host.el().checked
+    };
+  };
+
+  handleUpdatePictureChange = e => {
+    const target = e.target;
+    setTimeout(() => {
+      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
+      this.imgName = target.shadowRoot.host.fileName[0];
+    }, 100);
+  };
+  uploadImage = async () => {
+    if (this.imgData && this.imgName) {
+      await this.imageService
+        .uploadImage(this.imgData, this.imgName)
+        .then(response => {
+          this.imgData = "";
+          this.imgName = "";
+          return (this.values.img = response);
+        });
+    }
+    return;
+  };
+
+  handleSubmit = async (e: any) => {
+    const target = e;
+    await this.uploadImage().then(() => {
+      const formValues = serializeForm(target);
+      this.values = { ...this.values, ...formValues };
+      if (
+        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
+        this.values.featured != this.initialValues.featured
+      ) {
+        this.postRepository.update(this.id, this.values).then(() => {
+          this.requestUpdate();
+        });
+      }
+    });
+  };
+
+  handleEraseImage = () => {
+    this.values.img = "";
+    this.postRepository.update(this.id, this.values).then(() => {
+      this.requestUpdate();
+    });
+  };
 }

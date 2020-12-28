@@ -8,7 +8,6 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
-// import "../../../core/components/markdownEditor/mdEditor";
 import "../../../core/components/markdownEditor/mdEditorBis";
 
 const postRepository = PostRepositoryFactory.build();
@@ -120,21 +119,16 @@ export class PostNew extends LitElement {
           <input-c
             id="brief"
             type="text"
-            label="Breve descripción"
-            placeholder="Breve Descripción"
+            label="Entradilla"
+            placeholder="Entradilla"
             name="brief"
             value="${this.values.brief}"
           ></input-c>
-          <input-c
-            id="description"
-            type="text"
-            label="Descripción corta"
-            placeholder="Descripción corta"
-            name="description"
-            value="${this.values.description}"
-          ></input-c>
-          <!--          <md-editor-c></md-editor-c>-->
-          <md-editor-bis-c></md-editor-bis-c>
+          <md-editor-bis-c
+            @input=${e => {
+              this.values.description = e.target.value;
+            }}
+          ></md-editor-bis-c>
           <p>
             <switch-c
               id="switcher"
