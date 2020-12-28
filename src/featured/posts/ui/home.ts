@@ -1,21 +1,34 @@
-import { LitElement, html, customElement, property } from "lit-element";
+import {
+  LitElement,
+  html,
+  customElement,
+  property,
+  query,
+  PropertyValues
+} from "lit-element";
 import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
 import { getId } from "../../../utils/utils";
 import { Post } from "../domain/post";
 import { ID } from "../../shared/id/id";
 import { emptyPost } from "../../shared/emptyObjects";
+import { md } from "../../../core/components/markdownEditor/md";
+import { publicStyles } from "../../../../styles/public";
+import { general } from "../../../../styles/general";
 
 @customElement("post-home-c")
 export class PostHome extends LitElement {
   postRepository = PostRepositoryFactory.build();
   @property() post: Partial<Post> = emptyPost;
+  @property() description;
+  @query("#description") descriptionc;
+  public static styles = [general, publicStyles];
 
   render() {
     return html`
       <body-container-c>
         <h1>${this.post.title}</h1>
         <p>${this.post.brief}</p>
-        <div>${this.post.description}</div>
+        <div id="description"></div>
         <slot></slot>
       </body-container-c>
     `;
@@ -23,14 +36,15 @@ export class PostHome extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     const id = getId();
-    console.log("id", id);
-    console.log(id);
     if (id) {
-      await this.postRepository.getById(id).then(response => {
-        console.log(response);
-        this.post = response;
-        console.log(this.post);
-      });
+      await this.postRepository
+        .getById(id)
+        .then(response => {
+          this.post = response;
+        })
+        .then(() => {
+          this.descriptionc.innerHTML = md.render(this.post.description);
+        });
     }
   }
 }

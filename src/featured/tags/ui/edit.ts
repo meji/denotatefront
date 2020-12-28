@@ -8,6 +8,7 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyTag } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 @customElement("tag-form-c")
 export class TagForm extends LitElement {
@@ -89,7 +90,7 @@ export class TagForm extends LitElement {
     });
   };
 
-  public static styles = [general];
+  public static styles = [general, adminStyles];
   render() {
     return html`
       <h1>

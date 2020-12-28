@@ -8,6 +8,7 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyCategory } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 const categoryRepository = CategoryRepositoryFactory.build();
 
@@ -70,7 +71,7 @@ export class CategoryNew extends LitElement {
     this.values.img = "";
   };
 
-  public static styles = [general];
+  public static styles = [general, adminStyles];
   render() {
     return html`
       <h1>Nueva Categoría</h1>

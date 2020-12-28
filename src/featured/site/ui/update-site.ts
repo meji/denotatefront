@@ -16,6 +16,7 @@ import { Site } from "../domain/site";
 import "color-picker-element";
 import { emptySite } from "../../shared/emptyObjects";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 @customElement("update-site-c")
 export class UpdateSite extends LitElement {
@@ -39,7 +40,7 @@ export class UpdateSite extends LitElement {
     }
   }
 
-  public static styles = [general];
+  public static styles = [general, adminStyles];
   render() {
     return html`
       <h1>Actualizar datos del site</h1>

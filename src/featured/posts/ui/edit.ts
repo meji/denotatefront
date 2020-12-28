@@ -9,6 +9,7 @@ import { ImageHttpService } from "../../images/infrastructure/image-http-service
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 import "../../../core/components/markdownEditor/mdEditorBis";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 @customElement("post-form-c")
 export class PostForm extends LitElement {
@@ -25,7 +26,7 @@ export class PostForm extends LitElement {
   @property({ type: Number }) counterUpdated = 0;
   @query("#switcher") switcher;
 
-  public static styles = [general];
+  public static styles = [general, adminStyles];
   render() {
     return html`
       <h1>
