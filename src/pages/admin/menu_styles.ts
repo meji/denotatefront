@@ -8,6 +8,7 @@ export const this_styles = css`
     padding: var(--l) var(--s);
     border-right: var(--border-form);
     position: fixed;
+    font-family: var(--title-font);
   }
   #menu-container ul {
     margin: 0;
@@ -21,9 +22,10 @@ export const this_styles = css`
     margin: 0 0 2px;
   }
   ul li a {
-    color: var(--text-lighter-color);
+    color: var(--text-form-color);
     padding: var(--m);
     display: block;
+    font-family: var(--title-font);
   }
   ul li a:hover {
     background: var(--background-total-color);

@@ -20,16 +20,20 @@ export class CategoryHome extends LitElement {
 
   render() {
     return html`
-      <body-container-c>
+      <div>
         <h1>${this.category.title}</h1>
         <p>${this.category.brief}</p>
-        <div class="img-container featured">
-          <img
-            src="${process.env.API_URI + "/uploads/" + this.category.img}"
-            alt="${this.category.title}"
-            title="${this.category.title}"
-          />
-        </div>
+        ${this.category.img
+          ? html`
+              <div class="img-container featured">
+                <img
+                  src="${process.env.API_URI + "/uploads/" + this.category.img}"
+                  alt="${this.category.title}"
+                  title="${this.category.title}"
+                />
+              </div>
+            `
+          : null}
         <div class="description">${this.category.description}</div>
         ${this.posts.length > 0
           ? html`
@@ -43,7 +47,7 @@ export class CategoryHome extends LitElement {
             `
           : ""}
         <slot></slot>
-      </body-container-c>
+      </div>
     `;
   }
 
@@ -52,12 +56,13 @@ export class CategoryHome extends LitElement {
     await new Promise(r => setTimeout(r, 0));
     await this.categoryRepository.getById(getId()).then(response => {
       this.category = response;
-      response.posts.map(async post => {
-        this.postRepository.getById(post).then(response => {
-          this.posts = [...this.posts, response];
-          console.log(this.posts);
+      if (response.posts.length > 0) {
+        response.posts.map(async post => {
+          this.postRepository.getById(post).then(response => {
+            this.posts = [...this.posts, response];
+          });
         });
-      });
+      }
     });
   }
 }

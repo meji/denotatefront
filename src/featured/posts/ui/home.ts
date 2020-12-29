@@ -25,19 +25,23 @@ export class PostHome extends LitElement {
 
   render() {
     return html`
-      <body-container-c>
+      <div>
         <h1>${this.post.title}</h1>
-        <div class="img-container featured">
-          <img
-            src="${process.env.API_URI + "/uploads/" + this.post.img}"
-            alt="${this.post.title}"
-            title="${this.post.title}"
-          />
-        </div>
-        <div class="brief">${this.post.brief}</div>
+        ${this.post.img
+          ? html`
+              <div class="img-container featured">
+                <img
+                  src="${process.env.API_URI + "/uploads/" + this.post.img}"
+                  alt="${this.post.title}"
+                  title="${this.post.title}"
+                />
+              </div>
+              <div class="brief">${this.post.brief}</div>
+            `
+          : null}
         <div id="description"></div>
         <slot></slot>
-      </body-container-c>
+      </div>
     `;
   }
   async connectedCallback() {

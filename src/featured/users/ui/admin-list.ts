@@ -100,7 +100,6 @@ export class AdminUserList extends LitElement {
     super.connectedCallback();
     this.values = [emptyUser];
     await this.userRepository.findAllUsers().then(response => {
-      console.log(response);
       this.values = response;
     });
   }

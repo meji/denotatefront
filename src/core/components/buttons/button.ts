@@ -12,7 +12,7 @@ import {
 export class Button extends LitElement {
   public static styles = css`
     button {
-      font-family: var(--body-text-font);
+      font-family: var(--title-font);
       padding: calc(var(--m)) calc(var(--l) * 2);
       font-size: var(--base-font-size);
       border: 1px solid var(--main-color);

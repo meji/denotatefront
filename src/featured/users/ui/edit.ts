@@ -40,10 +40,7 @@ export class EditUser extends LitElement {
   handleSubmitPassword = async (e: any) => {
     e.preventDefault();
     const values = serializeForm(e.target);
-    console.log({ ...this.password, ...values });
-    await this.userService
-      .changePassword({ ...this.password, ...values })
-      .then(response => console.log(response));
+    await this.userService.changePassword({ ...this.password, ...values });
   };
   public static style = [general];
 

@@ -19,6 +19,7 @@ export const this_styles = css`
   nav ul li {
     position: relative;
     display: inline-block;
+    margin: 0 0 0 var(--xl);
   }
 
   nav ul li span {

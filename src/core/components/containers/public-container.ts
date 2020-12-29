@@ -3,6 +3,7 @@ import "../../../pages/public/header";
 import "./body-container";
 import { UserRepositoryFactory } from "../../../featured/users/infrastructure/user-repository-factory";
 import { Router } from "@vaadin/router";
+import "../containers/body-container";
 
 @customElement("container-c")
 export class PublicContainer extends LitElement {
@@ -23,13 +24,15 @@ export class PublicContainer extends LitElement {
               <button-c
                 id="admin-btn"
                 @click="${() => Router.go("/admin")}"
-                size="extrasmall"
+                size="small"
                 >Ir al admin</button-c
               >
             `
           : ""}
         <header-c></header-c>
-        <slot></slot>
+        <body-container-c>
+          <slot></slot>
+        </body-container-c>
       </main>
     `;
   }

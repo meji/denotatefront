@@ -25,7 +25,7 @@ export class Header extends LitElement {
           } alt='logo' @click='${() => Router.go("/")}'
           class='${
             !this.site.logo ? "default" : "custom"
-          } ${(this.site.theme = "light" ? "default" : "custom")} '
+          } ${(this.site.theme = "dark" ? "invert" : "")} '
           />
           <ul>
             ${this.categories.map(

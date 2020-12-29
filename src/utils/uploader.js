@@ -307,6 +307,7 @@ class uploaderLab extends HTMLElement {
     let shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `
       <style>
+      *{font-family: var(--title-font);}
         .closer{
           position:relative;
           background-color:black;
@@ -319,8 +320,8 @@ class uploaderLab extends HTMLElement {
           float: right;
           margin-left: -23px;
           display:none;
-          font-family:'Verdana',sans-serif !important;
-        }
+          font-family: var(--title-font);
+               }
         .btnSel{
           border: none;
           display: inline-block;

@@ -24,6 +24,7 @@ export const general = css`
   h5,
   h6 {
     font-family: var(--title-font) !important;
+    color: var(--text-title-color);
   }
 
   p {

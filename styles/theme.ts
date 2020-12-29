@@ -5,7 +5,7 @@ export const theme = css`
     --main-color: #ff016c;
     --body-font: "Cardo", Helvetica, Sans Serif;
     --title-font: "Josefin Sans", Helvetica, Sans Serif;
-    --base-font-size: 16px;
+    --base-font-size: 20px;
     --font-size-small: 0.8rem;
     --font-size-big: 20px;
     --line-height: 1.4;
@@ -43,7 +43,7 @@ export const theme = css`
     --text-body-color: #fff;
     --text-title-color: #fff;
     --text-form-color: #efefef;
-    --text-lighter-color: #666;
+    --text-lighter-color: #888;
     --label-color: var(--text-lighter-color);
     --label-focused-color: #ccc;
     --form-background-color: rgb(0, 0, 0);

@@ -4,11 +4,15 @@ export const this_styles = css`
   .module {
     width: 100%;
   }
+  .module .brief {
+    font-size: var(--font-size-small);
+    margin: 0;
+  }
   .module:hover {
     cursor: pointer;
   }
   p {
-    font-size: 80%;
+    font-size: var(--font-size-small);
   }
   .img-container {
     width: 100%;
