@@ -44,7 +44,6 @@ export class HomeComponent extends LitElement {
         this.posts = response.filter(post => {
           return post.featured == true;
         });
-        console.log(this.posts);
       }
     });
   }

@@ -1,6 +1,6 @@
 import { LitElement, html, customElement, property } from "lit-element";
 import "../../../core/pages/containers/container";
-import { getId, serializeForm } from "../../../utils/utils";
+import { countErrors, getId, serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
 import { general } from "../../../../styles/general";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
@@ -17,6 +17,7 @@ export class EditUser extends LitElement {
   @property() password = { oldPswd: "", newPswd: "" };
   @property({ type: String }) id = "";
   public static styles = [general, adminStyles];
+  @property({ type: String }) validityError = "";
 
   render() {
     return html`
@@ -33,6 +34,7 @@ export class EditUser extends LitElement {
             placeholder="Nombre"
             value="${this.user.firstName}"
             name="firstName"
+            required="true"
           ></input-c>
           <input-c
             id="secondName"
@@ -49,6 +51,7 @@ export class EditUser extends LitElement {
             placeholder="Login"
             name="login"
             value="${this.user.login}"
+            required="true"
           ></input-c>
           <input-c
             id="email"
@@ -57,7 +60,9 @@ export class EditUser extends LitElement {
             placeholder="Email"
             name="email"
             value="${this.user.email}"
+            required="true"
           ></input-c>
+          <p class="error">${this.validityError}</p>
           <p class="btn-container" style="overflow: hidden">
             <button-c type="submit" align="right">Actualizar</button-c>
           </p>
@@ -99,12 +104,18 @@ export class EditUser extends LitElement {
 
   handleSubmitChange = async (e: any) => {
     e.preventDefault();
-    const values = serializeForm(e.target);
-    await this.userRepository
-      .update(this.id, { ...this.user, ...values })
-      .then(() => {
-        this.requestUpdate();
-      });
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
+    if (this.validityError === "") {
+      const values = serializeForm(e.target);
+      await this.userRepository
+        .update(this.id, { ...this.user, ...values })
+        .then(() => {
+          this.requestUpdate();
+        });
+    }
   };
 
   handleSubmitPassword = async (e: any) => {

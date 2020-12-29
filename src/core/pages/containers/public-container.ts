@@ -1,6 +1,8 @@
 import { LitElement, html, customElement, property, css } from "lit-element";
 import { UserRepositoryFactory } from "../../../featured/users/infrastructure/user-repository-factory";
-import { Router } from "@vaadin/router";
+import { Commands, Context, Router } from "@vaadin/router";
+import { authGuard } from "../../../featured/shared/auth/auth-guard";
+import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
 
 @customElement("container-c")
 export class PublicContainer extends LitElement {
@@ -35,8 +37,10 @@ export class PublicContainer extends LitElement {
   }
   async connectedCallback() {
     super.connectedCallback();
+    const autorizationSerivce = new AuthorizationService();
+    const aut = autorizationSerivce.getToken() != null;
     await this.userRepository
       .findAdmin()
-      .then(response => (this.isadmin = response));
+      .then(response => (this.isadmin = response && aut));
   }
 }
