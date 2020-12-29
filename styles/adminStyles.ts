@@ -8,9 +8,14 @@ export const adminStyles = css`
   .admin-heaad-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+  h1 {
+    max-width: 100%;
   }
   ul.admin-list {
-    max-width: 800px;
+    max-width: 1024px;
   }
   ul.admin-list li .row {
     display: flex;
@@ -60,5 +65,21 @@ export const adminStyles = css`
   .link {
     cursor: pointer;
     text-decoration: none;
+  }
+  @media screen and (max-width: 1024px) {
+    ul.admin-list li .row {
+      border-bottom: var(--border-form);
+    }
+    ul.admin-list li .btn-container {
+      opacity: 1;
+    }
+    ul.admin-list li .row {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    h1 {
+      font-size: 2.1rem;
+      line-height: 1.2;
+    }
   }
 `;

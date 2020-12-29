@@ -1,4 +1,4 @@
-import { LitElement, html, customElement, property } from "lit-element";
+import { LitElement, html, customElement, property, query } from "lit-element";
 import { CategoryRepositoryFactory } from "../../../featured/categories/infrastructure/category-repository-factory";
 import { Category } from "../../../featured/categories/domain/category";
 import { Router } from "@vaadin/router";
@@ -15,23 +15,24 @@ export class Header extends LitElement {
   public static styles = [general, this_styles];
   @property() categories: Partial<Category>[] = [emptyCategory];
   @property() site;
+  @query("#header") headerElement;
 
   render() {
     return this.site
       ? html`
           <header id="header">
+            <img
+              src=${this.site.logo
+                ? process.env.API_URI + "/uploads/" + this.site.logo
+                : "/logo.svg"}
+              alt="logo"
+              @click="${() => Router.go("/")}"
+              class="${!this.site.logo ? "default" : "custom"} ${!this.site
+                .logo && (this.site.theme = "dark")
+                ? "invert"
+                : ""} "
+            />
             <nav>
-              <img
-                src=${this.site.logo
-                  ? process.env.API_URI + "/uploads/" + this.site.logo
-                  : "/logo.svg"}
-                alt="logo"
-                @click="${() => Router.go("/")}"
-                class="${!this.site.logo ? "default" : "custom"} ${!this.site
-                  .logo && (this.site.theme = "dark")
-                  ? "invert"
-                  : ""} "
-              />
               <ul>
                 ${this.categories.map(
                   category =>
@@ -51,7 +52,7 @@ export class Header extends LitElement {
                 )}
               </ul>
             </nav>
-            <slot></slot>
+            <span id="menu-icon"><div></div></span>
           </header>
         `
       : null;
@@ -66,5 +67,20 @@ export class Header extends LitElement {
     await this.siteService.getSite().then(response => {
       response ? (this.site = response) : null;
     });
+    this.headerElement
+      .querySelector("#menu-icon")
+      .addEventListener("click", e => {
+        this.shadowRoot.querySelector("header").classList.toggle("open");
+      });
+    let prevHash = window.location.href;
+    const ethis = this;
+    if (window.outerWidth < 1024) {
+      window.setInterval(function(e) {
+        if (window.location.href != prevHash) {
+          prevHash = window.location.href;
+          ethis.shadowRoot.querySelector("header").classList.remove("open");
+        }
+      }, 100);
+    }
   }
 }

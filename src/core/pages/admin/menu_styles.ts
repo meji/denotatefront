@@ -41,4 +41,16 @@ export const this_styles = css`
     margin: var(--m) auto var(--xl);
     display: block;
   }
+  @media screen and (max-width: 1024px) {
+    #menu-container {
+      position: relative;
+      width: 100%;
+    }
+    #menu-container img {
+      margin: 0 0 var(--l) var(--m);
+    }
+    #menu-container ul li span {
+      font-size: var(--font-size-big);
+    }
+  }
 `;

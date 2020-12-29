@@ -44,11 +44,19 @@ export const publicStyles = css`
       width: 100%;
       grid-template-columns: 1fr;
       grid-column-gap: 0;
+      margin: 0;
     }
   }
   .brief {
     font-weight: 800;
     margin: var(--m) 0;
     font-size: var(--font-size-big);
+  }
+
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 2.1rem;
+      line-height: 1.2;
+    }
   }
 `;
