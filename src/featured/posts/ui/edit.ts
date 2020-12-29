@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
+import { countErrors, serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Post } from "../domain/post";
 import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
@@ -25,6 +25,8 @@ export class PostForm extends LitElement {
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
   @property() catsDisp: Partial<Category>[] = [null];
+  @property({ type: String }) validityError = "";
+
   @query("#switcher") switcher;
 
   public static styles = [general, adminStyles];
@@ -52,8 +54,7 @@ export class PostForm extends LitElement {
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {
-            e.preventDefault();
-            this.handleSubmit(e.target);
+            this.handleSubmit(e);
           }}"
           id="post-form"
         >
@@ -92,6 +93,7 @@ export class PostForm extends LitElement {
             placeholder="Título de la post"
             name="title"
             value="${this.values.title}"
+            required="true"
           ></input-c>
           <input-c
             id="brief"
@@ -100,6 +102,7 @@ export class PostForm extends LitElement {
             placeholder="Breve Descripción"
             name="brief"
             value="${this.values.brief}"
+            required="true"
           ></input-c>
           <md-editor-bis-c
             initialValue="${this.values.description}"
@@ -117,23 +120,25 @@ export class PostForm extends LitElement {
               @input="${e => this.handleSwitchChange(e)}"
             ></switch-c>
           </p>
+          <div class="form-group categories">
+            ${this.catsDisp.map(cat => {
+              return html`
+                <option-c
+                  type="checkbox"
+                  .checked=${!!(
+                    this.values.cats && this.values.cats.includes(cat.id)
+                  )}
+                  name="cats"
+                  label="${cat.title}"
+                  @input="${e => this.addCategories(e, cat.id)}"
+                ></option-c>
+              `;
+            })}
+          </div>
+
+          <p class="error">${this.validityError}</p>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
-        <div class="form-group categories">
-          ${this.catsDisp.map(cat => {
-            return html`
-              <option-c
-                type="checkbox"
-                .checked=${!!(
-                  this.values.cats && this.values.cats.includes(cat.id)
-                )}
-                name="cats"
-                label="${cat.title}"
-                @input="${e => this.addCategories(e, cat.id)}"
-              ></option-c>
-            `;
-          })}
-        </div>
       </form-container-c>
     `;
   }
@@ -181,19 +186,26 @@ export class PostForm extends LitElement {
   };
 
   handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
-        this.values.featured != this.initialValues.featured
-      ) {
-        this.postRepository.update(this.id, this.values).then(() => {
-          this.requestUpdate();
-        });
-      }
-    });
+    e.preventDefault();
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
+    if (this.validityError === "") {
+      const target = e.taget;
+      await this.uploadImage().then(() => {
+        const formValues = serializeForm(target);
+        this.values = { ...this.values, ...formValues };
+        if (
+          JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
+          this.values.featured != this.initialValues.featured
+        ) {
+          this.postRepository.update(this.id, this.values).then(() => {
+            this.requestUpdate();
+          });
+        }
+      });
+    }
   };
 
   handleEraseImage = () => {

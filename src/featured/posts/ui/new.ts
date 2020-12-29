@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
+import { countErrors, serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Post } from "../domain/post";
 import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
@@ -22,6 +22,8 @@ export class PostNew extends LitElement {
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
   @property() catsDisp: Partial<Category>[] = [null];
+  @property({ type: String }) validityError = "";
+
   @query("#switcher") switcher;
 
   public static styles = [general, adminStyles];
@@ -31,8 +33,7 @@ export class PostNew extends LitElement {
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {
-            e.preventDefault();
-            this.handleSubmit(e.target);
+            this.handleSubmit(e);
           }}"
           id="post-form"
         >
@@ -69,6 +70,7 @@ export class PostNew extends LitElement {
             placeholder="Título del post"
             name="title"
             value="${this.values.title}"
+            required="true"
           ></input-c>
           <input-c
             id="brief"
@@ -77,6 +79,7 @@ export class PostNew extends LitElement {
             placeholder="Entradilla"
             name="brief"
             value="${this.values.brief}"
+            required="true"
           ></input-c>
           <md-editor-bis-c
             @input=${e => {
@@ -93,23 +96,24 @@ export class PostNew extends LitElement {
               @input="${e => this.handleSwitchChange(e)}"
             ></switch-c>
           </p>
+          <div>
+            <div class="form-group categories">
+              ${this.catsDisp.map(cat => {
+                return html`
+                  <option-c
+                    type="checkbox"
+                    .checked=${false}
+                    name="cats"
+                    label="${cat.title}"
+                    @input="${e => this.addCategories(e, cat.id)}"
+                  ></option-c>
+                `;
+              })}
+            </div>
+          </div>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
-        <div>
-          <div class="form-group categories">
-            ${this.catsDisp.map(cat => {
-              return html`
-                <option-c
-                  type="checkbox"
-                  .checked=${false}
-                  name="cats"
-                  label="${cat.title}"
-                  @input="${e => this.addCategories(e, cat.id)}"
-                ></option-c>
-              `;
-            })}
-          </div>
-        </div>
+        <p class="error">${this.validityError}</p>
       </form-container-c>
     `;
   }
@@ -146,14 +150,21 @@ export class PostNew extends LitElement {
   };
 
   handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      postRepository.create(this.values).then(response => {
-        window.location.href = `/${response.title}?id=${response.id}`;
+    e.preventDefault();
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
+    if (this.validityError === "") {
+      const target = e.target;
+      await this.uploadImage().then(() => {
+        const formValues = serializeForm(target);
+        this.values = { ...this.values, ...formValues };
+        postRepository.create(this.values).then(response => {
+          window.location.href = `/${response.title}?id=${response.id}`;
+        });
       });
-    });
+    }
   };
 
   handleEraseImage = () => {
