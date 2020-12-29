@@ -16,7 +16,6 @@ import { Router } from "@vaadin/router";
 
 @customElement("post-module-c")
 export class PostHome extends LitElement {
-  postRepository = PostRepositoryFactory.build();
   @property() post: Partial<Post> = emptyPost;
   public static styles = [general, publicStyles, this_styles];
 

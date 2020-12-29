@@ -10,12 +10,16 @@ import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 import "../../../core/components/markdownEditor/mdEditorBis";
 import { adminStyles } from "../../../../styles/adminStyles";
+import { Category } from "../../categories/domain/category";
+import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
+import "../../../core/components/forms/inputs/option";
 
 const postRepository = PostRepositoryFactory.build();
 
 @customElement("post-new-c")
 export class PostNew extends LitElement {
   private imageService = new ImageHttpService();
+  private categoryRepositoy = CategoryRepositoryFactory.build();
   @property({ type: Object })
   values: Partial<Post> = emptyPost;
   @property({ type: Object })
@@ -25,51 +29,8 @@ export class PostNew extends LitElement {
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
+  @property() catsDisp: Partial<Category>[] = [null];
   @query("#switcher") switcher;
-  async connectedCallback() {
-    super.connectedCallback();
-  }
-  handleSwitchChange = e => {
-    this.values = {
-      ...this.values,
-      featured: e.target.shadowRoot.host.el().checked
-    };
-  };
-
-  handleUpdatePictureChange = e => {
-    const target = e.target;
-    setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
-  uploadImage = async () => {
-    if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.img = response);
-        });
-    }
-    return;
-  };
-
-  handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      postRepository.create(this.values).then(response => {
-        Router.go(`/admin/posts/edit?id=${response.id}`);
-      });
-    });
-  };
-
-  handleEraseImage = () => {
-    this.values.img = "";
-  };
 
   public static styles = [general, adminStyles];
   render() {
@@ -142,8 +103,65 @@ export class PostNew extends LitElement {
           </p>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
-        <slot></slot>
+        <div>
+          ${this.catsDisp.map(cat => {
+            return html`
+              <option-c
+                type="checkbox"
+                .checked=${true}
+                name="cats"
+                label="${cat.title}"
+              ></option-c>
+            `;
+          })}
+        </div>
       </form-container-c>
     `;
   }
+  async connectedCallback() {
+    super.connectedCallback();
+    this.catsDisp = await this.categoryRepositoy.findAll();
+    console.log(this.catsDisp);
+  }
+  handleSwitchChange = e => {
+    this.values = {
+      ...this.values,
+      featured: e.target.shadowRoot.host.el().checked
+    };
+  };
+
+  handleUpdatePictureChange = e => {
+    const target = e.target;
+    setTimeout(() => {
+      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
+      this.imgName = target.shadowRoot.host.fileName[0];
+    }, 100);
+  };
+  uploadImage = async () => {
+    if (this.imgData && this.imgName) {
+      await this.imageService
+        .uploadImage(this.imgData, this.imgName)
+        .then(response => {
+          this.imgData = "";
+          this.imgName = "";
+          return (this.values.img = response);
+        });
+    }
+    return;
+  };
+
+  handleSubmit = async (e: any) => {
+    const target = e;
+    await this.uploadImage().then(() => {
+      const formValues = serializeForm(target);
+      this.values = { ...this.values, ...formValues };
+      postRepository.create(this.values).then(response => {
+        Router.go(`/admin/posts/edit?id=${response.id}`);
+      });
+    });
+  };
+
+  handleEraseImage = () => {
+    this.values.img = "";
+  };
 }

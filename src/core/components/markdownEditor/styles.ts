@@ -1,8 +1,8 @@
 import { css } from "lit-element";
 
 export const this_styles = css`
-  .editor-toolbar a {
-    color: var(--body-font-color) !important;
+  .editor-toolbar {
+    background: #fff;
   }
   .editor-toolbar a.active,
   .editor-toolbar a:hover {
