@@ -14,7 +14,7 @@ export class Button extends LitElement {
     button {
       font-family: var(--body-text-font);
       padding: calc(var(--m)) calc(var(--l) * 2);
-      font-size: 100%;
+      font-size: var(--base-font-size);
       border: 1px solid var(--main-color);
       border-radius: var(--rm);
       background: var(--background-color);

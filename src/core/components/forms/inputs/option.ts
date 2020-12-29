@@ -26,7 +26,7 @@ export class Option extends LitElement {
             class="input-element"
             type="${this.type}"
             name="${this.name}"
-            @input="${(e: any) => this.handleChange(e)}"
+            ?checked=${this.checked}
           />
 
           ${this.label}</label
@@ -37,9 +37,5 @@ export class Option extends LitElement {
 
   protected firstUpdated(_changedProperties: PropertyValues) {
     super.firstUpdated(_changedProperties);
-    this.checked ? this.el.setAttribute("checked", "checked") : null;
   }
-  private handleChange = (e: any) => {
-    this.checked = e.target.checked;
-  };
 }

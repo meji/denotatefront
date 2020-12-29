@@ -104,16 +104,19 @@ export class PostNew extends LitElement {
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
         <div>
-          ${this.catsDisp.map(cat => {
-            return html`
-              <option-c
-                type="checkbox"
-                .checked=${true}
-                name="cats"
-                label="${cat.title}"
-              ></option-c>
-            `;
-          })}
+          <div class="form-group categories">
+            ${this.catsDisp.map(cat => {
+              return html`
+                <option-c
+                  type="checkbox"
+                  .checked=${false}
+                  name="cats"
+                  label="${cat.title}"
+                  @input="${e => this.addCategories(e, cat.id)}"
+                ></option-c>
+              `;
+            })}
+          </div>
         </div>
       </form-container-c>
     `;
@@ -121,7 +124,6 @@ export class PostNew extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     this.catsDisp = await this.categoryRepositoy.findAll();
-    console.log(this.catsDisp);
   }
   handleSwitchChange = e => {
     this.values = {
@@ -163,5 +165,19 @@ export class PostNew extends LitElement {
 
   handleEraseImage = () => {
     this.values.img = "";
+  };
+
+  addCategories = (e, id) => {
+    if (e.target.shadowRoot.querySelector("input").checked) {
+      this.values.cats && !this.values.cats.includes(id)
+        ? (this.values.cats = [...this.values.cats, id])
+        : (this.values.cats = [id]);
+    } else {
+      this.values.cats && this.values.cats.includes(id)
+        ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
+        : null;
+    }
+
+    console.log(this.values.cats);
   };
 }
