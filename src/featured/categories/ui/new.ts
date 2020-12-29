@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
+import { countErrors, serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
 import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
@@ -24,62 +24,17 @@ export class CategoryNew extends LitElement {
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
+  @property({ type: String }) validityError = "";
   @query("#switcher") switcher;
-
-  async connectedCallback() {
-    super.connectedCallback();
-  }
-  handleSwitchChange = e => {
-    this.values = {
-      ...this.values,
-      featured: e.target.shadowRoot.host.el().checked
-    };
-  };
-
-  handleUpdatePictureChange = e => {
-    const target = e.target;
-    setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
-  uploadImage = async () => {
-    if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.img = response);
-        });
-    }
-    return;
-  };
-
-  handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      categoryRepository.create(this.values).then(response => {
-        Router.go(`/admin/categories/edit?id=${response.id}`);
-      });
-    });
-  };
-
-  handleEraseImage = () => {
-    this.values.img = "";
-  };
-
   public static styles = [general, adminStyles];
+
   render() {
     return html`
       <h1>Nueva Categoría</h1>
       <form-container-c class="transparent" size="large">
         <form
           @submit="${(e: any) => {
-            e.preventDefault();
-            this.handleSubmit(e.target);
+            this.handleSubmit(e);
           }}"
           id="category-form"
         >
@@ -118,20 +73,22 @@ export class CategoryNew extends LitElement {
             placeholder="Título de la categoría"
             name="title"
             value="${this.values.title}"
+            required="true"
           ></input-c>
           <input-c
             id="brief"
             type="text"
-            label="Breve descripción"
-            placeholder="Breve Descripción"
+            label="Resumen"
+            placeholder="Resumen"
             name="brief"
             value="${this.values.brief}"
+            required="true"
           ></input-c>
           <input-c
             id="description"
             type="text"
-            label="Descripción corta"
-            placeholder="Descripción corta"
+            label="Descripción"
+            placeholder="Descripción"
             name="description"
             value="${this.values.description}"
           ></input-c>
@@ -147,8 +104,60 @@ export class CategoryNew extends LitElement {
           </p>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
-        <slot></slot>
+        <p class="error">${this.validityError}</p>
       </form-container-c>
     `;
   }
+
+  async connectedCallback() {
+    super.connectedCallback();
+  }
+  handleSwitchChange = e => {
+    this.values = {
+      ...this.values,
+      featured: e.target.shadowRoot.host.el().checked
+    };
+  };
+
+  handleUpdatePictureChange = e => {
+    const target = e.target;
+    setTimeout(() => {
+      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
+      this.imgName = target.shadowRoot.host.fileName[0];
+    }, 100);
+  };
+  uploadImage = async () => {
+    if (this.imgData && this.imgName) {
+      await this.imageService
+        .uploadImage(this.imgData, this.imgName)
+        .then(response => {
+          this.imgData = "";
+          this.imgName = "";
+          return (this.values.img = response);
+        });
+    }
+    return;
+  };
+
+  handleSubmit = async (e: any) => {
+    e.preventDefault();
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
+    if (this.validityError === "") {
+      const target = e.target;
+      await this.uploadImage().then(() => {
+        const formValues = serializeForm(target);
+        this.values = { ...this.values, ...formValues };
+        categoryRepository.create(this.values).then(response => {
+          Router.go(`/admin/categories/edit?id=${response.id}`);
+        });
+      });
+    }
+  };
+
+  handleEraseImage = () => {
+    this.values.img = "";
+  };
 }

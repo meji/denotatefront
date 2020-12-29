@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
+import { countErrors, serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
 import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
@@ -23,7 +23,108 @@ export class CategoryForm extends LitElement {
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
+  @property({ type: String }) validityError = "";
   @query("#switcher") switcher;
+  public static styles = [general, adminStyles];
+
+  render() {
+    return html`
+      <h1>
+        Categoría: ${this.values.title}
+        ${this.id
+          ? html`
+              <style>
+                button-c {
+                  float: right;
+                }
+              </style>
+              <button-c
+                size="extrasmall"
+                @click="${() => {
+                  Router.go(`/categorias/${this.values.title}?id=${this.id}`);
+                }}"
+                >Ver Categoría</button-c
+              >
+            `
+          : null}
+      </h1>
+      <form-container-c class="transparent" size="large">
+        <form
+          @submit="${(e: any) => {
+            this.handleSubmit(e);
+          }}"
+          id="category-form"
+        >
+          <div class="form-group">
+            ${!!this.values.img
+              ? html`
+                  <p>Imagen destacada:</p>
+                  <div class="image-preview-container">
+                    <img
+                      src="${process.env.API_URI}/uploads/${this.values.img}"
+                    />
+                  </div>
+                  <div class="btn-container">
+                    <button-c
+                      @click="${() => {
+                        this.handleEraseImage();
+                      }}"
+                      >Borrar imagen</button-c
+                    >
+                  </div>
+                `
+              : html`
+                  <p>
+                    Sube la imagen principal de la categoria
+                    <small>(recomendado 1920pxx800px)</small>
+                  </p>
+                  <uploader-lab
+                    @input="${e => this.handleUpdatePictureChange(e)}"
+                  ></uploader-lab>
+                `}
+          </div>
+          <input-c
+            id="title"
+            type="text"
+            label="Título"
+            placeholder="Título de la categoría"
+            name="title"
+            value="${this.values.title}"
+            required="true"
+          ></input-c>
+          <input-c
+            id="brief"
+            type="text"
+            label="Resumen"
+            placeholder="Resumen"
+            name="brief"
+            value="${this.values.brief}"
+            required="true"
+          ></input-c>
+          <input-c
+            id="description"
+            type="text"
+            label="Descripción"
+            placeholder="Descripción"
+            name="description"
+            value="${this.values.description}"
+          ></input-c>
+          <p>
+            <switch-c
+              id="switcher"
+              round
+              label="Destacar"
+              name="featured"
+              ?checked="${this.values.featured}"
+              @input="${e => this.handleSwitchChange(e)}"
+            ></switch-c>
+          </p>
+          <button-c type="submit" align="right">Enviar</button-c>
+        </form>
+        <p class="error">${this.validityError}</p>
+      </form-container-c>
+    `;
+  }
 
   async connectedCallback() {
     super.connectedCallback();
@@ -68,19 +169,26 @@ export class CategoryForm extends LitElement {
   };
 
   handleSubmit = async (e: any) => {
-    const target = e;
-    await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
-      if (
-        JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
-        this.values.featured != this.initialValues.featured
-      ) {
-        this.categoryRepository.update(this.id, this.values).then(() => {
-          this.requestUpdate();
-        });
-      }
-    });
+    e.preventDefault();
+    this.validityError =
+      countErrors(this) > 0
+        ? `Revisa los ${countErrors(this)} errores en el formulario`
+        : "";
+    if (this.validityError === "") {
+      const target = e.target;
+      await this.uploadImage().then(() => {
+        const formValues = serializeForm(target);
+        this.values = { ...this.values, ...formValues };
+        if (
+          JSON.stringify(this.values) !== JSON.stringify(this.initialValues) ||
+          this.values.featured != this.initialValues.featured
+        ) {
+          this.categoryRepository.update(this.id, this.values).then(() => {
+            this.requestUpdate();
+          });
+        }
+      });
+    }
   };
 
   handleEraseImage = () => {
@@ -89,103 +197,4 @@ export class CategoryForm extends LitElement {
       this.requestUpdate();
     });
   };
-
-  public static styles = [general, adminStyles];
-  render() {
-    return html`
-      <h1>
-        Categoría: ${this.values.title}
-        ${this.id
-          ? html`
-              <style>
-                button-c {
-                  float: right;
-                }
-              </style>
-              <button-c
-                size="extrasmall"
-                @click="${() => {
-                  Router.go(`/categorias/${this.values.title}?id=${this.id}`);
-                }}"
-                >Ver Categoría</button-c
-              >
-            `
-          : null}
-      </h1>
-      <form-container-c class="transparent" size="large">
-        <form
-          @submit="${(e: any) => {
-            e.preventDefault();
-            this.handleSubmit(e.target);
-          }}"
-          id="category-form"
-        >
-          <div class="form-group">
-            ${!!this.values.img
-              ? html`
-                  <p>Imagen destacada:</p>
-                  <div class="image-preview-container">
-                    <img
-                      src="${process.env.API_URI}/uploads/${this.values.img}"
-                    />
-                  </div>
-                  <div class="btn-container">
-                    <button-c
-                      @click="${() => {
-                        this.handleEraseImage();
-                      }}"
-                      >Borrar imagen</button-c
-                    >
-                  </div>
-                `
-              : html`
-                  <p>
-                    Sube la imagen principal de la categoria
-                    <small>(recomendado 1920pxx800px)</small>
-                  </p>
-                  <uploader-lab
-                    @input="${e => this.handleUpdatePictureChange(e)}"
-                  ></uploader-lab>
-                `}
-          </div>
-          <input-c
-            id="title"
-            type="text"
-            label="Título"
-            placeholder="Título de la categoría"
-            name="title"
-            value="${this.values.title}"
-          ></input-c>
-          <input-c
-            id="brief"
-            type="text"
-            label="Breve descripción"
-            placeholder="Breve Descripción"
-            name="brief"
-            value="${this.values.brief}"
-          ></input-c>
-          <input-c
-            id="description"
-            type="text"
-            label="Descripción corta"
-            placeholder="Descripción corta"
-            name="description"
-            value="${this.values.description}"
-          ></input-c>
-          <p>
-            <switch-c
-              id="switcher"
-              round
-              label="Destacar"
-              name="featured"
-              ?checked="${this.values.featured}"
-              @input="${e => this.handleSwitchChange(e)}"
-            ></switch-c>
-          </p>
-          <button-c type="submit" align="right">Enviar</button-c>
-        </form>
-        <slot></slot>
-      </form-container-c>
-    `;
-  }
 }
