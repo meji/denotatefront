@@ -1,6 +1,4 @@
 import { LitElement, html, customElement, property, css } from "lit-element";
-import "../public/header";
-import "./body-container";
 import { UserRepositoryFactory } from "../../../featured/users/infrastructure/user-repository-factory";
 import { Router } from "@vaadin/router";
 

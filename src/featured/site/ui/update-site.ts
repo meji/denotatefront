@@ -6,11 +6,8 @@ import {
   query,
   css
 } from "lit-element";
-import "../../../core/pages/containers/container";
 import { serializeForm } from "../../../utils/utils";
 import { SiteService } from "../infrastructure/site-service";
-import "../../../utils/uploader";
-import "../../../utils/switch";
 import { general } from "../../../../styles/general";
 import { Site } from "../domain/site";
 import "color-picker-element";

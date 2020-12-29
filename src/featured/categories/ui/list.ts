@@ -6,7 +6,6 @@ import {
   query,
   css
 } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
 import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";

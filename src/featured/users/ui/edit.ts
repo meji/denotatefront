@@ -2,47 +2,21 @@ import { LitElement, html, customElement, property } from "lit-element";
 import "../../../core/pages/containers/container";
 import { getId, serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
-import { emptySite, emptyUser } from "../../shared/emptyObjects";
 import { general } from "../../../../styles/general";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
 import { UserHttpService } from "../../users/infrastructure/user-http-service";
-import { SiteService } from "../../site/infrastructure/site-service";
 import { User } from "../domain/user";
+import { adminStyles } from "../../../../styles/adminStyles";
+import { emptyUser } from "../../shared/emptyObjects";
 
 @customElement("user-form-c")
 export class EditUser extends LitElement {
   private userService = new UserHttpService(new AuthorizationService());
-  private siteService = new SiteService();
   private userRepository = UserRepositoryFactory.build();
-
   @property() user: Partial<User> = emptyUser;
   @property() password = { oldPswd: "", newPswd: "" };
   @property({ type: String }) id = "";
-
-  async connectedCallback() {
-    super.connectedCallback();
-    this.id = getId();
-    await this.userRepository
-      .findUserById(this.id)
-      .then(response => (this.user = response));
-  }
-
-  handleSubmitChange = async (e: any) => {
-    e.preventDefault();
-    const values = serializeForm(e.target);
-    await this.userRepository
-      .update(this.id, { ...this.user, ...values })
-      .then(() => {
-        this.requestUpdate();
-      });
-  };
-
-  handleSubmitPassword = async (e: any) => {
-    e.preventDefault();
-    const values = serializeForm(e.target);
-    await this.userService.changePassword({ ...this.password, ...values });
-  };
-  public static style = [general];
+  public static styles = [general, adminStyles];
 
   render() {
     return html`
@@ -114,4 +88,28 @@ export class EditUser extends LitElement {
       </form-container-c>
     `;
   }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    this.id = getId();
+    await this.userRepository
+      .findUserById(this.id)
+      .then(response => (this.user = response));
+  }
+
+  handleSubmitChange = async (e: any) => {
+    e.preventDefault();
+    const values = serializeForm(e.target);
+    await this.userRepository
+      .update(this.id, { ...this.user, ...values })
+      .then(() => {
+        this.requestUpdate();
+      });
+  };
+
+  handleSubmitPassword = async (e: any) => {
+    e.preventDefault();
+    const values = serializeForm(e.target);
+    await this.userService.changePassword({ ...this.password, ...values });
+  };
 }

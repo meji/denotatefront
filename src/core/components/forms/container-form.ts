@@ -14,6 +14,10 @@ export class ContainerForm extends LitElement {
       border-radius: var(--rl);
       padding: var(--xl) var(--l);
     }
+    .form-container form,
+    ::slotted(form) {
+      width: 100%;
+    }
     .medium {
       width: 400px;
     }

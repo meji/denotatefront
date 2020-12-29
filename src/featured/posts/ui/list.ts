@@ -6,7 +6,6 @@ import {
   query,
   css
 } from "lit-element";
-import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Post } from "../domain/post";
 import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";

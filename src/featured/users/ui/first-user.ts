@@ -14,17 +14,20 @@ export class FirstUser extends LitElement {
   private userService = new UserHttpService(new AuthorizationService());
   private siteService = new SiteService();
   private userRepository = UserRepositoryFactory.build();
-  public static styles = css`
-    p {
-      max-width: 400px;
-      margin: var(--l) 0;
-      text-align: center;
-      color: var(--text-lighter-color);
-    }
-    .logo {
-      margin: calc(var(--xl) * 2) auto var(--l);
-    }
-  `;
+  public static styles = [
+    css`
+      p {
+        max-width: 400px;
+        margin: var(--l) 0;
+        text-align: center;
+        color: var(--text-lighter-color);
+      }
+      .logo {
+        margin: calc(var(--xl) * 2) auto var(--l);
+      }
+    `,
+    general
+  ];
   render() {
     return html`
       <special-container-c>
@@ -101,5 +104,4 @@ export class FirstUser extends LitElement {
       Router.go("/admin/update-site");
     });
   };
-  public static style = [general];
 }

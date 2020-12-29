@@ -3,8 +3,6 @@ import { countErrors, serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Category } from "../domain/category";
 import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
-import "../../../utils/uploader";
-import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyCategory } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";

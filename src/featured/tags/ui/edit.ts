@@ -3,8 +3,6 @@ import { serializeForm } from "../../../utils/utils";
 import { general } from "../../../../styles/general";
 import { Tag } from "../domain/tag";
 import { TagRepositoryFactory } from "../infrastructure/tag-repository-factory";
-import "../../../utils/uploader";
-import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyTag } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";

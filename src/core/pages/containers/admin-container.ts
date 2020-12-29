@@ -1,5 +1,4 @@
 import { LitElement, html, customElement, css } from "lit-element";
-import "../admin/menu";
 
 @customElement("admin-container-c")
 export class AdminContainer extends LitElement {

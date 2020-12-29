@@ -3,11 +3,12 @@ import "../../../core/pages/containers/container";
 import { countErrors, serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
 import { general } from "../../../../styles/general";
+import { adminStyles } from "../../../../styles/adminStyles";
 
 @customElement("user-new-c")
 export class NewUser extends LitElement {
   private userRepository = UserRepositoryFactory.build();
-  public static style = [general];
+  public static styles = [general, adminStyles];
   @property({ type: String }) validityError = "";
 
   render() {

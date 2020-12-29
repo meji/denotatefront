@@ -3,12 +3,8 @@ import { getId } from "../../../utils/utils";
 import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
 import { Category } from "../domain/category";
 import { general } from "../../../../styles/general";
-import { Post } from "../../posts/domain/post";
-import { emptyPost } from "../../shared/emptyObjects";
 import { PostRepositoryFactory } from "../../posts/infrastructure/post-repository-factory";
 import { publicStyles } from "../../../../styles/public";
-import { ID } from "../../shared/id/id";
-import "../../posts/ui/modulo";
 
 @customElement("category-home-c")
 export class CategoryHome extends LitElement {
@@ -19,36 +15,40 @@ export class CategoryHome extends LitElement {
   public static styles = [general, publicStyles];
 
   render() {
-    return html`
-      <div>
-        <h1>${this.category.title}</h1>
-        <p>${this.category.brief}</p>
-        ${this.category.img
-          ? html`
-              <div class="img-container featured">
-                <img
-                  src="${process.env.API_URI + "/uploads/" + this.category.img}"
-                  alt="${this.category.title}"
-                  title="${this.category.title}"
-                />
-              </div>
-            `
-          : null}
-        <div class="description">${this.category.description}</div>
-        ${this.posts.length > 0
-          ? html`
-              <ul class="modules-container">
-                ${this.posts.map(post => {
-                  return html`
-                    <li><post-module-c .post="${post}"></post-module-c></li>
-                  `;
-                })}
-              </ul>
-            `
-          : ""}
-        <slot></slot>
-      </div>
-    `;
+    return this.category && this.category.title
+      ? html`
+          <div>
+            <h1>${this.category.title}</h1>
+            ${this.category.img
+              ? html`
+                  <div class="img-container featured">
+                    <img
+                      src="${process.env.API_URI +
+                        "/uploads/" +
+                        this.category.img}"
+                      alt="${this.category.title}"
+                      title="${this.category.title}"
+                    />
+                  </div>
+                `
+              : null}
+            <div class="brief">${this.category.brief}</div>
+            <div class="description">${this.category.description}</div>
+            ${this.posts.length > 0
+              ? html`
+                  <ul class="modules-container">
+                    ${this.posts.map(post => {
+                      return html`
+                        <li><post-module-c .post="${post}"></post-module-c></li>
+                      `;
+                    })}
+                  </ul>
+                `
+              : ""}
+            <slot></slot>
+          </div>
+        `
+      : null;
   }
 
   async connectedCallback() {

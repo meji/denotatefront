@@ -3,10 +3,7 @@ export const catRoutes = {
   children: [
     {
       path: "/",
-      action: async () => {
-        await import("../../featured/categories/ui/list");
-      },
-      component: "category-list-c"
+      redirect: "/"
     },
     {
       path: "/:category",

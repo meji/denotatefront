@@ -1,6 +1,10 @@
 import { css } from "lit-element";
 
 export const adminStyles = css`
+  ::slotted(h1),
+  h1 {
+    margin-top: 0;
+  }
   .admin-heaad-container {
     display: flex;
     justify-content: space-between;
@@ -11,22 +15,25 @@ export const adminStyles = css`
   ul.admin-list li .row {
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
+    min-height: 20px;
   }
   ul.admin-list li .btn-container {
     opacity: 0;
     transition: var(--transition);
   }
-  ul.admin-list li:hover {
+  ul.admin-list li .row:hover {
     border-bottom: var(--border-form);
   }
 
-  ul.admin-list li:hover .btn-container {
+  ul.admin-list li .row:hover .btn-container {
     opacity: 1;
   }
   .description {
     height: 0;
     opacity: 0;
     transition: var(--transition);
+    overflow: hidden;
   }
   .description.visible {
     height: auto;
@@ -49,8 +56,9 @@ export const adminStyles = css`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    .link {
-      cursor: pointer;
-      text-decoration: none;
-    }
+  }
+  .link {
+    cursor: pointer;
+    text-decoration: none;
+  }
 `;

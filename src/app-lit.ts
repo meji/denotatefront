@@ -1,9 +1,9 @@
 import { html, css, LitElement, property, customElement } from "lit-element";
 import { theme } from "./../styles/theme";
 import { general } from "../styles/general";
-import "./core/components/index";
 import { SiteService } from "./featured/site/infrastructure/site-service";
 import { Router } from "@vaadin/router";
+import "./core/index";
 
 @customElement("app-lit")
 export class AppLit extends LitElement {
