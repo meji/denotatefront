@@ -32,20 +32,28 @@ export class PostHttpRepository implements PostRepository {
     return this.postDtoToPostMapper.map(response.data);
   }
   async create(post: Partial<Post>): Promise<Post> {
-    const postIn = await http.post<PostDto>("/posts/", post, {
-      headers: {
-        "Content-Type": "application/json"
+    const postIn = await http.post<PostDto>(
+      "/posts/",
+      this.postToPostDtoMapper.mapPartial(post),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
     return this.postDtoToPostMapper.map(postIn.data);
   }
   async update(id: ID, data: Partial<Post>): Promise<Post> {
-    const postIn = await http.put<PostDto>(`/posts/${id}`, data, {
-      headers: {
-        "Content-Type": "application/json"
+    const postIn = await http.put<PostDto>(
+      `/posts/${id}`,
+      this.postToPostDtoMapper.mapPartial(data),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
-    console.log(postIn, postIn);
+    );
+    console.log(data, data);
     return this.postDtoToPostMapper.map(postIn.data);
   }
   async delete(id: ID): Promise<Post> {

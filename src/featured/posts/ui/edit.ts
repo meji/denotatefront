@@ -10,10 +10,14 @@ import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 import "../../../core/components/markdownEditor/mdEditorBis";
 import { adminStyles } from "../../../../styles/adminStyles";
+import { Category } from "../../categories/domain/category";
+import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
+import "../../../core/components/forms/inputs/option";
 
 @customElement("post-form-c")
 export class PostForm extends LitElement {
   private postRepository = PostRepositoryFactory.build();
+  private categoryRepositoy = CategoryRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
   values: Partial<Post> = emptyPost;
@@ -24,6 +28,7 @@ export class PostForm extends LitElement {
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
+  @property() catsDisp: Partial<Category>[] = [null];
   @query("#switcher") switcher;
 
   public static styles = [general, adminStyles];
@@ -118,7 +123,19 @@ export class PostForm extends LitElement {
           </p>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>
-        <slot></slot>
+        <div class="form-group categories">
+          ${this.catsDisp.map(cat => {
+            return html`
+              <option-c
+                type="checkbox"
+                .checked=${this.values.cats.includes(cat.id) ? true : false}
+                name="cats"
+                label="${cat.title}"
+                @input="${e => this.addCategories(e, cat.id)}"
+              ></option-c>
+            `;
+          })}
+        </div>
       </form-container-c>
     `;
   }
@@ -126,6 +143,7 @@ export class PostForm extends LitElement {
     super.connectedCallback();
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
+    this.catsDisp = await this.categoryRepositoy.findAll();
     if (id) {
       this.id = id;
       this.values = { ...(await this.postRepository.getById(id)) };
@@ -185,5 +203,16 @@ export class PostForm extends LitElement {
     this.postRepository.update(this.id, this.values).then(() => {
       this.requestUpdate();
     });
+  };
+  addCategories = (e, id) => {
+    if (e.target.shadowRoot.querySelector("input").checked) {
+      this.values.cats && !this.values.cats.includes(id)
+        ? (this.values.cats = [...this.values.cats, id])
+        : (this.values.cats = [id]);
+    } else {
+      this.values.cats && this.values.cats.includes(id)
+        ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
+        : null;
+    }
   };
 }

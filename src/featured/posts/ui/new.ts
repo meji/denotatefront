@@ -177,7 +177,5 @@ export class PostNew extends LitElement {
         ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
         : null;
     }
-
-    console.log(this.values.cats);
   };
 }
