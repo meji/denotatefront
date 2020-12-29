@@ -43,10 +43,9 @@ export class CategoryHttpRepository implements CategoryRepository {
         "Content-Type": "application/json"
       }
     });
-    if (categoryIn.data) {
-      return this.categoryDtoToCategoryMapper.map(categoryIn.data);
-    }
-    return null;
+    return categoryIn.data._id
+      ? this.categoryDtoToCategoryMapper.map(categoryIn.data)
+      : this.getById(id);
   }
   async delete(id: ID): Promise<Category> {
     const categoryDeleted = await http.delete<CategoryDto>(`/categories/${id}`);

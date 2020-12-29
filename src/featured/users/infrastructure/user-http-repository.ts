@@ -33,7 +33,9 @@ export class UserHttpRepository implements UserRepository {
         "Content-Type": "application/json"
       }
     });
-    return this.userDtoToUserMapper.map(response.data);
+    return response.data._id
+      ? this.userDtoToUserMapper.map(response.data)
+      : this.findUserById(id);
   }
 
   async delete(id: ID): Promise<User> {
