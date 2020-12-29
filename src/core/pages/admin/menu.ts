@@ -32,11 +32,11 @@ export class Home extends LitElement {
                 >Configuración</span
               >
             </li>
-            <li class="speacial">
+            <li class="special">
               <span @click=${() => Router.go("logout")}>🏃 Logout</span>
             </li>
             <li>
-              <span class="speacial" @click=${() => Router.go("I a la web")}
+              <span class="special" @click=${() => Router.go("/")}
                 >🌐 Volver a la web</span
               >
             </li>
