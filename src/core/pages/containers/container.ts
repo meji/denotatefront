@@ -1,6 +1,5 @@
 import { LitElement, html, customElement, css } from "lit-element";
-import { theme } from "../../../styles/theme";
-import { general } from "../../../styles/general";
+import { general } from "../../../../styles/general";
 
 @customElement("special-container-c")
 export class SpecialContainer extends LitElement {

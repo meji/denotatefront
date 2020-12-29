@@ -17,10 +17,11 @@ export class AuthGuard implements PageEnabled {
     commands: Commands,
     pathRedirect?: string
   ): Promise<any> {
+    const isAdmin = await this.userRepository.findAdmin();
     const isAuthenticated = await this.authService.isAuthorized();
-    if (!(await this.userRepository.findAdmin())) {
+    if (!isAdmin) {
       console.warn("New  Site you need to configure your site");
-      return (window.location.href = "/newsite");
+      return commands.redirect("/newsite");
     } else if (!isAuthenticated) {
       console.warn("User not authorized", context.pathname);
       return commands.redirect(pathRedirect ? pathRedirect : "/");

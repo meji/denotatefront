@@ -1,6 +1,6 @@
 import { LitElement, html, customElement, css, property } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
-import { this_styles } from "./styles";
+import { this_styles } from "./input_styles";
 
 @customElement("input-c")
 export class Input extends LitElement {

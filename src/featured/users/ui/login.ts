@@ -1,6 +1,6 @@
 import { LitElement, html, customElement, query, css } from "lit-element";
 import "../../../core/components";
-import "../../../pages/special/container";
+import "../../../core/pages/containers/container";
 import { UserHttpService } from "../infrastructure/user-http-service";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
 import { serializeForm } from "../../../utils/utils";

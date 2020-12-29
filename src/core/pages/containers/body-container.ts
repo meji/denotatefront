@@ -1,5 +1,5 @@
 import { LitElement, html, customElement } from "lit-element";
-import "../../../pages/public/header";
+import "../public/header";
 import { general } from "../../../../styles/general";
 import { this_styles } from "./body-container-styles";
 

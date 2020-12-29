@@ -4,12 +4,15 @@ import { LitElement, html, customElement, css, property } from "lit-element";
 export class ContainerForm extends LitElement {
   public static styles = css`
     .form-container {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
       max-width: 90%;
-      margin: 0;
+      margin: 0 0 var(--xl);
       background: var(--background-total-color);
       border-radius: var(--rl);
-      padding: var(--l);
+      padding: var(--xl) var(--l);
     }
     .medium {
       width: 400px;
@@ -23,6 +26,10 @@ export class ContainerForm extends LitElement {
     .transparent {
       background: transparent;
       padding: 0;
+    }
+    ::slotted(.btn-container),
+    .btn-container {
+      margin-bottom: 0;
     }
   `;
   @property({ type: String }) size = "medium";

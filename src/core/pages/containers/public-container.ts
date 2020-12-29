@@ -1,9 +1,8 @@
 import { LitElement, html, customElement, property, css } from "lit-element";
-import "../../../pages/public/header";
+import "../public/header";
 import "./body-container";
 import { UserRepositoryFactory } from "../../../featured/users/infrastructure/user-repository-factory";
 import { Router } from "@vaadin/router";
-import "../containers/body-container";
 
 @customElement("container-c")
 export class PublicContainer extends LitElement {

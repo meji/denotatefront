@@ -3,12 +3,14 @@ import { css } from "lit-element";
 export const this_styles = css`
   nav {
     display: flex;
-    padding: var(--m) var(--l);
+    padding: var(--l) var(--xl);
     align-items: flex-end;
     justify-content: flex-start;
   }
   nav img {
     cursor: pointer;
+    max-width: 250px;
+    max-height: 90px;
   }
   nav img.default {
     margin: 0 var(--l) 0 0;

@@ -1,5 +1,5 @@
 import { LitElement, html, customElement, css } from "lit-element";
-import { general } from "../../../styles/general";
+import { general } from "../../../../styles/general";
 import { this_styles } from "./menu_styles";
 
 @customElement("admin-menu-c")
@@ -8,7 +8,8 @@ export class Home extends LitElement {
   render() {
     return html`
       <div id="menu-container">
-        <h1>Admin</h1>
+        <img src="/logo.svg" />
+        <h1 class="h4">Admin</h1>
         <nav>
           <ul>
             <li>

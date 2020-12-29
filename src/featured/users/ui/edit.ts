@@ -1,5 +1,5 @@
 import { LitElement, html, customElement, property } from "lit-element";
-import "../../../pages/special/container";
+import "../../../core/pages/containers/container";
 import { getId, serializeForm } from "../../../utils/utils";
 import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
 import { emptySite, emptyUser } from "../../shared/emptyObjects";

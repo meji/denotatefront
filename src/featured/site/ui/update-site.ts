@@ -6,7 +6,7 @@ import {
   query,
   css
 } from "lit-element";
-import "../../../pages/special/container";
+import "../../../core/pages/containers/container";
 import { serializeForm } from "../../../utils/utils";
 import { SiteService } from "../infrastructure/site-service";
 import "../../../utils/uploader";
@@ -40,7 +40,28 @@ export class UpdateSite extends LitElement {
     }
   }
 
-  public static styles = [general, adminStyles];
+  public static styles = [
+    general,
+    adminStyles,
+    css`
+      .image-preview-container {
+        height: 80px;
+        padding: var(--s);
+        border: var(--border-form);
+        width: fit-content;
+        max-width: 240px;
+      }
+      .image-preview-container img {
+        width: auto;
+        height: auto;
+        object-fit: scale-down;
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0px auto;
+        display: block;
+      }
+    `
+  ];
   render() {
     return html`
       <h1>Actualizar datos del site</h1>

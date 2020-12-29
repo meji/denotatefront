@@ -18,7 +18,7 @@ export const tagRoutes = {
     {
       path: "/(.*)",
       action: async () => {
-        await import("../../pages/public/not-found");
+        await import("../../core/pages/public/not-found");
       },
       component: "not-found"
     }

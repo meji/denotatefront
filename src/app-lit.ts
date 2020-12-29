@@ -3,6 +3,7 @@ import { theme } from "./../styles/theme";
 import { general } from "../styles/general";
 import "./core/components/index";
 import { SiteService } from "./featured/site/infrastructure/site-service";
+import { Router } from "@vaadin/router";
 
 @customElement("app-lit")
 export class AppLit extends LitElement {
@@ -45,6 +46,8 @@ export class AppLit extends LitElement {
     if (site) {
       this.color = site.color;
       this.theme = site.theme;
+    } else {
+      Router.go("/newsite");
     }
   }
 

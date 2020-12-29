@@ -25,6 +25,7 @@ export const this_styles = css`
     transition: 0.1s ease-out;
     transform-origin: left top;
     pointer-events: none;
+    font-family: var(--title-font);
   }
   input {
     font-size: 1rem;

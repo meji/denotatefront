@@ -5,7 +5,7 @@ class uploaderLab extends HTMLElement {
     this.fileName = [];
     this.deletedSrc = [];
     this.totalLoaded = 0;
-    this.allowedExtension = ["image/jpeg", "image/png"];
+    this.allowedExtension = ["image/jpeg", "image/png", "image/svg+xml"];
     this.thumb_height = "300";
     this.resize_width = "100%";
     this.limitImage = 1;

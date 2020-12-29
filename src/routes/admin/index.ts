@@ -8,7 +8,7 @@ import { adminUsersRoutes } from "./users";
 export const adminRoutes = {
   path: "/admin",
   action: async (context: Context, commands: Commands) => {
-    import("../../core/components/containers/admin-container");
+    import("../../core/pages/containers/admin-container");
     return await new AuthGuard().pageEnabled(context, commands, "/");
   },
   component: "admin-container-c",

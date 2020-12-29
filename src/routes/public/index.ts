@@ -6,14 +6,14 @@ import { usersRoutes } from "./users";
 export const publicRoute = {
   path: "/",
   action: async () => {
-    await import("../../core/components/containers/public-container");
+    await import("../../core/pages/containers/public-container");
   },
   component: "container-c",
   children: [
     {
       path: "/",
       action: async () => {
-        await import("../../pages/public/home");
+        await import("../../core/pages/public/home");
       },
       component: "home-c"
     },
@@ -24,7 +24,7 @@ export const publicRoute = {
     {
       path: "/(.*)",
       action: async () => {
-        await import("../../pages/public/not-found");
+        await import("../../core/pages/public/not-found");
       },
       component: "not-found"
     }

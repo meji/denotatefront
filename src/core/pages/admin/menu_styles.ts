@@ -13,8 +13,8 @@ export const this_styles = css`
   #menu-container ul {
     margin: 0;
   }
-  h1 {
-    margin: var(--m);
+  h1.h4 {
+    margin: var(--m) 0 var(--m) var(--m);
     border-bottom: var(--border-form);
     padding-bottom: var(--s);
   }
@@ -31,5 +31,9 @@ export const this_styles = css`
     background: var(--background-total-color);
     transition: var(--transition);
     color: var(--main-color);
+  }
+  img {
+    margin: var(--m) auto var(--xl);
+    display: block;
   }
 `;
