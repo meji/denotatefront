@@ -16,9 +16,7 @@ const categoryRepository = CategoryRepositoryFactory.build();
 export class CategoryNew extends LitElement {
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Category> = emptyCategory;
-  @property({ type: Object })
-  initialValues: Partial<Category> = emptyCategory;
+  values: Partial<Category> = Object.create(emptyCategory);
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";

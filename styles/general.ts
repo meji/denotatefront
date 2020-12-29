@@ -17,6 +17,9 @@ export const general = css`
     margin: 0 0 var(--l);
     font-family: var(--title-font);
   }
+  img {
+    max-width: 100%;
+  }
   h1,
   h2,
   h3,

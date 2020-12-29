@@ -26,9 +26,7 @@ export class AdminPostList extends LitElement {
         <div class="title-container">
           <h1>Posts</h1>
         </div>
-        <button-c
-          size="extrasmall"
-          @click="${() => Router.go("/admin/posts/new")}"
+        <button-c size="small" @click="${() => Router.go("/admin/posts/new")}"
           >Nuevo post</button-c
         >
       </div>
@@ -38,9 +36,7 @@ export class AdminPostList extends LitElement {
             html`
               <li>
                 <div class="row">
-                  <p>
-                    ${post.title}
-                  </p>
+                  <p>✔ ${post.title}</p>
                   <span class="btn-container">
                     <button-c
                       size="extrasmall"

@@ -6,7 +6,7 @@ import { CategoryRepositoryFactory } from "../infrastructure/category-repository
 import "../../../utils/uploader";
 import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyCategory } from "../../shared/emptyObjects";
+import { emptyCategory, emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
 import { adminStyles } from "../../../../styles/adminStyles";
 
@@ -15,9 +15,9 @@ export class CategoryForm extends LitElement {
   private categoryRepository = CategoryRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Category> = emptyCategory;
+  values: Partial<Category> = Object.create(emptyCategory);
   @property({ type: Object })
-  initialValues: Partial<Category> = emptyCategory;
+  initialValues: Partial<Category> = Object.create(emptyCategory);
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -39,7 +39,7 @@ export class CategoryForm extends LitElement {
                 }
               </style>
               <button-c
-                size="extrasmall"
+                size="small"
                 @click="${() => {
                   Router.go(`/categorias/${this.values.title}?id=${this.id}`);
                 }}"

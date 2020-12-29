@@ -7,7 +7,6 @@ import {
   query
 } from "lit-element";
 import { this_styles } from "./styles";
-// import { md } from "./md";
 const SimpleMde = require("simplemde");
 @customElement("md-editor-bis-c")
 export class MdEditor extends LitElement {
@@ -15,7 +14,6 @@ export class MdEditor extends LitElement {
   @query("#textarea_id") mdeditor;
   @property({ type: String }) value = "";
   @property({ type: String }) initialValue;
-  // @property() rederedValue = md.render(this.value);
   simpleMde;
   public static styles = [this_styles];
   render() {
@@ -28,7 +26,10 @@ export class MdEditor extends LitElement {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet"
       />
-      <div @input="${e => this._hadleChange(e)}">
+      <div
+        @input="${e => this._hadleChange(e)}"
+        @paste="${e => this._hadleChange(e)}"
+      >
         <textarea id="textarea_id"> </textarea>
       </div>
     `;

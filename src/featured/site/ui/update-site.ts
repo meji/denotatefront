@@ -77,7 +77,7 @@ export class UpdateSite extends LitElement {
         <div class="form-group">
           ${!!this.values.logo
             ? html`
-                <p>Imagen destacada:</p>
+                <p>Logotipo:</p>
                 <div class="image-preview-container">
                   <img
                     src="${process.env.API_URI}/uploads/${this.values.logo}"

@@ -1,6 +1,7 @@
 import { LitElement, html, customElement, css } from "lit-element";
 import { general } from "../../../../styles/general";
 import { this_styles } from "./menu_styles";
+import { Router } from "@vaadin/router";
 
 @customElement("admin-menu-c")
 export class Home extends LitElement {
@@ -13,22 +14,31 @@ export class Home extends LitElement {
         <nav>
           <ul>
             <li>
-              <a href="/admin">Posts</a>
+              <span @click=${() => Router.go("/admin")}>Posts</span>
             </li>
             <li>
-              <a href="/admin/categories">Categorías</a>
+              <span @click=${() => Router.go("/admin/categories")}
+                >Categorías</span
+              >
             </li>
             <li>
-              <a href="/admin/tags">Tags</a>
+              <span @click=${() => Router.go("/admin/tags")}>Tags</span>
             </li>
             <li>
-              <a href="/admin/users">Usuarios</a>
+              <span @click=${() => Router.go("/admin/users")}>Usuarios</span>
             </li>
             <li>
-              <a href="/admin/update-site">Configuración</a>
+              <span @click=${() => Router.go("/admin/update-site")}
+                >Configuración</span
+              >
+            </li>
+            <li class="speacial">
+              <span @click=${() => Router.go("logout")}>🏃 Logout</span>
             </li>
             <li>
-              <a href="logout">Logout</a>
+              <span class="speacial" @click=${() => Router.go("I a la web")}
+                >🌐 Volver a la web</span
+              >
             </li>
           </ul>
         </nav>

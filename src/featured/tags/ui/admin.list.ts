@@ -26,9 +26,7 @@ export class AdminTagList extends LitElement {
         <div class="title-container">
           <h1>Tags</h1>
         </div>
-        <button-c
-          size="extrasmall"
-          @click="${() => Router.go("/admin/tags/new")}"
+        <button-c size="small" @click="${() => Router.go("/admin/tags/new")}"
           >Nuevo tag</button-c
         >
       </div>
@@ -38,9 +36,7 @@ export class AdminTagList extends LitElement {
             html`
               <li>
                 <div class="row">
-                  <p>
-                    ${tag.title}
-                  </p>
+                  <p>✔ ${tag.title}</p>
                   <span class="btn-container">
                     <button-c
                       size="extrasmall"

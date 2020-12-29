@@ -26,9 +26,7 @@ export class AdminUserList extends LitElement {
         <div class="title-container">
           <h1>Users</h1>
         </div>
-        <button-c
-          size="extrasmall"
-          @click="${() => Router.go("/admin/users/new")}"
+        <button-c size="small" @click="${() => Router.go("/admin/users/new")}"
           >Nuevo usuario</button-c
         >
       </div>
@@ -38,9 +36,7 @@ export class AdminUserList extends LitElement {
             html`
               <li>
                 <div class="row">
-                  <p>
-                    ${user.firstName} ${user.secondName}
-                  </p>
+                  <p>✔ ${user.firstName} ${user.secondName}</p>
                   <span class="btn-container">
                     <button-c
                       size="extrasmall"

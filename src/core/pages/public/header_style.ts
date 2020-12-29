@@ -4,7 +4,7 @@ export const this_styles = css`
   nav {
     display: flex;
     padding: var(--l) var(--xl);
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-start;
   }
   nav img {

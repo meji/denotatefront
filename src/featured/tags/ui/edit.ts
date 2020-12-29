@@ -103,7 +103,7 @@ export class TagForm extends LitElement {
                 }
               </style>
               <button-c
-                size="extrasmall"
+                size="small"
                 @click="${() => {
                   Router.go(`/tags/${this.values.title}?id=${this.id}`);
                 }}"

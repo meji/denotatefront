@@ -8,7 +8,7 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
-import "../../../core/components/markdownEditor/mdEditorBis";
+import "../../../core/components/markdownEditor/mdEditor";
 import { adminStyles } from "../../../../styles/adminStyles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
@@ -20,10 +20,8 @@ const postRepository = PostRepositoryFactory.build();
 export class PostNew extends LitElement {
   private imageService = new ImageHttpService();
   private categoryRepositoy = CategoryRepositoryFactory.build();
-  @property({ type: Object })
-  values: Partial<Post> = emptyPost;
-  @property({ type: Object })
-  initialValues: Partial<Post> = emptyPost;
+  @property()
+  values: Partial<Post> = Object.create(emptyPost);
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -123,6 +121,7 @@ export class PostNew extends LitElement {
   }
   async connectedCallback() {
     super.connectedCallback();
+    this.values = new Object(emptyPost);
     this.catsDisp = await this.categoryRepositoy.findAll();
   }
   handleSwitchChange = e => {
@@ -158,7 +157,7 @@ export class PostNew extends LitElement {
       const formValues = serializeForm(target);
       this.values = { ...this.values, ...formValues };
       postRepository.create(this.values).then(response => {
-        Router.go(`/admin/posts/edit?id=${response.id}`);
+        window.location.href = `/${response.title}?id=${response.id}`;
       });
     });
   };

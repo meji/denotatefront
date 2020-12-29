@@ -8,7 +8,7 @@ import "../../../utils/switch";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
-import "../../../core/components/markdownEditor/mdEditorBis";
+import "../../../core/components/markdownEditor/mdEditor";
 import { adminStyles } from "../../../../styles/adminStyles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
@@ -20,9 +20,9 @@ export class PostForm extends LitElement {
   private categoryRepositoy = CategoryRepositoryFactory.build();
   private imageService = new ImageHttpService();
   @property({ type: Object })
-  values: Partial<Post> = emptyPost;
+  values: Partial<Post> = Object.create(emptyPost);
   @property({ type: Object })
-  initialValues: Partial<Post> = emptyPost;
+  initialValues: Partial<Post> = Object.create(emptyPost);
   @property({ type: Boolean }) edit = false;
   @property() imgData;
   @property({ type: String }) imgName = "";
@@ -44,7 +44,7 @@ export class PostForm extends LitElement {
                 }
               </style>
               <button-c
-                size="extrasmall"
+                size="small"
                 @click="${() => {
                   Router.go(`/${this.values.title}?id=${this.id}`);
                 }}"
@@ -128,7 +128,9 @@ export class PostForm extends LitElement {
             return html`
               <option-c
                 type="checkbox"
-                .checked=${this.values.cats.includes(cat.id) ? true : false}
+                .checked=${!!(
+                  this.values.cats && this.values.cats.includes(cat.id)
+                )}
                 name="cats"
                 label="${cat.title}"
                 @input="${e => this.addCategories(e, cat.id)}"

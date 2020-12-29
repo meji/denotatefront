@@ -27,7 +27,7 @@ export class AdminCategoryList extends LitElement {
           <h1>Categorías</h1>
         </div>
         <button-c
-          size="extrasmall"
+          size="small"
           @click="${() => Router.go("/admin/categories/new")}"
           >Nueva categoría</button-c
         >
@@ -38,9 +38,7 @@ export class AdminCategoryList extends LitElement {
             html`
               <li>
                 <div class="row">
-                  <p>
-                    ${category.title}
-                  </p>
+                  <p>✔ ${category.title}</p>
                   <span class="btn-container">
                     <button-c
                       size="extrasmall"

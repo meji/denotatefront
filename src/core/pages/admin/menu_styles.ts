@@ -21,16 +21,21 @@ export const this_styles = css`
   ul li {
     margin: 0 0 2px;
   }
-  ul li a {
+  ul li span {
     color: var(--text-form-color);
     padding: var(--m);
     display: block;
     font-family: var(--title-font);
+    cursor: pointer;
   }
-  ul li a:hover {
+  ul li span:hover {
     background: var(--background-total-color);
     transition: var(--transition);
     color: var(--main-color);
+    border-radius: var(--rm);
+  }
+  ul li special span {
+    color: var(--text-body-color);
   }
   img {
     margin: var(--m) auto var(--xl);
