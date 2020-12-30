@@ -24,7 +24,7 @@ export const adminRoutes = {
       path: "/update-site",
       action: async (context: Context, commands: Commands) => {
         await import("../../featured/site/ui/update-site");
-        return await new AuthGuard().pageAdminEnabled(context, commands, "/");
+        await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "update-site-c"
     },

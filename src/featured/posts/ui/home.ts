@@ -14,6 +14,7 @@ import { emptyPost } from "../../shared/emptyObjects";
 import { md } from "../../../core/components/markdownEditor/md";
 import { publicStyles } from "../../../../styles/public";
 import { general } from "../../../../styles/general";
+import { Router } from "@vaadin/router";
 
 @customElement("post-home-c")
 export class PostHome extends LitElement {
@@ -47,6 +48,7 @@ export class PostHome extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     const id = getId();
+    !id ? Router.go("/not-found") : null;
     if (id) {
       await this.postRepository
         .getById(id)

@@ -3,11 +3,12 @@ import { UserRepositoryFactory } from "../../../featured/users/infrastructure/us
 import { Commands, Context, Router } from "@vaadin/router";
 import { authGuard } from "../../../featured/shared/auth/auth-guard";
 import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
+import { UserHttpService } from "../../../featured/users/infrastructure/user-http-service";
 
 @customElement("container-c")
 export class PublicContainer extends LitElement {
-  @property({ type: Boolean }) isadmin;
-  userRepository = UserRepositoryFactory.build();
+  @property({ type: Boolean }) islogged;
+  userService = new UserHttpService(new AuthorizationService());
   public static styles = css`
     button-c {
       position: fixed;
@@ -18,7 +19,7 @@ export class PublicContainer extends LitElement {
   render() {
     return html`
       <main>
-        ${this.isadmin
+        ${this.islogged
           ? html`
               <button-c
                 id="admin-btn"
@@ -37,10 +38,6 @@ export class PublicContainer extends LitElement {
   }
   async connectedCallback() {
     super.connectedCallback();
-    const autorizationSerivce = new AuthorizationService();
-    const aut = autorizationSerivce.getToken() != null;
-    await this.userRepository
-      .findAdmin()
-      .then(response => (this.isadmin = response && aut));
+    this.islogged = await this.userService.thisIsLoggged();
   }
 }

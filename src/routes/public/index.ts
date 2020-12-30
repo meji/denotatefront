@@ -17,6 +17,13 @@ export const publicRoute = {
       },
       component: "home-c"
     },
+    {
+      path: "/not-found",
+      action: async () => {
+        await import("../../core/pages/public/not-found");
+      },
+      component: "not-found"
+    },
     catRoutes,
     tagRoutes,
     // usersRoutes,

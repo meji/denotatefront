@@ -10,21 +10,23 @@ export const adminUsersRoutes = {
       path: "/",
       action: async (context: Context, commands: Commands) => {
         await import("../../featured/users/ui/admin-list");
-        return await new AuthGuard().pageAdminEnabled(context, commands, "/");
+        await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "admin-user-list-c"
     },
     {
       path: "/new",
-      action: async () => {
+      action: async (context: Context, commands: Commands) => {
         await import("../../featured/users/ui/new");
+        await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "user-new-c"
     },
     {
       path: "/edit",
-      action: async () => {
+      action: async (context: Context, commands: Commands) => {
         await import("../../featured/users/ui/edit");
+        await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "user-form-c"
     }
