@@ -9,6 +9,7 @@ import { Commands, Context, Router } from "@vaadin/router";
 import { adminStyles } from "../../../../styles/adminStyles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
+import { this_styles } from "./form-styles";
 
 @customElement("post-form-c")
 export class PostForm extends LitElement {
@@ -29,7 +30,7 @@ export class PostForm extends LitElement {
 
   @query("#switcher") switcher;
 
-  public static styles = [general, adminStyles];
+  public static styles = [general, adminStyles, this_styles];
   render() {
     return html`
       <h1>
@@ -58,84 +59,89 @@ export class PostForm extends LitElement {
           }}"
           id="post-form"
         >
-          <div class="form-group">
-            ${!!this.values.img
-              ? html`
-                  <p>Imagen destacada:</p>
-                  <div class="image-preview-container">
-                    <img
-                      src="${process.env.API_URI}/uploads/${this.values.img}"
-                    />
-                  </div>
-                  <div class="btn-container">
-                    <button-c
-                      @click="${() => {
-                        this.handleEraseImage();
-                      }}"
-                      >Borrar imagen</button-c
-                    >
-                  </div>
-                `
-              : html`
-                  <p>
-                    Sube la imagen principal de la post
-                    <small>(recomendado 1920pxx800px)</small>
-                  </p>
-                  <uploader-lab
-                    @input="${e => this.handleUpdatePictureChange(e)}"
-                  ></uploader-lab>
-                `}
+          <div class="form-column-container">
+            <div>
+              <div class="form-group">
+                ${!!this.values.img
+                  ? html`
+                      <p>Imagen destacada:</p>
+                      <div class="image-preview-container">
+                        <img
+                          src="${process.env.API_URI}/uploads/${this.values
+                            .img}"
+                        />
+                      </div>
+                      <div class="btn-container">
+                        <button-c
+                          @click="${() => {
+                            this.handleEraseImage();
+                          }}"
+                          >Borrar imagen</button-c
+                        >
+                      </div>
+                    `
+                  : html`
+                      <p>
+                        Sube la imagen principal de la post
+                        <small>(recomendado 1920pxx800px)</small>
+                      </p>
+                      <uploader-lab
+                        @input="${e => this.handleUpdatePictureChange(e)}"
+                      ></uploader-lab>
+                    `}
+              </div>
+              <input-c
+                id="title"
+                type="text"
+                label="Título"
+                placeholder="Título de la post"
+                name="title"
+                value="${this.values.title}"
+                required="true"
+              ></input-c>
+              <input-c
+                id="brief"
+                type="text"
+                label="Breve descripción"
+                placeholder="Breve Descripción"
+                name="brief"
+                value="${this.values.brief}"
+                required="true"
+              ></input-c>
+              <md-editor-bis-c
+                initialValue="${this.values.description}"
+                @input=${e => {
+                  this.values.description = e.target.value;
+                }}
+              ></md-editor-bis-c>
+              <p>
+                <switch-c
+                  id="switcher"
+                  round
+                  label="Destacar"
+                  name="featured"
+                  ?checked="${this.values.featured}"
+                  @input="${e => this.handleSwitchChange(e)}"
+                ></switch-c>
+              </p>
+            </div>
+            <div class="form-group categories">
+              <h2>Categorías</h2>
+              ${this.catsDisp.map(cat => {
+                return html`
+                  <option-c
+                    type="checkbox"
+                    .checked=${!!(
+                      this.values.cats && this.values.cats.includes(cat.id)
+                    )}
+                    name="cats"
+                    label="${cat.title}"
+                    @input="${e => this.addCategories(e, cat.id)}"
+                  ></option-c>
+                `;
+              })}
+            </div>
           </div>
-          <input-c
-            id="title"
-            type="text"
-            label="Título"
-            placeholder="Título de la post"
-            name="title"
-            value="${this.values.title}"
-            required="true"
-          ></input-c>
-          <input-c
-            id="brief"
-            type="text"
-            label="Breve descripción"
-            placeholder="Breve Descripción"
-            name="brief"
-            value="${this.values.brief}"
-            required="true"
-          ></input-c>
-          <md-editor-bis-c
-            initialValue="${this.values.description}"
-            @input=${e => {
-              this.values.description = e.target.value;
-            }}
-          ></md-editor-bis-c>
-          <p>
-            <switch-c
-              id="switcher"
-              round
-              label="Destacar"
-              name="featured"
-              ?checked="${this.values.featured}"
-              @input="${e => this.handleSwitchChange(e)}"
-            ></switch-c>
-          </p>
-          <div class="form-group categories">
-            ${this.catsDisp.map(cat => {
-              return html`
-                <option-c
-                  type="checkbox"
-                  .checked=${!!(
-                    this.values.cats && this.values.cats.includes(cat.id)
-                  )}
-                  name="cats"
-                  label="${cat.title}"
-                  @input="${e => this.addCategories(e, cat.id)}"
-                ></option-c>
-              `;
-            })}
-          </div>
-
           <p class="error">${this.validityError}</p>
           <button-c type="submit" align="right">Enviar</button-c>
         </form>

@@ -4,6 +4,7 @@ export const adminStyles = css`
   ::slotted(h1),
   h1 {
     margin-top: 0;
+    font-size: 2rem;
   }
   .admin-heaad-container {
     display: flex;
@@ -13,6 +14,12 @@ export const adminStyles = css`
   }
   h1 {
     max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    grid-column-gap: var(--m);
+  }
+  h2 {
+    font-size: 1.5rem;
   }
   ul.admin-list {
     max-width: 1024px;

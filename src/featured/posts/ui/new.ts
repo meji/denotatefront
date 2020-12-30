@@ -8,6 +8,7 @@ import { emptyPost } from "../../shared/emptyObjects";
 import { adminStyles } from "../../../../styles/adminStyles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
+import { this_styles } from "./form-styles";
 const postRepository = PostRepositoryFactory.build();
 
 @customElement("post-new-c")
@@ -26,95 +27,102 @@ export class PostNew extends LitElement {
 
   @query("#switcher") switcher;
 
-  public static styles = [general, adminStyles];
+  public static styles = [general, adminStyles, this_styles];
   render() {
     return html`
       <h1>Nuevo Post</h1>
-      <form-container-c class="transparent" size="large">
-        <form
-          @submit="${(e: any) => {
-            this.handleSubmit(e);
-          }}"
-          id="post-form"
-        >
-          <div class="form-group">
-            ${!!this.values.img
-              ? html`
-                  <p>Imagen destacada:</p>
-                  <p>
-                    <img
-                      src="${process.env.API_URI}/uploads/${this.values.img}"
-                    />
-                  </p>
-                  <button-c
-                    @click="${() => {
-                      this.handleEraseImage();
-                    }}"
-                    >Borrar imagen</button-c
-                  >
-                `
-              : html`
-                  <p>
-                    Sube la imagen principal de la post
-                    <small>(recomendado 1920pxx800px)</small>
-                  </p>
-                  <uploader-lab
-                    @input="${e => this.handleUpdatePictureChange(e)}"
-                  ></uploader-lab>
-                `}
-          </div>
-          <input-c
-            id="title"
-            type="text"
-            label="Título"
-            placeholder="Título del post"
-            name="title"
-            value="${this.values.title}"
-            required="true"
-          ></input-c>
-          <input-c
-            id="brief"
-            type="text"
-            label="Entradilla"
-            placeholder="Entradilla"
-            name="brief"
-            value="${this.values.brief}"
-            required="true"
-          ></input-c>
-          <md-editor-bis-c
-            @input=${e => {
-              this.values.description = e.target.value;
-            }}
-          ></md-editor-bis-c>
-          <p>
-            <switch-c
-              id="switcher"
-              round
-              label="Destacar"
-              name="featured"
-              ?checked="${this.values.featured}"
-              @input="${e => this.handleSwitchChange(e)}"
-            ></switch-c>
-          </p>
-          <div>
-            <div class="form-group categories">
-              ${this.catsDisp.map(cat => {
-                return html`
-                  <option-c
-                    type="checkbox"
-                    .checked=${false}
-                    name="cats"
-                    label="${cat.title}"
-                    @input="${e => this.addCategories(e, cat.id)}"
-                  ></option-c>
-                `;
-              })}
+      <div class="form-special-container">
+        <form-container-c class="transparent" size="extralarge">
+          <form
+            @submit="${(e: any) => {
+              this.handleSubmit(e);
+            }}"
+            id="post-form"
+          >
+            <div class="form-column-container">
+              <div>
+                <div class="form-group">
+                  ${!!this.values.img
+                    ? html`
+                        <p>Imagen destacada:</p>
+                        <p>
+                          <img
+                            src="${process.env.API_URI}/uploads/${this.values
+                              .img}"
+                          />
+                        </p>
+                        <button-c
+                          @click="${() => {
+                            this.handleEraseImage();
+                          }}"
+                          >Borrar imagen</button-c
+                        >
+                      `
+                    : html`
+                        <p>
+                          Sube la imagen principal de la post
+                          <small>(recomendado 1920pxx800px)</small>
+                        </p>
+                        <uploader-lab
+                          @input="${e => this.handleUpdatePictureChange(e)}"
+                        ></uploader-lab>
+                      `}
+                </div>
+                <input-c
+                  id="title"
+                  type="text"
+                  label="Título"
+                  placeholder="Título del post"
+                  name="title"
+                  value="${this.values.title}"
+                  required="true"
+                ></input-c>
+                <input-c
+                  id="brief"
+                  type="text"
+                  label="Entradilla"
+                  placeholder="Entradilla"
+                  name="brief"
+                  value="${this.values.brief}"
+                  required="true"
+                ></input-c>
+                <md-editor-bis-c
+                  @input=${e => {
+                    this.values.description = e.target.value;
+                  }}
+                ></md-editor-bis-c>
+                <p>
+                  <switch-c
+                    id="switcher"
+                    round
+                    label="Destacar"
+                    name="featured"
+                    ?checked="${this.values.featured}"
+                    @input="${e => this.handleSwitchChange(e)}"
+                  ></switch-c>
+                </p>
+              </div>
+              <div class="form-group categories">
+                <h2>Categorías</h2>
+                ${this.catsDisp.map(cat => {
+                  return html`
+                    <option-c
+                      type="checkbox"
+                      .checked=${false}
+                      name="cats"
+                      label="${cat.title}"
+                      @input="${e => this.addCategories(e, cat.id)}"
+                    ></option-c>
+                  `;
+                })}
+              </div>
             </div>
-          </div>
-          <button-c type="submit" align="right">Enviar</button-c>
-        </form>
-        <p class="error">${this.validityError}</p>
-      </form-container-c>
+
+            <button-c type="submit" align="right">Enviar</button-c>
+          </form>
+          <p class="error">${this.validityError}</p>
+        </form-container-c>
+      </div>
     `;
   }
   async connectedCallback() {

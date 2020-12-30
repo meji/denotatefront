@@ -21,16 +21,16 @@ export class Option extends LitElement {
   render() {
     return html`
       <div class="option-item">
-        <label
-          ><input
-            class="input-element"
+        <label class="form-check-label">
+          <input
+            class="input-element ${this.type}-button__input"
             type="${this.type}"
             name="${this.name}"
             ?checked=${this.checked}
           />
-
-          ${this.label}</label
-        >
+          <span class="${this.type}-button__control"></span>
+          <span class="${this.type}-button__label">${this.label}</span>
+        </label>
       </div>
     `;
   }
