@@ -43,6 +43,7 @@ export class AppLit extends LitElement {
     super.connectedCallback();
     const siteService = new SiteService();
     const site = await siteService.getSite();
+
     if (site) {
       this.color = site.color;
       this.theme = site.theme;

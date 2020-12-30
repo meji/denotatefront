@@ -42,21 +42,4 @@ export class AdminContainer extends LitElement {
     const el = e.target.closest("#maincontainer");
     el.classList.toggle("open");
   };
-
-  protected firstUpdated(_changedProperties: PropertyValues) {
-    super.firstUpdated(_changedProperties);
-    let prevHash = window.location.href;
-    const ethis = this;
-    console.log(this);
-    if (window.outerWidth < 1024) {
-      window.setInterval(function(e) {
-        if (window.location.href != prevHash) {
-          prevHash = window.location.href;
-          ethis.shadowRoot
-            .querySelector("maincontainer")
-            .classList.remove("open");
-        }
-      }, 100);
-    }
-  }
 }

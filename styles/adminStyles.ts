@@ -74,6 +74,11 @@ export const adminStyles = css`
     text-decoration: none;
   }
   @media screen and (max-width: 1024px) {
+    h1 {
+      max-width: 100%;
+      grid-template-columns: 1fr;
+      grid-column-gap: 0;
+    }
     ul.admin-list li .row {
       border-bottom: var(--border-form);
     }
