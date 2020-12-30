@@ -15,12 +15,15 @@ import { md } from "../../../core/components/markdownEditor/md";
 import { publicStyles } from "../../../../styles/public";
 import { general } from "../../../../styles/general";
 import { Router } from "@vaadin/router";
+import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
 
 @customElement("post-home-c")
 export class PostHome extends LitElement {
   postRepository = PostRepositoryFactory.build();
+  categoryRepository = CategoryRepositoryFactory.build();
   @property() post: Partial<Post> = emptyPost;
   @property() description;
+  @property() cats = [];
   @query("#description") descriptionc;
   public static styles = [general, publicStyles];
 
@@ -46,10 +49,10 @@ export class PostHome extends LitElement {
               <h4>Tags:</h4>
               ${this.post.tags.map(tag => {
                 return html`
-                  <button-c
-                    size="extrasmall"
+                  <span
+                    class="tag"
                     @click="${() => Router.go(`/tag?id=${tag}`)}"
-                    >${tag}</button-c
+                    >🏷️ ${tag}</span
                   >
                 `;
               })}
@@ -67,6 +70,11 @@ export class PostHome extends LitElement {
         .getById(id)
         .then(response => {
           this.post = response;
+          response.cats.map(cat => {
+            this.categoryRepository
+              .getById(cat)
+              .then(response => this.cats.push(response));
+          });
         })
         .then(() => {
           this.descriptionc.innerHTML = md.render(this.post.description);

@@ -19,8 +19,10 @@ export class PublicContainer extends LitElement {
       bottom: 10px;
       right: 10px;
     }
-    .light {
-      --background-wrapper: #fff;
+    .body {
+      background: var(--background-total-color);
+      padding: var(--xl) var(--m);
+      padding-top: 140px;
     }
   `;
   render() {
@@ -39,9 +41,12 @@ export class PublicContainer extends LitElement {
             `
           : ""}
         <header-c></header-c>
-        <body-container-c>
-          <slot></slot>
-        </body-container-c>
+        <div class="body">
+          <body-container-c>
+            <slot></slot>
+          </body-container-c>
+        </div>
+        <footer-c></footer-c>
       </main>
     `;
   }

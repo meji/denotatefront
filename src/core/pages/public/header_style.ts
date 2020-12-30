@@ -6,13 +6,30 @@ export const this_styles = css`
     padding: var(--l) var(--xl);
     align-items: center;
     justify-content: flex-start;
+    background: var(--background-wrapper);
+    background-size: var(--background-wrapper-size);
+    border-bottom: var(--border-form);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: var(--transition);
   }
+
+  header.scroll {
+    padding: var(--s) var(--m);
+  }
+
   header img {
     cursor: pointer;
     max-width: 250px;
-    max-height: 90px;
+    max-height: 60px;
     position: relative;
     z-index: 1;
+    transition: var(--transition);
+  }
+  header.scroll img {
+    max-height: 40px;
   }
   header img.default {
     margin: 0 var(--l) 0 0;

@@ -17,6 +17,7 @@ export const this_styles = css`
     }
     main {
       grid-template-columns: 1fr;
+      padding-top: 120px;
     }
     .menu {
       transform: translateX(-100vw);

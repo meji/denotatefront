@@ -52,6 +52,15 @@ export const publicStyles = css`
     margin: var(--m) 0;
     font-size: var(--font-size-big);
   }
+  .tag {
+    padding: var(--s);
+    font-family: var(--title-font);
+    border-radius: var(--rm);
+    background: var(--form-background-color);
+    margin: 0 var(--s) var(--s) 0;
+    vertical-align: middle;
+    cursor: pointer;
+  }
 
   @media screen and (max-width: 768px) {
     h1 {

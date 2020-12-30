@@ -82,5 +82,19 @@ export class Header extends LitElement {
         }
       }, 100);
     }
+    window.addEventListener("scroll", () => {
+      window.scrollY > 0
+        ? ethis.shadowRoot.querySelector("header").classList.add("scroll")
+        : ethis.shadowRoot.querySelector("header").classList.remove("scroll");
+    });
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    const ethis = this;
+    window.removeEventListener("scroll", () => {
+      window.scrollY > 0
+        ? ethis.shadowRoot.querySelector("header").classList.add("scroll")
+        : ethis.shadowRoot.querySelector("header").classList.remove("scroll");
+    });
   }
 }
