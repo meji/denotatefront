@@ -11,7 +11,7 @@ import { Post } from "../../../featured/posts/domain/post";
 import { emptyPost } from "../../../featured/shared/emptyObjects";
 import { publicStyles } from "../../../../styles/public";
 import { general } from "../../../../styles/general";
-import { this_styles } from "../../../featured/posts/ui/moduleStyles";
+import { this_styles } from "./moduleStyles";
 import { Router } from "@vaadin/router";
 
 @customElement("post-module-c")
@@ -24,13 +24,20 @@ export class PostHome extends LitElement {
       <div
         class="module"
         @click="${() => Router.go(`/${this.post.title}?id=${this.post.id}`)}"
-      >
-        <div class="img-container">
-          <img
-            src="${process.env.API_URI + "/uploads/" + this.post.img}"
-            alt="${this.post.title}"
-            title="${this.post.title}"
-          />
+      >${
+        this.post.img
+          ? html`
+              <div class="img-container">
+                <img
+                  src="${process.env.API_URI + "/uploads/" + this.post.img}"
+                  alt="${this.post.title}"
+                  title="${this.post.title}"
+                />
+              </div>
+            `
+          : null
+      }
+
         </div>
         <h2 class="h4">${this.post.title}</h2>
         <div class="brief">${this.post.brief.substring(1, 70)}...</div>

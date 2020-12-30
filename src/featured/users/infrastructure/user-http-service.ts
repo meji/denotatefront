@@ -42,4 +42,11 @@ export class UserHttpService implements UserService {
       })
     ).data.message;
   }
+
+  async thisIsAdmin(): Promise<boolean> {
+    return (await http.get("/users/thisisadmin")).data;
+  }
+  async thisIsLoggged(): Promise<boolean> {
+    return (await http.get("/users/thisislogged")).data;
+  }
 }
