@@ -61,8 +61,7 @@ export class AdminPostList extends LitElement {
                       size="extrasmall"
                       class="transparent"
                       title="Ver"
-                      @click="${() =>
-                        Router.go(`/${post.title}?id=${post.id}`)}"
+                      @click="${() => Router.go(`/post?id=${post.id}`)}"
                       >👁️</button-c
                     >
                     <button-c

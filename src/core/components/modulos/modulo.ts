@@ -6,7 +6,6 @@ import {
   query,
   PropertyValues
 } from "lit-element";
-import { PostRepositoryFactory } from "../../../featured/posts/infrastructure/post-repository-factory";
 import { Post } from "../../../featured/posts/domain/post";
 import { emptyPost } from "../../../featured/shared/emptyObjects";
 import { publicStyles } from "../../../../styles/public";
@@ -23,7 +22,7 @@ export class PostHome extends LitElement {
     return html`
       <div
         class="module"
-        @click="${() => Router.go(`/${this.post.title}?id=${this.post.id}`)}"
+        @click="${() => Router.go(`/post?id=${this.post.id}`)}"
       >
         ${this.post.img
           ? html`

@@ -64,9 +64,7 @@ export class AdminCategoryList extends LitElement {
                       class="transparent"
                       title="Ver"
                       @click="${() =>
-                        Router.go(
-                          `/categorias/${category.title}?id=${category.id}`
-                        )}"
+                        Router.go(`/categorias/category?id=${category.id}`)}"
                       >👁️</button-c
                     >
                     <button-c

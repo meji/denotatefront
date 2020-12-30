@@ -169,7 +169,7 @@ export class PostNew extends LitElement {
         const formValues = serializeForm(target);
         this.values = { ...this.values, ...formValues };
         postRepository.create(this.values).then(response => {
-          window.location.href = `/${response.title}?id=${response.id}`;
+          window.location.href = `/post?id=${response.id}`;
         });
       });
     }
