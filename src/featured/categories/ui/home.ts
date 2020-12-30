@@ -5,6 +5,7 @@ import { Category } from "../domain/category";
 import { general } from "../../../../styles/general";
 import { PostRepositoryFactory } from "../../posts/infrastructure/post-repository-factory";
 import { publicStyles } from "../../../../styles/public";
+import { Router } from "@vaadin/router";
 
 @customElement("category-home-c")
 export class CategoryHome extends LitElement {
@@ -54,15 +55,18 @@ export class CategoryHome extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     await new Promise(r => setTimeout(r, 0));
-    await this.categoryRepository.getById(getId()).then(response => {
-      this.category = response;
-      if (response.posts.length > 0) {
-        response.posts.map(async post => {
-          this.postRepository.getById(post).then(response => {
-            this.posts = [...this.posts, response];
-          });
+    const id = getId();
+    !id
+      ? Router.go("/not-found")
+      : await this.categoryRepository.getById(getId()).then(response => {
+          this.category = response;
+          if (response.posts.length > 0) {
+            response.posts.map(async post => {
+              this.postRepository.getById(post).then(response => {
+                this.posts = [...this.posts, response];
+              });
+            });
+          }
         });
-      }
-    });
   }
 }

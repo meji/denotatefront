@@ -24,8 +24,8 @@ export class PostHome extends LitElement {
       <div
         class="module"
         @click="${() => Router.go(`/${this.post.title}?id=${this.post.id}`)}"
-      >${
-        this.post.img
+      >
+        ${this.post.img
           ? html`
               <div class="img-container">
                 <img
@@ -35,10 +35,7 @@ export class PostHome extends LitElement {
                 />
               </div>
             `
-          : null
-      }
-
-        </div>
+          : null}
         <h2 class="h4">${this.post.title}</h2>
         <div class="brief">${this.post.brief.substring(1, 70)}...</div>
       </div>
