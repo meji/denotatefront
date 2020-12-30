@@ -1,10 +1,14 @@
-import { LitElement, html, customElement, css } from "lit-element";
+import { LitElement, html, customElement, css, property } from "lit-element";
 import { general } from "../../../../styles/general";
 import { this_styles } from "./menu_styles";
 import { Router } from "@vaadin/router";
+import { UserHttpService } from "../../../featured/users/infrastructure/user-http-service";
+import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
 
 @customElement("admin-menu-c")
 export class Home extends LitElement {
+  @property() admin: boolean;
+  userService = new UserHttpService(new AuthorizationService());
   public static styles = [general, this_styles];
   render() {
     return html`
@@ -16,22 +20,32 @@ export class Home extends LitElement {
             <li>
               <span @click=${() => Router.go("/admin")}>Posts</span>
             </li>
-            <li>
-              <span @click=${() => Router.go("/admin/categories")}
-                >Categorías</span
-              >
             </li>
             <li>
               <span @click=${() => Router.go("/admin/tags")}>Tags</span>
             </li>
-            <li>
-              <span @click=${() => Router.go("/admin/users")}>Usuarios</span>
-            </li>
-            <li>
-              <span @click=${() => Router.go("/admin/update-site")}
-                >Configuración</span
-              >
-            </li>
+            ${
+              this.admin
+                ? html`
+                    <li>
+                      <span @click=${() => Router.go("/admin/categories")}
+                        >Categorías</span
+                      >
+                    </li>
+
+                    <li>
+                      <span @click=${() => Router.go("/admin/users")}
+                        >Usuarios</span
+                      >
+                    </li>
+                    <li>
+                      <span @click=${() => Router.go("/admin/update-site")}
+                        >Configuración</span
+                      >
+                    </li>
+                  `
+                : null
+            }
             <li class="special">
               <span @click=${() => Router.go("logout")}>🏃 Logout</span>
             </li>
@@ -44,5 +58,9 @@ export class Home extends LitElement {
         </nav>
       </div>
     `;
+  }
+  async connectedCallback() {
+    super.connectedCallback();
+    this.admin = await this.userService.thisIsAdmin();
   }
 }

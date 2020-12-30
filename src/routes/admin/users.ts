@@ -1,14 +1,16 @@
 import { UserHttpService } from "../../featured/users/infrastructure/user-http-service";
 import { AuthorizationService } from "../../featured/shared/auth/authorization-service";
+import { Commands, Context } from "@vaadin/router";
+import { AuthGuard } from "../../featured/shared/auth/auth-guard";
 const userService = new UserHttpService(new AuthorizationService());
 export const adminUsersRoutes = {
   path: "/users",
   children: [
     {
       path: "/",
-      action: async () => {
+      action: async (context: Context, commands: Commands) => {
         await import("../../featured/users/ui/admin-list");
-        await userService.thisIsAdmin();
+        return await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "admin-user-list-c"
     },

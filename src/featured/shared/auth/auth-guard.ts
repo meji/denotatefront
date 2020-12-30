@@ -31,6 +31,18 @@ export class AuthGuard implements PageEnabled {
     }
     return undefined;
   }
+  public async pageAdminEnabled(
+    context: Context,
+    commands: Commands,
+    pathRedirect?: string
+  ): Promise<any> {
+    const thisIsAdmin = await this.userService.thisIsAdmin();
+    if (!thisIsAdmin) {
+      console.warn("User not authorized", context.pathname);
+      return commands.redirect(pathRedirect ? pathRedirect : "/");
+    }
+    return undefined;
+  }
 }
 
 export async function authGuard(context: Context, commands: Commands) {

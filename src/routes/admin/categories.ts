@@ -1,14 +1,15 @@
+import { Commands, Context } from "@vaadin/router";
 import { UserHttpService } from "../../featured/users/infrastructure/user-http-service";
 import { AuthorizationService } from "../../featured/shared/auth/authorization-service";
-const userService = new UserHttpService(new AuthorizationService());
+import { AuthGuard } from "../../featured/shared/auth/auth-guard";
 export const adminCatsRoutes = {
   path: "/categories",
   children: [
     {
       path: "/",
-      action: async () => {
+      action: async (context: Context, commands: Commands) => {
         await import("../../featured/categories/ui/admin-list");
-        await userService.thisIsAdmin();
+        return await new AuthGuard().pageAdminEnabled(context, commands, "/");
       },
       component: "admin-category-list-c"
     },
