@@ -1,11 +1,6 @@
-import { Tag } from "./tag";
-import { ID } from "../../shared/id/id";
+import { Post } from "../../posts/domain/post";
 
 export interface TagRepository {
-  findAll(): Promise<Tag[]>;
-  findByTitle(title: string): Promise<Tag[]>;
-  getById(id: ID): Promise<Tag>;
-  create(post: Partial<Tag>): Promise<Tag>;
-  update(id: ID, data: Partial<Tag>): Promise<Tag>;
-  delete(id: ID): Promise<Tag>;
+  findAll(): Promise<string[]>;
+  findByTitle(title: string): Promise<Post[]>;
 }

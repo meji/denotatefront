@@ -17,10 +17,6 @@ export class PostToPostDtoMapper {
           })
         : undefined,
       tags: post.tags
-        ? post.tags.map(tag => {
-            return { $oid: tag };
-          })
-        : undefined
     };
   }
   mapPartial(post: Partial<Post>): Partial<PostDto> {
@@ -37,10 +33,6 @@ export class PostToPostDtoMapper {
           })
         : undefined,
       tags: post.tags
-        ? post.tags.map(tag => {
-            return { $oid: tag };
-          })
-        : undefined
     };
   }
 }

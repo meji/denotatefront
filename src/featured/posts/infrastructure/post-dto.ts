@@ -9,5 +9,5 @@ export interface PostDto {
   featured?: boolean;
   author?: OID;
   cats?: OID[];
-  tags?: OID[];
+  tags?: string[];
 }

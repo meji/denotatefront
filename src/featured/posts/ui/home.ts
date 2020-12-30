@@ -41,7 +41,20 @@ export class PostHome extends LitElement {
             `
           : null}
         <div id="description"></div>
-        <slot></slot>
+        ${this.post.tags
+          ? html`
+              <h4>Tags:</h4>
+              ${this.post.tags.map(tag => {
+                return html`
+                  <button-c
+                    size="extrasmall"
+                    @click="${() => Router.go(`/tag?id=${tag}`)}"
+                    >${tag}</button-c
+                  >
+                `;
+              })}
+            `
+          : null}
       </div>
     `;
   }

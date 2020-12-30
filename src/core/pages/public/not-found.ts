@@ -155,6 +155,5 @@ export class NotFound extends LitElement {
   }
   connectedCallback() {
     super.connectedCallback();
-    console.log(this);
   }
 }

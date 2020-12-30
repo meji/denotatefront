@@ -12,7 +12,7 @@ export class PostDtoToPostMapper {
       featured: postDto.featured,
       author: postDto.author ? postDto.author.$oid : undefined,
       cats: postDto.cats ? postDto.cats.map(cat => cat.$oid) : undefined,
-      tags: postDto.tags ? postDto.tags.map(tag => tag.$oid) : undefined
+      tags: postDto.tags
     };
   }
 }

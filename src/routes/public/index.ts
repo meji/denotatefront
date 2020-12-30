@@ -24,8 +24,8 @@ export const publicRoute = {
       },
       component: "not-found"
     },
-    catRoutes,
     tagRoutes,
+    catRoutes,
     // usersRoutes,
     ...postsRoutes,
     {

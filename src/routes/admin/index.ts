@@ -1,7 +1,7 @@
 import { Commands, Context } from "@vaadin/router";
 import { AuthGuard } from "../../featured/shared/auth/auth-guard";
 import { adminCatsRoutes } from "./categories";
-import { adminTagsRoutes } from "./tags";
+// import { adminTagsRoutes } from "./tags";
 import { adminPostsRoutes } from "./posts";
 import { adminUsersRoutes } from "./users";
 
@@ -29,7 +29,7 @@ export const adminRoutes = {
       component: "update-site-c"
     },
     adminCatsRoutes,
-    adminTagsRoutes,
+    // adminTagsRoutes,
     adminPostsRoutes,
     adminUsersRoutes
   ]
