@@ -24,6 +24,7 @@ export class PostNew extends LitElement {
   @property({ type: Number }) counterUpdated = 0;
   @property() catsDisp: Partial<Category>[] = [null];
   @property({ type: String }) validityError = "";
+  @property({ type: String }) tag;
 
   @query("#switcher") switcher;
 
@@ -115,6 +116,31 @@ export class PostNew extends LitElement {
                     ></option-c>
                   `;
                 })}
+                <h2>Tags</h2>
+                ${this.values.tags
+                  ? this.values.tags.map(
+                      tag => html`
+                        <p>
+                          <span class="tag">${tag}</span
+                          ><span
+                            class="cut"
+                            @click=${() => {
+                              this.values.tags = this.values.tags.filter(
+                                tagIn => tagIn != tag
+                              );
+                              this.requestUpdate();
+                            }}
+                            >✂️</span
+                          >
+                        </p>
+                      `
+                    )
+                  : null}
+                <input-c
+                  label="Tag"
+                  placeholder="Nueva tag sin espacios"
+                  @keydown="${e => this.handleNewTag(e)}"
+                ></input-c>
               </div>
             </div>
 
@@ -188,6 +214,17 @@ export class PostNew extends LitElement {
       this.values.cats && this.values.cats.includes(id)
         ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
         : null;
+    }
+  };
+  handleNewTag = async e => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      this.values.tags = [...this.values.tags, e.target.value];
+      e.target.shadowRoot.querySelector("input").value = "";
+      await this.requestUpdate();
+    } else if (e.key == " ") {
+      e.target.shadowRoot.querySelector("input").value = "";
+      await this.requestUpdate();
     }
   };
 }

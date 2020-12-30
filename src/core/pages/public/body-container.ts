@@ -7,7 +7,7 @@ export class PublicContainer extends LitElement {
   public static styles = [general, this_styles];
   render() {
     return html`
-      <di class='container'>
+      <div class="container">
         <slot></slot>
       </div>
     `;

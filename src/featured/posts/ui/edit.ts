@@ -140,10 +140,35 @@ export class PostForm extends LitElement {
                   ></option-c>
                 `;
               })}
+              <h2>Tags</h2>
+              ${this.values.tags
+                ? this.values.tags.map(
+                    tag => html`
+                      <p>
+                        <span class="tag">${tag}</span
+                        ><span
+                          class="cut"
+                          @click=${() => {
+                            this.values.tags = this.values.tags.filter(
+                              tagIn => tagIn != tag
+                            );
+                            this.requestUpdate();
+                          }}
+                          >✂️</span
+                        >
+                      </p>
+                    `
+                  )
+                : null}
+              <input-c
+                label="Tag"
+                placeholder="Nueva tag sin espacios"
+                @keydown="${e => this.handleNewTag(e)}"
+              ></input-c>
             </div>
           </div>
           <p class="error">${this.validityError}</p>
-          <button-c type="submit" align="right">Enviar</button-c>
+          <button-c type="submit" align="right">Actualizar</button-c>
         </form>
       </form-container-c>
     `;
@@ -229,6 +254,21 @@ export class PostForm extends LitElement {
       this.values.cats && this.values.cats.includes(id)
         ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
         : null;
+    }
+  };
+  handleNewTag = async e => {
+    if (e.key == "Enter") {
+      this.values.tags = [...this.values.tags, e.target.value];
+      e.target.shadowRoot.querySelector("input").value = "";
+      await this.requestUpdate();
+    }
+    if (e.key == " ") {
+      this.values.tags = [...this.values.tags, e.target.value];
+      e.target.shadowRoot.querySelector("input").value = "";
+      await this.requestUpdate();
+    } else if (e.key == " ") {
+      e.target.shadowRoot.querySelector("input").value = "";
+      await this.requestUpdate();
     }
   };
 }

@@ -38,7 +38,7 @@ export const theme = css`
     --dot-difference: calc(var(--dot-space) - var(--dot-size));
   }
 
-  #wrapper.dark {
+  .dark {
     --on-primary-color: #fff;
     --text-body-color: #fff;
     --text-title-color: #fff;
@@ -71,7 +71,7 @@ export const theme = css`
       #666666;
   }
 
-  #wrapper.light {
+  .light {
     /*Colors*/
     --on-primary-color: #fff;
     --on-total-color: #000000;
@@ -80,7 +80,7 @@ export const theme = css`
     --text-body-color: #333;
     --text-title-color: #333;
     --text-form-color: #444;
-    --text-lighter-color: #777;
+    --text-lighter-color: #b5b5b5;
     --text-error: #ff0000;
     --label-color: var(--text-lighter-color);
     --label-focused-color: #aaa;

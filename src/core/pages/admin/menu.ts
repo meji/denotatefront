@@ -21,9 +21,6 @@ export class Home extends LitElement {
               <span @click=${() => Router.go("/admin")}>Posts</span>
             </li>
             </li>
-            <li>
-              <span @click=${() => Router.go("/admin/tags")}>Tags</span>
-            </li>
             ${
               this.admin
                 ? html`

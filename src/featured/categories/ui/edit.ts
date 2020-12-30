@@ -117,7 +117,7 @@ export class CategoryForm extends LitElement {
               @input="${e => this.handleSwitchChange(e)}"
             ></switch-c>
           </p>
-          <button-c type="submit" align="right">Enviar</button-c>
+          <button-c type="submit" align="right">Actualizar</button-c>
         </form>
         <p class="error">${this.validityError}</p>
       </form-container-c>

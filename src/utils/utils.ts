@@ -15,6 +15,18 @@ export const getId = (): ID => {
   return urlParams.get("id");
 };
 
+export const getAdminUrl = (): string => {
+  const path = window.location.href;
+  const hash = window.location.href.split("?id=");
+  const id = hash[hash.length - 1];
+  if (path.includes("/categorias/")) {
+    return "/admin/categories/edit" + "?id=" + id;
+  } else if (path.includes("/post")) {
+    return "/admin/posts/edit" + "?id=" + id;
+  }
+  return "/admin";
+};
+
 export const countErrors = (e: HTMLElement): number => {
   let counter = 0;
   e.shadowRoot.querySelectorAll("input-c").forEach(e => {

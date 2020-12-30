@@ -26,7 +26,9 @@ export const emptyPost: Partial<Post> = {
   description: "",
   img: "",
   featured: false,
-  author: ""
+  author: "",
+  tags: [],
+  cats: []
 };
 export const emptySite: Partial<Site> = {
   theme: "light",

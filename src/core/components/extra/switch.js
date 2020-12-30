@@ -61,7 +61,7 @@ class Switch extends HTMLElement {
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: var(--form-background-color);
+          background-color: var(--text-lighter-color);
           -webkit-transition: .4s;
           transition: .4s;
         }

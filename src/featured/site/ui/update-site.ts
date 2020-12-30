@@ -127,7 +127,7 @@ export class UpdateSite extends LitElement {
             name="brief"
             value="${this.values.brief}"
           ></input-c>
-          <button-c type="submit" align="right">Enviar</button-c>
+          <button-c type="submit" align="right">Actualizar</button-c>
         </form>
         <slot></slot>
       </form-container-c>
