@@ -14,11 +14,8 @@ export const routes = [
       adminRoutes,
       publicRoute,
       {
-        path: "/(.*)",
-        action: async () => {
-          await import("../core/pages/public/not-found");
-        },
-        component: "not-found"
+        path: "/",
+        redirect: "/not-found"
       }
     ]
   }
