@@ -6,7 +6,7 @@ import { CategoryRepositoryFactory } from "../infrastructure/category-repository
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyCategory } from "../../shared/emptyObjects";
 import { Router } from "@vaadin/router";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 
 @customElement("category-form-c")
 export class CategoryForm extends LitElement {

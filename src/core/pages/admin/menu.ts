@@ -37,7 +37,7 @@ export class Home extends LitElement {
                     </li>
                     <li>
                       <span @click=${() => Router.go("/admin/update-site")}
-                        >Configuración</span
+                        >⚙️ Configuración</span
                       >
                     </li>
                   `

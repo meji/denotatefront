@@ -5,7 +5,7 @@ import { Post } from "../domain/post";
 import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
 import { this_styles } from "./form-styles";
@@ -61,7 +61,7 @@ export class PostNew extends LitElement {
                       `
                     : html`
                         <p>
-                          Sube la imagen principal de la post
+                          Sube la imagen principal del post
                           <small>(recomendado 1920pxx800px)</small>
                         </p>
                         <uploader-lab

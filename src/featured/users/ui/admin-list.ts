@@ -10,7 +10,7 @@ import { general } from "../../../../styles/general";
 import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
 import { User } from "../domain/user";
 import { emptyUser } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 import { Router } from "@vaadin/router";
 
 @customElement("admin-user-list-c")

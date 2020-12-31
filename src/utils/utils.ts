@@ -36,3 +36,14 @@ export const countErrors = (e: HTMLElement): number => {
   });
   return counter;
 };
+
+export const setTitleDescription = (title: string, description: string) => {
+  document.title = title;
+  let allMetaElements = document.getElementsByTagName("meta");
+  for (var i = 0; i < allMetaElements.length; i++) {
+    if (allMetaElements[i].getAttribute("name") == "description") {
+      allMetaElements[i].setAttribute("content", description);
+      break;
+    }
+  }
+};

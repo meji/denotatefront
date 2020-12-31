@@ -6,7 +6,7 @@ import { PostRepositoryFactory } from "../infrastructure/post-repository-factory
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyPost } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 import { Category } from "../../categories/domain/category";
 import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
 import { this_styles } from "./form-styles";
@@ -82,7 +82,7 @@ export class PostForm extends LitElement {
                     `
                   : html`
                       <p>
-                        Sube la imagen principal de la post
+                        Sube la imagen principal del post
                         <small>(recomendado 1920pxx800px)</small>
                       </p>
                       <uploader-lab
@@ -94,7 +94,7 @@ export class PostForm extends LitElement {
                 id="title"
                 type="text"
                 label="Título"
-                placeholder="Título de la post"
+                placeholder="Título del post"
                 name="title"
                 value="${this.values.title}"
                 required="true"

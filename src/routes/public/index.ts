@@ -2,6 +2,7 @@ import { catRoutes } from "./categories";
 import { tagRoutes } from "./tags";
 import { postsRoutes } from "./posts";
 import { usersRoutes } from "./users";
+import { setTitleDescription } from "../../utils/utils";
 
 export const publicRoute = {
   path: "/",
@@ -14,6 +15,10 @@ export const publicRoute = {
       path: "/",
       action: async () => {
         await import("../../core/pages/public/home");
+        setTitleDescription(
+          "Denotate CMS",
+          "Denotate, un CMS construido con Deno, LitElemente y Webcomponents"
+        );
       },
       component: "home-c"
     },

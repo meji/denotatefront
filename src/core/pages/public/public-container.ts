@@ -1,7 +1,5 @@
 import { LitElement, html, customElement, property, css } from "lit-element";
-import { UserRepositoryFactory } from "../../../featured/users/infrastructure/user-repository-factory";
 import { Commands, Context, Router } from "@vaadin/router";
-import { authGuard } from "../../../featured/shared/auth/auth-guard";
 import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
 import { UserHttpService } from "../../../featured/users/infrastructure/user-http-service";
 import { getAdminUrl } from "../../../utils/utils";
@@ -52,7 +50,7 @@ export class PublicContainer extends LitElement {
   }
   async connectedCallback() {
     super.connectedCallback();
-    this.islogged = await this.userService.thisIsLoggged();
+    this.islogged = await this.userService.thisIsLogged();
     const siteService = new SiteService();
     const site = await siteService.getSite();
     if (site) {

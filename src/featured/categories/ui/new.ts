@@ -6,7 +6,7 @@ import { CategoryRepositoryFactory } from "../infrastructure/category-repository
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
 import { emptyCategory } from "../../shared/emptyObjects";
 import { Commands, Context, Router } from "@vaadin/router";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 
 const categoryRepository = CategoryRepositoryFactory.build();
 

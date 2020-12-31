@@ -27,9 +27,11 @@ export class Header extends LitElement {
                 : "/logo.svg"}
               alt="logo"
               @click="${() => Router.go("/")}"
-              class="${!this.site.logo ? "default" : "custom"} ${!this.site
-                .logo && (this.site.theme = "dark")
-                ? "invert"
+              class="${this.site.logo == "" ? "default" : "custom"} ${!this.site
+                .logo
+                ? this.site.theme != "dark"
+                  ? "invert"
+                  : ""
                 : ""} "
             />
             <nav>

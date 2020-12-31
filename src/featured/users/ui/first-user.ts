@@ -101,7 +101,7 @@ export class FirstUser extends LitElement {
     const values = serializeForm(target);
     await this.userService.signup({ ...values, admin: true }).then(response => {
       this.siteService.createSite(emptySite);
-      Router.go("/admin/update-site");
+      Router.go("/login");
     });
   };
 }

@@ -1,5 +1,5 @@
 import { User } from "../domain/user";
-import { token, UserService } from "../domain/user-service";
+import { UserService } from "../domain/user-service";
 import { http } from "../../shared/http/http";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
 
@@ -44,9 +44,19 @@ export class UserHttpService implements UserService {
   }
 
   async thisIsAdmin(): Promise<boolean> {
-    return (await http.get("/users/thisisadmin")).data;
+    return http
+      .get("/users/thisisadmin")
+      .then(response => !!response.data)
+      .catch(e => {
+        return false;
+      });
   }
-  async thisIsLoggged(): Promise<boolean> {
-    return (await http.get("/users/thisislogged")).data;
+  async thisIsLogged(): Promise<boolean> {
+    return http
+      .get("/users/thisislogged")
+      .then(response => !!response.data)
+      .catch(e => {
+        return false;
+      });
   }
 }

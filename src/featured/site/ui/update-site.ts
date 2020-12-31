@@ -13,7 +13,7 @@ import { Site } from "../domain/site";
 import "color-picker-element";
 import { emptySite } from "../../shared/emptyObjects";
 import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 
 @customElement("update-site-c")
 export class UpdateSite extends LitElement {

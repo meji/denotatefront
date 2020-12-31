@@ -6,7 +6,7 @@ import { general } from "../../../../styles/general";
 import { AuthorizationService } from "../../shared/auth/authorization-service";
 import { UserHttpService } from "../../users/infrastructure/user-http-service";
 import { User } from "../domain/user";
-import { adminStyles } from "../../../../styles/adminStyles";
+import { adminStyles } from "../../../../styles/admin-styles";
 import { emptyUser } from "../../shared/emptyObjects";
 
 @customElement("user-form-c")

@@ -21,7 +21,7 @@ export class AuthGuard implements PageEnabled {
     pathRedirect?: string
   ): Promise<any> {
     const isAdmin = await this.userRepository.findAdmin();
-    const isAuthenticated = await this.userService.thisIsLoggged();
+    const isAuthenticated = await this.userService.thisIsLogged();
     if (!isAdmin) {
       console.warn("New  Site you need to configure your site");
       return commands.redirect("/newsite");
@@ -43,15 +43,4 @@ export class AuthGuard implements PageEnabled {
     }
     return undefined;
   }
-}
-
-export async function authGuard(context: Context, commands: Commands) {
-  const isAuthenticated = await new AuthorizationService().isAuthorized();
-
-  if (!isAuthenticated) {
-    console.warn("User not authorized", context.pathname);
-    return commands.redirect("/");
-  }
-
-  return undefined;
 }

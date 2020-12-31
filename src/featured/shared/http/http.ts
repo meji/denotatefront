@@ -12,11 +12,3 @@ export const http = axios.create({
     Authorization: "Bearer " + token
   }
 });
-
-export const httpForm = axios.create({
-  baseURL: server,
-  headers: {
-    Authorization: "Bearer " + token,
-    "Content-Type": "multipart/form-data"
-  }
-});
