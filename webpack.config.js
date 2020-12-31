@@ -55,9 +55,9 @@ module.exports = (env, argv) => ({
         use:
           argv.mode === "production"
             ? [
-                {
-                  loader: "minify-lit-html-loader"
-                },
+                // {
+                //   loader: "minify-lit-html-loader"
+                // },
                 {
                   loader: "ts-loader"
                 }
