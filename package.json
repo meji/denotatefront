@@ -2,6 +2,9 @@
   "name": "denotate-front",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "13.x"
+  },
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -10,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jesús Martín Mejías",
   "license": "ISC",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.5.0",
