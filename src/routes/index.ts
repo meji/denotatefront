@@ -9,14 +9,6 @@ export const routes = [
       await import("../app-lit");
     },
     component: "app-lit",
-    children: [
-      ...otherRoutes,
-      adminRoutes,
-      publicRoute,
-      {
-        path: "/",
-        redirect: "/not-found"
-      }
-    ]
+    children: [...otherRoutes, adminRoutes, publicRoute]
   }
 ];
