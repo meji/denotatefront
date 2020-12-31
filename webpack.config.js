@@ -105,6 +105,6 @@ module.exports = (env, argv) => ({
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".css"]
+    extensions: [".tsx", ".ts", ".js"]
   }
 });
