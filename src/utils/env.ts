@@ -1,6 +1,7 @@
 import {Env, StringOrNumber} from './envModel';
+import * as dotenv from 'dotenv';
 
-require("dotenv").config();
+dotenv.config();
 
 class EnvBuilder {
   private env: Env;
