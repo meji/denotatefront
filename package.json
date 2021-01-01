@@ -54,7 +54,5 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
-  "devDependencies": {
-    "husky": "^4.3.6"
-  }
+  "devDependencies": {}
 }
