@@ -18,7 +18,10 @@ module.exports = (env, argv) => ({
   devtool: argv.mode === "production" ? "none" : "inline-source-map",
   plugins: [
     new CleanWebpackPlugin(),
-
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.API_URI": JSON.stringify(process.env.API_URI)
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     }),
