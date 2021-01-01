@@ -46,7 +46,7 @@ module.exports = (env, argv) => ({
   ],
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "/")
   },
   module: {
     rules: [
@@ -68,13 +68,13 @@ module.exports = (env, argv) => ({
                 //     }
                 //   }
                 // },
-              // {
-              //   loader: 'minify-template-literal-loader',
-              //   options: {
-              //     caseSensitive: true,
-              //     collapseWhitespace: true
-              //   }
-              // },
+                // {
+                //   loader: 'minify-template-literal-loader',
+                //   options: {
+                //     caseSensitive: true,
+                //     collapseWhitespace: true
+                //   }
+                // },
                 {
                   loader: "ts-loader"
                 }
@@ -88,7 +88,7 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.template\.ts$/,
-        loader: 'minify-template-literal-loader',
+        loader: "minify-template-literal-loader",
         options: {
           caseSensitive: true,
           collapseWhitespace: true

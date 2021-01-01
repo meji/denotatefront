@@ -11,6 +11,10 @@ module.exports = (env, argv) => ({
   entry: {
     app: "./src/main.ts"
   },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    historyApiFallback: true
+  },
   devtool: argv.mode === "production" ? "none" : "inline-source-map",
   plugins: [
     new CleanWebpackPlugin(),
