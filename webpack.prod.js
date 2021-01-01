@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
 
 module.exports = (env, argv) => ({
   mode: "development",
@@ -18,8 +19,8 @@ module.exports = (env, argv) => ({
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
-      "process.env": {},
-    }),,
+      "process.env": {}
+    }),
     new HtmlWebpackPlugin({
       template: "./index.html"
     }),
@@ -70,13 +71,13 @@ module.exports = (env, argv) => ({
                 //     }
                 //   }
                 // },
-              // {
-              //   loader: 'minify-template-literal-loader',
-              //   options: {
-              //     caseSensitive: true,
-              //     collapseWhitespace: true
-              //   }
-              // },
+                // {
+                //   loader: 'minify-template-literal-loader',
+                //   options: {
+                //     caseSensitive: true,
+                //     collapseWhitespace: true
+                //   }
+                // },
                 {
                   loader: "ts-loader"
                 }
@@ -90,7 +91,7 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.template\.ts$/,
-        loader: 'minify-template-literal-loader',
+        loader: "minify-template-literal-loader",
         options: {
           caseSensitive: true,
           collapseWhitespace: true
