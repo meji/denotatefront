@@ -7,7 +7,7 @@ const Dotenv = require("dotenv-webpack");
 const webpack = require("webpack");
 
 module.exports = (env, argv) => ({
-  mode: "development",
+  mode: "production",
   entry: {
     app: "./src/main.ts"
   },
@@ -88,14 +88,6 @@ module.exports = (env, argv) => ({
                 }
               ],
         exclude: /node_modules/
-      },
-      {
-        test: /\.template\.ts$/,
-        loader: "minify-template-literal-loader",
-        options: {
-          caseSensitive: true,
-          collapseWhitespace: true
-        }
       },
       {
         test: /\.css$/,
