@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-// const Dotenv = require("dotenv-webpack");
-// const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
 
 module.exports = (env, argv) => ({
   mode: "production",

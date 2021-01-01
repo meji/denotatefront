@@ -13,7 +13,7 @@
     "start": "webpack-dev-server --mode production --open",
     "startdev": "webpack-dev-server --mode development --open",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "webpack --mode production --config webpack.prod.js"
+    "heroku-postbuild": "webpack --mode production --config webpack.prod.js --env API_URI=https://denotate-back.herokuapp.com/"
   },
   "keywords": [],
   "author": "Jesús Martín Mejías",
@@ -21,6 +21,7 @@
   "dependencies": {
     "@fooloomanzoo/color-picker": "^3.0.2",
     "@github/markdown-toolbar-element": "^1.3.2",
+    "@mars/heroku-js-runtime-env": "^3.0.2",
     "@types/dom-inputevent": "^1.0.6",
     "@vaadin/router": "^1.7.2",
     "@webcomponents/webcomponentsjs": "^2.5.0",
