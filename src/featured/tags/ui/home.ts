@@ -9,14 +9,14 @@ import {publicStyles} from '../../../styles/public';
 export class CategoryList extends LitElement {
   private tagRepository = TagRepositoryFactory.build();
 
-  @property({ type: Object }) posts: Post[];
-  @property({ type: String }) tag;
+  @property({ type: Object }) posts: Post[] = [];
+  @property({ type: String }) tag: string | null = "";
 
   public static styles = [general, publicStyles];
   render() {
     return html`
       <div>
-        <h1>${this.tag.title}</h1>
+        <h1>${this.tag}</h1>
         ${this.posts.length > 0
           ? html`
               <ul class="modules-container">
@@ -37,8 +37,9 @@ export class CategoryList extends LitElement {
     super.connectedCallback();
     await new Promise(r => setTimeout(r, 0));
     this.tag = getId();
-    await this.tagRepository.findByTitle(this.tag).then(response => {
-      this.posts = response;
-    });
+    this.tag &&
+      (await this.tagRepository.findByTitle(this.tag).then(response => {
+        this.posts = response;
+      }));
   }
 }

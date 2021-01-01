@@ -1,17 +1,13 @@
-import { Commands, Context, RedirectResult } from "@vaadin/router";
-import { AuthorizationService } from "./authorization-service";
-import { PageEnabled } from "./page-enabled";
-import { SiteService } from "../../site/infrastructure/site-service";
-import { UserRepository } from "../../users/domain/user-repository";
-import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
-import { UserHttpService } from "../../users/infrastructure/user-http-service";
+import {Commands, Context} from '@vaadin/router';
+import {AuthorizationService} from './authorization-service';
+import {PageEnabled} from './page-enabled';
+import {UserRepositoryFactory} from '../../users/infrastructure/user-repository-factory';
+import {UserHttpService} from '../../users/infrastructure/user-http-service';
 
 export class AuthGuard implements PageEnabled {
-  private authService: AuthorizationService;
   private userService: UserHttpService;
   private userRepository = UserRepositoryFactory.build();
   constructor() {
-    this.authService = new AuthorizationService();
     this.userService = new UserHttpService(new AuthorizationService());
   }
 

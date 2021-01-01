@@ -8,15 +8,16 @@ import {publicStyles} from '../../../styles/public';
 import {general} from '../../../styles/general';
 import {Router} from '@vaadin/router';
 import {CategoryRepositoryFactory} from '../../categories/infrastructure/category-repository-factory';
+import {Category} from '../../categories/domain/category';
 
 @customElement("post-home-c")
 export class PostHome extends LitElement {
   postRepository = PostRepositoryFactory.build();
   categoryRepository = CategoryRepositoryFactory.build();
   @property() post: Partial<Post> = emptyPost;
-  @property() description;
-  @property() cats = [];
-  @query("#description") descriptionc;
+  @property() description = "";
+  @property() cats: Category[] = [];
+  @query("#description") descriptionc: HTMLElement | undefined;
   public static styles = [general, publicStyles];
 
   render() {
@@ -62,14 +63,15 @@ export class PostHome extends LitElement {
         .getById(id)
         .then(response => {
           this.post = response;
-          response.cats.map(cat => {
-            this.categoryRepository
-              .getById(cat)
-              .then(response => this.cats.push(response));
-          });
+          response.cats &&
+            response.cats.map(cat => {
+              this.categoryRepository
+                .getById(cat)
+                .then(response => this.cats.push(response));
+            });
         })
         .then(() => {
-          this.descriptionc.innerHTML = md.render(this.post.description);
+          this.descriptionc!.innerHTML = md.render(this.post.description);
         });
     }
   }

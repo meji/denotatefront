@@ -1,45 +1,9 @@
-import {css, customElement, html, LitElement, property, query} from 'lit-element';
+import {customElement, html, LitElement, property, query} from 'lit-element';
+import {this_styles} from './styles';
 
 @customElement("button-c")
 export class Button extends LitElement {
-  public static styles = css`
-    button {
-      font-family: var(--title-font);
-      padding: calc(var(--m)) calc(var(--l) * 2);
-      font-size: var(--base-font-size);
-      border: 1px solid var(--main-color);
-      border-radius: var(--rm);
-      background: var(--background-color);
-      color: var(--main-color);
-    }
-    button:hover span.text {
-      //mix-blend-mode: difference;
-      color: var(--body-text-color);
-      //filter: brightness(0.5);
-    }
-    button.small {
-      padding: var(--s) var(--m);
-    }
-    button.extrasmall {
-      padding: calc(var(--s) / 2) var(--s);
-    }
-    button:hover {
-      color: var(--text-body-color);
-      cursor: pointer;
-      background: var(--main-color);
-    }
-    button.right {
-      float: right;
-    }
-    button.transparent {
-      border: none;
-      background: transparent !important;
-      opacity: 0.7;
-    }
-    button.transparent:hover {
-      opacity: 1;
-    }
-  `;
+  public static styles = [this_styles]
   @property({ type: Boolean }) submit = false;
   @property({ type: String }) size = "";
   @property({ type: String }) class = "";
@@ -63,15 +27,9 @@ export class Button extends LitElement {
   }
 
   render() {
-    return html`
-      <button
-        class="${this.size} ${this.type} ${this.align} ${this.class}"
-        type="${this.submit ? "submit" : "button"}"
-        @click="${(e: any) => this.handleClick(e)}"
-      >
-        <span class="text"><slot></slot></span>
-      </button>
-    `;
+    return html`<button class="${this.size} ${this.type} ${this.align} ${this.class}" type="${this.submit ? "submit" : "button"}" @click="${(e: any) => this.handleClick(e)}">
+        <slot></slot>
+      </button>`;
   }
 
   private closestElement(

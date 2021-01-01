@@ -10,7 +10,8 @@
     "build": "webpack --mode production",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open -d",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "webpack --config webpack.prod.js"
   },
   "keywords": [],
   "author": "Jesús Martín Mejías",
@@ -21,9 +22,11 @@
     "copy-webpack-plugin": "^5.1.2",
     "css-loader": "^3.6.0",
     "file-loader": "^4.3.0",
+    "html-minifier": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "lit-css-loader": "0.0.4",
     "minify-lit-html-loader": "0.0.3",
+    "minify-template-literal-loader": "0.0.3",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.3.0",
     "terser-webpack-plugin": "^1.4.5",

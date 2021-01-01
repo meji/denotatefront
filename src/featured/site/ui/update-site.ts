@@ -13,9 +13,9 @@ export class UpdateSite extends LitElement {
   siteService = new SiteService();
   private imageService = new ImageHttpService();
   @property({ type: Object }) values: Partial<Site> = emptySite;
-  @property() imgData;
+  @property() imgData = "";
   @property({ type: String }) imgName = "";
-  @query("#switcher") switcher;
+  @query("#switcher") switcher: HTMLElement | undefined;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -24,9 +24,10 @@ export class UpdateSite extends LitElement {
       this.values = { ...site };
     }
     if (this.values.theme == "dark") {
-      this.switcher.shadowRoot
-        .querySelector("input")
-        .setAttribute("checked", "checked");
+      this.switcher!.shadowRoot!.querySelector("input")!.setAttribute(
+        "checked",
+        "checked"
+      );
     }
   }
 
@@ -47,7 +48,7 @@ export class UpdateSite extends LitElement {
         object-fit: scale-down;
         max-width: 100%;
         max-height: 100%;
-        margin: 0px auto;
+        margin: 0 auto;
         display: block;
       }
     `
@@ -88,7 +89,7 @@ export class UpdateSite extends LitElement {
                   <small>(recomendado 250px x 80px)</small>
                 </p>
                 <uploader-lab
-                  @input="${e => this.handleUpdatePictureChange(e)}"
+                  @input="${(e: any) => this.handleUpdatePictureChange(e)}"
                 ></uploader-lab>
               `}
         </div>
@@ -100,7 +101,7 @@ export class UpdateSite extends LitElement {
             ?label=${this.values.theme == "dark" ? "Oscuro" : "Claro"}
             name="featured"
             ?checked="${this.values.theme == "dark"}"
-            @input="${e => this.handleSwitchChange(e)}"
+            @input="${(e: any) => this.handleSwitchChange(e)}"
           ></switch-c>
         </p>
         <form @submit="${(e: any) => this.handleSubmit(e)}" id="site-form">
@@ -126,7 +127,7 @@ export class UpdateSite extends LitElement {
       </form-container-c>
     `;
   }
-  handleUpdatePictureChange = e => {
+  handleUpdatePictureChange = (e: any) => {
     const target = e.target;
     setTimeout(() => {
       this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
@@ -134,7 +135,7 @@ export class UpdateSite extends LitElement {
     }, 100);
   };
 
-  handleSwitchChange = e => {
+  handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
       theme: e.target.shadowRoot.host.el().checked ? "dark" : "light"
@@ -147,7 +148,7 @@ export class UpdateSite extends LitElement {
     this.dispatchEvent(changeTheme);
   };
 
-  handleColorChange = e => {
+  handleColorChange = (e: any) => {
     this.values["color"] = e.target.value;
   };
   uploadImage = async () => {

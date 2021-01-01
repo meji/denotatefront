@@ -1,8 +1,7 @@
-import { catRoutes } from "./categories";
-import { tagRoutes } from "./tags";
-import { postsRoutes } from "./posts";
-import { usersRoutes } from "./users";
-import { setTitleDescription } from "../../utils/utils";
+import {catRoutes} from './categories';
+import {tagRoutes} from './tags';
+import {postsRoutes} from './posts';
+import {setTitleDescription} from '../../utils/utils';
 
 export const publicRoute = {
   path: "/",

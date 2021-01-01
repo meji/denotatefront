@@ -141,7 +141,7 @@ export class NotFound extends LitElement {
       }
     }
   `;
-  @query("canvas") canvas;
+  @query("canvas") canvas: HTMLElement | undefined;
 
   render() {
     return html`

@@ -1,8 +1,6 @@
-import { UserHttpService } from "../../featured/users/infrastructure/user-http-service";
-import { AuthorizationService } from "../../featured/shared/auth/authorization-service";
-import { Commands, Context } from "@vaadin/router";
-import { AuthGuard } from "../../featured/shared/auth/auth-guard";
-const userService = new UserHttpService(new AuthorizationService());
+import {Commands, Context} from '@vaadin/router';
+import {AuthGuard} from '../../featured/shared/auth/auth-guard';
+
 export const adminUsersRoutes = {
   path: "/users",
   children: [

@@ -1,6 +1,5 @@
-import { User } from "./user";
-import { ID } from "../../shared/id/id";
-type token = string;
+import {User} from './user';
+import {ID} from '../../shared/id/id';
 
 export interface UserRepository {
   findUserById(id: ID): Promise<User>;

@@ -1,15 +1,13 @@
-import { http } from "../../shared/http/http";
-import { ID } from "../../shared/id/id";
-import { CategoryRepository } from "../domain/category-repository";
-import { CategoryDtoToCategoryMapper } from "./category-dto-to-category-mapper";
-import { CategoryToCategoryDtoMapper } from "./category-to-category-dto-mapper";
-import { Category } from "../domain/category";
-import { CategoryDto } from "./category-dto";
+import {http} from '../../shared/http/http';
+import {ID} from '../../shared/id/id';
+import {CategoryRepository} from '../domain/category-repository';
+import {CategoryDtoToCategoryMapper} from './category-dto-to-category-mapper';
+import {Category} from '../domain/category';
+import {CategoryDto} from './category-dto';
 
 export class CategoryHttpRepository implements CategoryRepository {
   constructor(
-    private readonly categoryDtoToCategoryMapper: CategoryDtoToCategoryMapper,
-    private readonly categoryToCategoryDtoMapper: CategoryToCategoryDtoMapper
+    private readonly categoryDtoToCategoryMapper: CategoryDtoToCategoryMapper
   ) {}
   async findAll(): Promise<Category[]> {
     const response = await http.get<CategoryDto[]>(`/categories/`);

@@ -1,16 +1,12 @@
-import { UserRepository } from "../domain/user-repository";
-import { UserDtoToUserMapper } from "./user-dto-to-user-mapper";
-import { UserToUserDtoMapper } from "./user-to-user-dto-mapper";
-import { User } from "../domain/user";
-import { UserDto } from "./user-dto";
-import { http } from "../../shared/http/http";
-import { ID } from "../../shared/id/id";
+import {UserRepository} from '../domain/user-repository';
+import {UserDtoToUserMapper} from './user-dto-to-user-mapper';
+import {User} from '../domain/user';
+import {UserDto} from './user-dto';
+import {http} from '../../shared/http/http';
+import {ID} from '../../shared/id/id';
 
 export class UserHttpRepository implements UserRepository {
-  constructor(
-    private readonly userDtoToUserMapper: UserDtoToUserMapper,
-    private readonly userToUserDtoMapper: UserToUserDtoMapper
-  ) {}
+  constructor(private readonly userDtoToUserMapper: UserDtoToUserMapper) {}
 
   async findAllUsers(): Promise<User[]> {
     const response = await http.get<UserDto[]>(`/users/all`);

@@ -1,0 +1,5 @@
+{
+  "jsx-bracket-same-line": true,
+  "proseWrap": "preserve",
+  "printWidth": 300
+}

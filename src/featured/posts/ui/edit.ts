@@ -21,14 +21,14 @@ export class PostForm extends LitElement {
   @property({ type: Object })
   initialValues: Partial<Post> = Object.create(emptyPost);
   @property({ type: Boolean }) edit = false;
-  @property() imgData;
+  @property() imgData = "";
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
-  @property() catsDisp: Partial<Category>[] = [null];
+  @property() catsDisp: Partial<Category>[] = [] as Partial<Category>[];
   @property({ type: String }) validityError = "";
 
-  @query("#switcher") switcher;
+  @query("#switcher") switcher: HTMLElement | undefined;
 
   public static styles = [general, adminStyles, this_styles];
   render() {
@@ -86,7 +86,8 @@ export class PostForm extends LitElement {
                         <small>(recomendado 1920pxx800px)</small>
                       </p>
                       <uploader-lab
-                        @input="${e => this.handleUpdatePictureChange(e)}"
+                        @input="${(e: any) =>
+                          this.handleUpdatePictureChange(e)}"
                       ></uploader-lab>
                     `}
               </div>
@@ -110,7 +111,7 @@ export class PostForm extends LitElement {
               ></input-c>
               <md-editor-bis-c
                 initialValue="${this.values.description}"
-                @input=${e => {
+                @input=${(e: any) => {
                   this.values.description = e.target.value;
                 }}
               ></md-editor-bis-c>
@@ -121,7 +122,7 @@ export class PostForm extends LitElement {
                   label="Destacar"
                   name="featured"
                   ?checked="${this.values.featured}"
-                  @input="${e => this.handleSwitchChange(e)}"
+                  @input="${(e: KeyboardEvent) => this.handleSwitchChange(e)}"
                 ></switch-c>
               </p>
             </div>
@@ -132,11 +133,11 @@ export class PostForm extends LitElement {
                   <option-c
                     type="checkbox"
                     .checked=${!!(
-                      this.values.cats && this.values.cats.includes(cat.id)
+                      this.values.cats && this.values.cats.includes(cat.id!)
                     )}
                     name="cats"
                     label="${cat.title}"
-                    @input="${e => this.addCategories(e, cat.id)}"
+                    @input="${(e: any) => this.addCategories(e, cat.id!)}"
                   ></option-c>
                 `;
               })}
@@ -149,7 +150,7 @@ export class PostForm extends LitElement {
                         ><span
                           class="cut"
                           @click=${() => {
-                            this.values.tags = this.values.tags.filter(
+                            this.values.tags = this.values.tags!.filter(
                               tagIn => tagIn != tag
                             );
                             this.requestUpdate();
@@ -163,7 +164,7 @@ export class PostForm extends LitElement {
               <input-c
                 label="Tag"
                 placeholder="Nueva tag sin espacios"
-                @keydown="${e => this.handleNewTag(e)}"
+                @keydown="${(e: KeyboardEvent) => this.handleNewTag(e)}"
               ></input-c>
             </div>
           </div>
@@ -184,19 +185,20 @@ export class PostForm extends LitElement {
       this.initialValues = { ...this.values };
     }
     if (this.values.featured) {
-      this.switcher.shadowRoot
-        .querySelector("input")
-        .setAttribute("checked", "checked");
+      this.switcher!.shadowRoot!.querySelector("input")!.setAttribute(
+        "checked",
+        "checked"
+      );
     }
   }
-  handleSwitchChange = e => {
+  handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
       featured: e.target.shadowRoot.host.el().checked
     };
   };
 
-  handleUpdatePictureChange = e => {
+  handleUpdatePictureChange = (e: any) => {
     const target = e.target;
     setTimeout(() => {
       this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
@@ -245,7 +247,7 @@ export class PostForm extends LitElement {
       this.requestUpdate();
     });
   };
-  addCategories = (e, id) => {
+  addCategories = (e: any, id: string) => {
     if (e.target.shadowRoot.querySelector("input").checked) {
       this.values.cats && !this.values.cats.includes(id)
         ? (this.values.cats = [...this.values.cats, id])
@@ -256,14 +258,14 @@ export class PostForm extends LitElement {
         : null;
     }
   };
-  handleNewTag = async e => {
+  handleNewTag = async (e: any) => {
     if (e.key == "Enter") {
-      this.values.tags = [...this.values.tags, e.target.value];
+      this.values.tags = [...this.values.tags!, e.target.value];
       e.target.shadowRoot.querySelector("input").value = "";
       await this.requestUpdate();
     }
     if (e.key == " ") {
-      this.values.tags = [...this.values.tags, e.target.value];
+      this.values.tags = [...this.values.tags!, e.target.value];
       e.target.shadowRoot.querySelector("input").value = "";
       await this.requestUpdate();
     } else if (e.key == " ") {

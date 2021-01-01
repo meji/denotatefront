@@ -1,6 +1,5 @@
-import { Post } from "./post";
-import { ID } from "../../shared/id/id";
-import { PostDto } from "../infrastructure/post-dto";
+import {Post} from './post';
+import {ID} from '../../shared/id/id';
 
 export interface PostRepository {
   findAll(): Promise<Post[]>;

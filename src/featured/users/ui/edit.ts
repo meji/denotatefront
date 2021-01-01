@@ -8,6 +8,7 @@ import {UserHttpService} from '../../users/infrastructure/user-http-service';
 import {User} from '../domain/user';
 import {adminStyles} from '../../../styles/admin-styles';
 import {emptyUser} from '../../shared/emptyObjects';
+import {ID} from '../../shared/id/id';
 
 @customElement("user-form-c")
 export class EditUser extends LitElement {
@@ -15,7 +16,7 @@ export class EditUser extends LitElement {
   private userRepository = UserRepositoryFactory.build();
   @property() user: Partial<User> = emptyUser;
   @property() password = { oldPswd: "", newPswd: "" };
-  @property({ type: String }) id = "";
+  @property({ type: String }) id: ID = "";
   public static styles = [general, adminStyles];
   @property({ type: String }) validityError = "";
 

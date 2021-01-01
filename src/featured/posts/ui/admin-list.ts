@@ -36,7 +36,7 @@ export class AdminPostList extends LitElement {
                           size="extrasmall"
                           class="transparent"
                           title="Ver descripción"
-                          @click="${e =>
+                          @click="${(e: any) =>
                             e.target
                               .closest("li")
                               .querySelector(".description")
@@ -62,8 +62,8 @@ export class AdminPostList extends LitElement {
                           size="extrasmall"
                           class="transparent"
                           title="borrar"
-                          @click="${e =>
-                            this._handleDelete(post.id, post.title)}"
+                          @click="${() =>
+                            this._handleDelete(post.id!, post.title!)}"
                           >🗑️
                         </button-c>
                       </span>
@@ -115,7 +115,7 @@ export class AdminPostList extends LitElement {
     this.values = await this.postRepository.findAll();
   };
 
-  _handleDelete = async (id, title) => {
+  _handleDelete = async (id: string, title: string) => {
     if (window.confirm(`¿Quieres borrar el post ${title} ?`)) {
       this.postRepository
         .delete(id)

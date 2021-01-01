@@ -1,7 +1,7 @@
-import { User } from "../domain/user";
-import { UserService } from "../domain/user-service";
-import { http } from "../../shared/http/http";
-import { AuthorizationService } from "../../shared/auth/authorization-service";
+import {User} from '../domain/user';
+import {UserService} from '../domain/user-service';
+import {http} from '../../shared/http/http';
+import {AuthorizationService} from '../../shared/auth/authorization-service';
 
 export class UserHttpService implements UserService {
   constructor(private readonly authorizationService: AuthorizationService) {}
@@ -47,7 +47,8 @@ export class UserHttpService implements UserService {
     return http
       .get("/users/thisisadmin")
       .then(response => !!response.data)
-      .catch(e => {
+      .catch((e: Error) => {
+        console.log(e.message);
         return false;
       });
   }
@@ -55,7 +56,8 @@ export class UserHttpService implements UserService {
     return http
       .get("/users/thisislogged")
       .then(response => !!response.data)
-      .catch(e => {
+      .catch((e: Error) => {
+        console.log(e.message);
         return false;
       });
   }

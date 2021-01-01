@@ -60,7 +60,7 @@ export class CategoryHome extends LitElement {
     const id = getId();
     !id
       ? Router.go("/not-found")
-      : await this.categoryRepository.getById(getId()).then(response => {
+      : await this.categoryRepository.getById(id).then(response => {
           this.category = response;
           if (response.posts!.length > 0) {
             response.posts!.map(async post => {

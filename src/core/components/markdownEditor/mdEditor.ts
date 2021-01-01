@@ -1,20 +1,14 @@
-import {
-  css,
-  customElement,
-  html,
-  LitElement,
-  property,
-  query
-} from "lit-element";
-import { this_styles } from "./styles";
+import {customElement, html, LitElement, property, query} from 'lit-element';
+import {this_styles} from './styles';
+
 const SimpleMde = require("simplemde");
 @customElement("md-editor-bis-c")
 export class MdEditor extends LitElement {
-  @query("#container") previewcontainer;
-  @query("#textarea_id") mdeditor;
+  @query("#container") previewcontainer: HTMLElement | undefined;
+  @query("#textarea_id") mdeditor: HTMLElement | undefined;
   @property({ type: String }) value = "";
-  @property({ type: String }) initialValue;
-  simpleMde;
+  @property({ type: String }) initialValue = "";
+  simpleMde: any;
   public static styles = [this_styles];
   render() {
     return html`
@@ -27,8 +21,8 @@ export class MdEditor extends LitElement {
         rel="stylesheet"
       />
       <div
-        @input="${e => this._hadleChange(e)}"
-        @paste="${e => this._hadleChange(e)}"
+        @input="${() => this._hadleChange()}"
+        @paste="${() => this._hadleChange()}"
       >
         <textarea id="textarea_id"> </textarea>
       </div>
@@ -47,7 +41,7 @@ export class MdEditor extends LitElement {
     setTimeout(() => this.simpleMde.value(this.initialValue), 100);
   }
 
-  _hadleChange = e => {
+  _hadleChange = () => {
     this.value = this.simpleMde.value();
   };
 }

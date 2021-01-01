@@ -1,5 +1,3 @@
-import { ID } from "../featured/shared/id/id";
-
 export const serializeForm = (form: HTMLFormElement) => {
   var obj = {};
   var formData = new FormData(form);
@@ -10,7 +8,7 @@ export const serializeForm = (form: HTMLFormElement) => {
   return obj;
 };
 
-export const getId = (): ID => {
+export const getId = (): any => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
@@ -29,8 +27,8 @@ export const getAdminUrl = (): string => {
 
 export const countErrors = (e: HTMLElement): number => {
   let counter = 0;
-  e.shadowRoot.querySelectorAll("input-c").forEach(e => {
-    if (e.shadowRoot.querySelector("input").validationMessage) {
+  e.shadowRoot!.querySelectorAll("input-c").forEach(e => {
+    if (e.shadowRoot!.querySelector("input")!.validationMessage) {
       counter++;
     }
   });

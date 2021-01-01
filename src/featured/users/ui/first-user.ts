@@ -99,7 +99,7 @@ export class FirstUser extends LitElement {
     e.preventDefault();
     const target = e.target;
     const values = serializeForm(target);
-    await this.userService.signup({ ...values, admin: true }).then(response => {
+    await this.userService.signup({ ...values, admin: true }).then(() => {
       this.siteService.createSite(emptySite);
       Router.go("/login");
     });

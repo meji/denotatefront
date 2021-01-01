@@ -1,6 +1,6 @@
-import { Commands, Context } from "@vaadin/router";
-import { UserHttpService } from "../../featured/users/infrastructure/user-http-service";
-import { AuthorizationService } from "../../featured/shared/auth/authorization-service";
+import {Commands} from '@vaadin/router';
+import {UserHttpService} from '../../featured/users/infrastructure/user-http-service';
+import {AuthorizationService} from '../../featured/shared/auth/authorization-service';
 
 export const otherRoutes = [
   {
@@ -19,7 +19,7 @@ export const otherRoutes = [
   },
   {
     path: "/logout",
-    action: async (context: Context, commands: Commands) => {
+    action: async (commands: Commands) => {
       const userHttpService = new UserHttpService(new AuthorizationService());
       await userHttpService.logout().then(() => commands.redirect("/"));
     },

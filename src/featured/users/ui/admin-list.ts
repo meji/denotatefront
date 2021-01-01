@@ -35,7 +35,7 @@ export class AdminUserList extends LitElement {
                       size="extrasmall"
                       class="transparent"
                       title="Ver descripción"
-                      @click="${e =>
+                      @click="${(e: any) =>
                         e.target
                           .closest("li")
                           .querySelector(".description")
@@ -64,9 +64,9 @@ export class AdminUserList extends LitElement {
                       size="extrasmall"
                       class="transparent"
                       title="borrar"
-                      @click="${e =>
+                      @click="${() =>
                         this._handleDelete(
-                          user.id,
+                          user.id!,
                           user.firstName + " " + user.secondName
                         )}"
                       >🗑️
@@ -97,7 +97,7 @@ export class AdminUserList extends LitElement {
     this.values = await this.userRepository.findAllUsers();
   };
 
-  _handleDelete = async (id, title) => {
+  _handleDelete = async (id: string, title: string) => {
     if (window.confirm(`¿Quieres borrar el usuario ${title} ?`)) {
       this.userRepository
         .delete(id)

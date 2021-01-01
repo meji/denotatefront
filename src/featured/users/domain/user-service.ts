@@ -1,5 +1,5 @@
-import { User } from "./user";
-import { http } from "../../shared/http/http";
+import {User} from './user';
+
 export type token = string;
 
 export interface UserService {

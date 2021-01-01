@@ -19,15 +19,15 @@ export class PostNew extends LitElement {
   @property()
   values: Partial<Post> = Object.create(emptyPost);
   @property({ type: Boolean }) edit = false;
-  @property() imgData;
+  @property() imgData = "";
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
-  @property() catsDisp: Partial<Category>[] = [null];
+  @property() catsDisp: Partial<Category>[] = [];
   @property({ type: String }) validityError = "";
-  @property({ type: String }) tag;
+  @property({ type: String }) tag: string = "";
 
-  @query("#switcher") switcher;
+  @query("#switcher") switcher: HTMLElement | undefined;
 
   public static styles = [general, adminStyles, this_styles];
   render() {
@@ -66,7 +66,8 @@ export class PostNew extends LitElement {
                           <small>(recomendado 1920pxx800px)</small>
                         </p>
                         <uploader-lab
-                          @input="${e => this.handleUpdatePictureChange(e)}"
+                          @input="${(e: any) =>
+                            this.handleUpdatePictureChange(e)}"
                         ></uploader-lab>
                       `}
                 </div>
@@ -89,7 +90,7 @@ export class PostNew extends LitElement {
                   required="true"
                 ></input-c>
                 <md-editor-bis-c
-                  @input=${e => {
+                  @input=${(e: any) => {
                     this.values.description = e.target.value;
                   }}
                 ></md-editor-bis-c>
@@ -100,7 +101,7 @@ export class PostNew extends LitElement {
                     label="Destacar"
                     name="featured"
                     ?checked="${this.values.featured}"
-                    @input="${e => this.handleSwitchChange(e)}"
+                    @input="${(e: any) => this.handleSwitchChange(e)}"
                   ></switch-c>
                 </p>
               </div>
@@ -113,7 +114,7 @@ export class PostNew extends LitElement {
                       .checked=${false}
                       name="cats"
                       label="${cat.title}"
-                      @input="${e => this.addCategories(e, cat.id)}"
+                      @input="${(e: any) => this.addCategories(e, cat.id!)}"
                     ></option-c>
                   `;
                 })}
@@ -126,7 +127,7 @@ export class PostNew extends LitElement {
                           ><span
                             class="cut"
                             @click=${() => {
-                              this.values.tags = this.values.tags.filter(
+                              this.values.tags = this.values.tags!.filter(
                                 tagIn => tagIn != tag
                               );
                               this.requestUpdate();
@@ -140,7 +141,7 @@ export class PostNew extends LitElement {
                 <input-c
                   label="Tag"
                   placeholder="Nueva tag sin espacios"
-                  @keydown="${e => this.handleNewTag(e)}"
+                  @keydown="${(e: any) => this.handleNewTag(e)}"
                 ></input-c>
               </div>
             </div>
@@ -157,14 +158,14 @@ export class PostNew extends LitElement {
     this.values = new Object(emptyPost);
     this.catsDisp = await this.categoryRepositoy.findAll();
   }
-  handleSwitchChange = e => {
+  handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
       featured: e.target.shadowRoot.host.el().checked
     };
   };
 
-  handleUpdatePictureChange = e => {
+  handleUpdatePictureChange = (e: any) => {
     const target = e.target;
     setTimeout(() => {
       this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
@@ -206,7 +207,7 @@ export class PostNew extends LitElement {
     this.values.img = "";
   };
 
-  addCategories = (e, id) => {
+  addCategories = (e: any, id: string) => {
     if (e.target.shadowRoot.querySelector("input").checked) {
       this.values.cats && !this.values.cats.includes(id)
         ? (this.values.cats = [...this.values.cats, id])
@@ -217,10 +218,10 @@ export class PostNew extends LitElement {
         : null;
     }
   };
-  handleNewTag = async e => {
+  handleNewTag = async (e: any) => {
     if (e.key == "Enter") {
       e.preventDefault();
-      this.values.tags = [...this.values.tags, e.target.value];
+      this.values.tags = [...this.values.tags!, e.target.value];
       e.target.shadowRoot.querySelector("input").value = "";
       await this.requestUpdate();
     } else if (e.key == " ") {
