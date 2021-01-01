@@ -3,7 +3,7 @@ import {this_styles} from './styles';
 
 @customElement("button-c")
 export class Button extends LitElement {
-  public static styles = [this_styles]
+  public static styles = [this_styles];
   @property({ type: Boolean }) submit = false;
   @property({ type: String }) size = "";
   @property({ type: String }) class = "";
@@ -27,9 +27,15 @@ export class Button extends LitElement {
   }
 
   render() {
-    return html`<button class="${this.size} ${this.type} ${this.align} ${this.class}" type="${this.submit ? "submit" : "button"}" @click="${(e: any) => this.handleClick(e)}">
+    return html`
+      <button
+        class="${this.size} ${this.type} ${this.align} ${this.class}"
+        type="${this.submit ? "submit" : "button"}"
+        @click="${(e: any) => this.handleClick(e)}"
+      >
         <slot></slot>
-      </button>`;
+      </button>
+    `;
   }
 
   private closestElement(
