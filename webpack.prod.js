@@ -20,7 +20,7 @@ module.exports = (env, argv) => ({
     new CleanWebpackPlugin(),
 
     new HtmlWebpackPlugin({
-      template: "./index.html"
+      template: "./src/index.html"
     }),
     new CopyWebpackPlugin([
       {
@@ -52,45 +52,13 @@ module.exports = (env, argv) => ({
   module: {
     rules: [
       {
-        test: /\.ts?$/,
-        use:
-          argv.mode === "production"
-            ? [
-                // {
-                //   loader: "minify-lit-html-loader",
-                //   options: {
-                //     htmlMinifier: {
-                //       collapseWhitespace: true,
-                //       ignoreCustomFragments: [/<\s/, /<=/],
-                //       collapseInlineTagWhitespace: true,
-                //       continueOnParseError: true,
-                //       decodeEntities: true,
-                //       keepClosingSlash: true
-                //     }
-                //   }
-                // },
-                // {
-                //   loader: 'minify-template-literal-loader',
-                //   options: {
-                //     caseSensitive: true,
-                //     collapseWhitespace: true
-                //   }
-                // },
-                {
-                  loader: "ts-loader"
-                }
-              ]
-            : [
-                {
-                  loader: "ts-loader"
-                }
-              ],
+        test: /\.tsx?$/,
+        use: "ts-loader",
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, "styles"),
-        //include: /stylesheets|node_modules/,
+        include: /stylesheets|node_modules/,
         use: ["style-loader", "css-loader"]
       },
       {

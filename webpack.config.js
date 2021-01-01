@@ -51,48 +51,9 @@ module.exports = (env, argv) => ({
   module: {
     rules: [
       {
-        test: /\.ts?$/,
-        use:
-          argv.mode === "production"
-            ? [
-                // {
-                //   loader: "minify-lit-html-loader",
-                //   options: {
-                //     htmlMinifier: {
-                //       collapseWhitespace: true,
-                //       ignoreCustomFragments: [/<\s/, /<=/],
-                //       collapseInlineTagWhitespace: true,
-                //       continueOnParseError: true,
-                //       decodeEntities: true,
-                //       keepClosingSlash: true
-                //     }
-                //   }
-                // },
-                // {
-                //   loader: 'minify-template-literal-loader',
-                //   options: {
-                //     caseSensitive: true,
-                //     collapseWhitespace: true
-                //   }
-                // },
-                {
-                  loader: "ts-loader"
-                }
-              ]
-            : [
-                {
-                  loader: "ts-loader"
-                }
-              ],
+        test: /\.tsx?$/,
+        use: "ts-loader",
         exclude: /node_modules/
-      },
-      {
-        test: /\.template\.ts$/,
-        loader: "minify-template-literal-loader",
-        options: {
-          caseSensitive: true,
-          collapseWhitespace: true
-        }
       },
       {
         test: /\.css$/,
