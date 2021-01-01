@@ -13,7 +13,7 @@
     "start": "webpack-dev-server --mode production",
     "startdev": "webpack-dev-server --mode development --open",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "webpack --mode production --config webpack.prod.js run start"
+    "heroku-postbuild": "webpack --mode production --config webpack.prod.js"
   },
   "keywords": [],
   "author": "Jesús Martín Mejías",
