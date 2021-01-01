@@ -1,11 +1,4 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
+import {css, customElement, html, LitElement} from 'lit-element';
 
 @customElement("footer-c")
 export class Footer extends LitElement {

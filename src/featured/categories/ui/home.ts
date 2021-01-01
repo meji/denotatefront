@@ -1,18 +1,20 @@
-import { LitElement, html, customElement, property } from "lit-element";
-import { getId } from "../../../utils/utils";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
-import { Category } from "../domain/category";
-import { general } from "../../../../styles/general";
-import { PostRepositoryFactory } from "../../posts/infrastructure/post-repository-factory";
-import { publicStyles } from "../../../../styles/public";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {getId} from '../../../utils/utils';
+import {CategoryRepositoryFactory} from '../infrastructure/category-repository-factory';
+import {Category} from '../domain/category';
+import {general} from '../../../styles/general';
+import {PostRepositoryFactory} from '../../posts/infrastructure/post-repository-factory';
+import {publicStyles} from '../../../styles/public';
+import {Router} from '@vaadin/router';
+import {emptyCategory} from '../../shared/emptyObjects';
+import {Post} from '../../posts/domain/post';
 
 @customElement("category-home-c")
 export class CategoryHome extends LitElement {
   categoryRepository = CategoryRepositoryFactory.build();
   postRepository = PostRepositoryFactory.build();
-  @property() category: Partial<Category>;
-  @property() posts = [];
+  @property() category: Partial<Category> = emptyCategory;
+  @property() posts = [] as Post[];
   public static styles = [general, publicStyles];
 
   render() {
@@ -60,8 +62,8 @@ export class CategoryHome extends LitElement {
       ? Router.go("/not-found")
       : await this.categoryRepository.getById(getId()).then(response => {
           this.category = response;
-          if (response.posts.length > 0) {
-            response.posts.map(async post => {
+          if (response.posts!.length > 0) {
+            response.posts!.map(async post => {
               this.postRepository.getById(post).then(response => {
                 this.posts = [...this.posts, response];
               });

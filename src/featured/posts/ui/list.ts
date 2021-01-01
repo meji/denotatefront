@@ -1,14 +1,7 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { general } from "../../../../styles/general";
-import { Post } from "../domain/post";
-import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {Post} from '../domain/post';
+import {PostRepositoryFactory} from '../infrastructure/post-repository-factory';
 
 @customElement("post-list-c")
 export class PostList extends LitElement {

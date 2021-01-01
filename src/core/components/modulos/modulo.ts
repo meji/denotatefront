@@ -1,17 +1,10 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  PropertyValues
-} from "lit-element";
-import { Post } from "../../../featured/posts/domain/post";
-import { emptyPost } from "../../../featured/shared/emptyObjects";
-import { publicStyles } from "../../../../styles/public";
-import { general } from "../../../../styles/general";
-import { this_styles } from "./moduleStyles";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {Post} from '../../../featured/posts/domain/post';
+import {emptyPost} from '../../../featured/shared/emptyObjects';
+import {publicStyles} from '../../../styles/public';
+import {general} from '../../../styles/general';
+import {this_styles} from './moduleStyles';
+import {Router} from '@vaadin/router';
 
 @customElement("post-module-c")
 export class PostHome extends LitElement {
@@ -36,7 +29,9 @@ export class PostHome extends LitElement {
             `
           : null}
         <h2 class="h4">${this.post.title}</h2>
-        <div class="brief">${this.post.brief.substring(1, 70)}...</div>
+        <div class="brief">
+          ${this.post.brief && this.post.brief.substring(1, 70)}...
+        </div>
       </div>
     `;
   }

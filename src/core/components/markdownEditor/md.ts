@@ -3,7 +3,7 @@ export const md = require("markdown-it")({
   html: false,
   linkify: true,
   typographer: true,
-  highlight: function(str, lang) {
+  highlight: function(str: string, lang: string) {
     if (lang && hljs.getLanguage(lang)) {
       if (lang && hljs.getLanguage(lang)) {
         try {

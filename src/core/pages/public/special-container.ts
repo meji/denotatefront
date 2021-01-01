@@ -1,5 +1,5 @@
-import { LitElement, html, customElement, css } from "lit-element";
-import { general } from "../../../../styles/general";
+import {css, customElement, html, LitElement} from 'lit-element';
+import {general} from '../../../styles/general';
 
 @customElement("special-container-c")
 export class SpecialContainer extends LitElement {

@@ -1,13 +1,13 @@
-import { LitElement, html, customElement, css, property } from "lit-element";
-import { general } from "../../../../styles/general";
-import { this_styles } from "./menu_styles";
-import { Router } from "@vaadin/router";
-import { UserHttpService } from "../../../featured/users/infrastructure/user-http-service";
-import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {this_styles} from './menu_styles';
+import {Router} from '@vaadin/router';
+import {UserHttpService} from '../../../featured/users/infrastructure/user-http-service';
+import {AuthorizationService} from '../../../featured/shared/auth/authorization-service';
 
 @customElement("admin-menu-c")
 export class Home extends LitElement {
-  @property() admin: boolean;
+  @property() admin: boolean = false;
   userService = new UserHttpService(new AuthorizationService());
   public static styles = [general, this_styles];
   render() {

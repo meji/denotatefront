@@ -1,12 +1,12 @@
-import { customElement, html, LitElement, property, query } from "lit-element";
-import { countErrors, serializeForm } from "../../../utils/utils";
-import { general } from "../../../../styles/general";
-import { Category } from "../domain/category";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
-import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyCategory } from "../../shared/emptyObjects";
-import { Commands, Context, Router } from "@vaadin/router";
-import { adminStyles } from "../../../../styles/admin-styles";
+import {customElement, html, LitElement, property, query} from 'lit-element';
+import {countErrors, serializeForm} from '../../../utils/utils';
+import {general} from '../../../styles/general';
+import {Category} from '../domain/category';
+import {CategoryRepositoryFactory} from '../infrastructure/category-repository-factory';
+import {ImageHttpService} from '../../images/infrastructure/image-http-service';
+import {emptyCategory} from '../../shared/emptyObjects';
+import {Router} from '@vaadin/router';
+import {adminStyles} from '../../../styles/admin-styles';
 
 const categoryRepository = CategoryRepositoryFactory.build();
 
@@ -16,12 +16,12 @@ export class CategoryNew extends LitElement {
   @property({ type: Object })
   values: Partial<Category> = Object.create(emptyCategory);
   @property({ type: Boolean }) edit = false;
-  @property() imgData;
+  @property() imgData = "";
   @property({ type: String }) imgName = "";
   @property({ type: String }) id = "";
   @property({ type: Number }) counterUpdated = 0;
   @property({ type: String }) validityError = "";
-  @query("#switcher") switcher;
+  @query("#switcher") switcher: HTMLElement | undefined;
   public static styles = [general, adminStyles];
 
   render() {
@@ -58,7 +58,7 @@ export class CategoryNew extends LitElement {
                     <small>(recomendado 1920pxx800px)</small>
                   </p>
                   <uploader-lab
-                    @input="${e => this.handleUpdatePictureChange(e)}"
+                    @input="${(e: any) => this.handleUpdatePictureChange(e)}"
                   ></uploader-lab>
                 `}
           </div>
@@ -95,7 +95,7 @@ export class CategoryNew extends LitElement {
               label="Destacar"
               name="featured"
               ?checked="${this.values.featured}"
-              @input="${e => this.handleSwitchChange(e)}"
+              @input="${(e: any) => this.handleSwitchChange(e)}"
             ></switch-c>
           </p>
           <button-c type="submit" align="right">Enviar</button-c>
@@ -108,14 +108,14 @@ export class CategoryNew extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
   }
-  handleSwitchChange = e => {
+  handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
       featured: e.target.shadowRoot.host.el().checked
     };
   };
 
-  handleUpdatePictureChange = e => {
+  handleUpdatePictureChange = (e: any) => {
     const target = e.target;
     setTimeout(() => {
       this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];

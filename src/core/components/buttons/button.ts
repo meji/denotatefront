@@ -1,12 +1,4 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  css,
-  property,
-  eventOptions,
-  query
-} from "lit-element";
+import {css, customElement, html, LitElement, property, query} from 'lit-element';
 
 @customElement("button-c")
 export class Button extends LitElement {

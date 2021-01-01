@@ -1,13 +1,13 @@
-import { LitElement, html, customElement, property, css } from "lit-element";
-import "../../../core/pages/public/special-container";
-import { serializeForm } from "../../../utils/utils";
-import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
-import { SiteService } from "../../site/infrastructure/site-service";
-import { emptySite } from "../../shared/emptyObjects";
-import { general } from "../../../../styles/general";
-import { AuthorizationService } from "../../shared/auth/authorization-service";
-import { UserHttpService } from "../infrastructure/user-http-service";
-import { Router } from "@vaadin/router";
+import {css, customElement, html, LitElement} from 'lit-element';
+import '../../../core/pages/public/special-container';
+import {serializeForm} from '../../../utils/utils';
+import {UserRepositoryFactory} from '../infrastructure/user-repository-factory';
+import {SiteService} from '../../site/infrastructure/site-service';
+import {emptySite} from '../../shared/emptyObjects';
+import {general} from '../../../styles/general';
+import {AuthorizationService} from '../../shared/auth/authorization-service';
+import {UserHttpService} from '../infrastructure/user-http-service';
+import {Router} from '@vaadin/router';
 
 @customElement("first-user-c")
 export class FirstUser extends LitElement {

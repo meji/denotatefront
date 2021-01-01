@@ -8,7 +8,7 @@ const Dotenv = require("dotenv-webpack");
 module.exports = (env, argv) => ({
   mode: "development",
   entry: {
-    app: "./index.ts"
+    app: "./src/main.ts"
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
@@ -55,9 +55,9 @@ module.exports = (env, argv) => ({
         use:
           argv.mode === "production"
             ? [
-                // {
-                //   loader: "minify-lit-html-loader"
-                // },
+                {
+                  loader: "minify-lit-html-loader"
+                },
                 {
                   loader: "ts-loader"
                 }

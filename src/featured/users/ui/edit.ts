@@ -1,13 +1,13 @@
-import { LitElement, html, customElement, property } from "lit-element";
-import "../../../core/pages/public/special-container";
-import { countErrors, getId, serializeForm } from "../../../utils/utils";
-import { UserRepositoryFactory } from "../../users/infrastructure/user-repository-factory";
-import { general } from "../../../../styles/general";
-import { AuthorizationService } from "../../shared/auth/authorization-service";
-import { UserHttpService } from "../../users/infrastructure/user-http-service";
-import { User } from "../domain/user";
-import { adminStyles } from "../../../../styles/admin-styles";
-import { emptyUser } from "../../shared/emptyObjects";
+import {customElement, html, LitElement, property} from 'lit-element';
+import '../../../core/pages/public/special-container';
+import {countErrors, getId, serializeForm} from '../../../utils/utils';
+import {UserRepositoryFactory} from '../../users/infrastructure/user-repository-factory';
+import {general} from '../../../styles/general';
+import {AuthorizationService} from '../../shared/auth/authorization-service';
+import {UserHttpService} from '../../users/infrastructure/user-http-service';
+import {User} from '../domain/user';
+import {adminStyles} from '../../../styles/admin-styles';
+import {emptyUser} from '../../shared/emptyObjects';
 
 @customElement("user-form-c")
 export class EditUser extends LitElement {

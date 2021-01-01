@@ -1,17 +1,10 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { general } from "../../../../styles/general";
-import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
-import { Post } from "../domain/post";
-import { emptyPost } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/admin-styles";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {PostRepositoryFactory} from '../infrastructure/post-repository-factory';
+import {Post} from '../domain/post';
+import {emptyPost} from '../../shared/emptyObjects';
+import {adminStyles} from '../../../styles/admin-styles';
+import {Router} from '@vaadin/router';
 
 @customElement("admin-post-list-c")
 export class AdminPostList extends LitElement {

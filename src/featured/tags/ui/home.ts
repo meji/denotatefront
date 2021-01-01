@@ -1,9 +1,9 @@
-import { LitElement, html, customElement, property } from "lit-element";
-import { general } from "../../../../styles/general";
-import { TagRepositoryFactory } from "../infrastructure/tag-repository-factory";
-import { getId } from "../../../utils/utils";
-import { Post } from "../../posts/domain/post";
-import { publicStyles } from "../../../../styles/public";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {TagRepositoryFactory} from '../infrastructure/tag-repository-factory';
+import {getId} from '../../../utils/utils';
+import {Post} from '../../posts/domain/post';
+import {publicStyles} from '../../../styles/public';
 
 @customElement("tag-home-c")
 export class CategoryList extends LitElement {

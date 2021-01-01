@@ -1,5 +1,4 @@
-import { ID } from "../../shared/id/id";
-import { User } from "../../users/domain/user";
+import {ID} from '../../shared/id/id';
 
 export interface Post {
   id: string;

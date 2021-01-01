@@ -1,17 +1,10 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { general } from "../../../../styles/general";
-import { UserRepositoryFactory } from "../infrastructure/user-repository-factory";
-import { User } from "../domain/user";
-import { emptyUser } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/admin-styles";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {UserRepositoryFactory} from '../infrastructure/user-repository-factory';
+import {User} from '../domain/user';
+import {emptyUser} from '../../shared/emptyObjects';
+import {adminStyles} from '../../../styles/admin-styles';
+import {Router} from '@vaadin/router';
 
 @customElement("admin-user-list-c")
 export class AdminUserList extends LitElement {

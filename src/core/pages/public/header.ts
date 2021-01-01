@@ -1,11 +1,11 @@
-import { LitElement, html, customElement, property, query } from "lit-element";
-import { CategoryRepositoryFactory } from "../../../featured/categories/infrastructure/category-repository-factory";
-import { Category } from "../../../featured/categories/domain/category";
-import { Router } from "@vaadin/router";
-import { SiteService } from "../../../featured/site/infrastructure/site-service";
-import { emptyCategory } from "../../../featured/shared/emptyObjects";
-import { general } from "../../../../styles/general";
-import { this_styles } from "./header_style";
+import {customElement, html, LitElement, property, query} from 'lit-element';
+import {CategoryRepositoryFactory} from '../../../featured/categories/infrastructure/category-repository-factory';
+import {Category} from '../../../featured/categories/domain/category';
+import {Router} from '@vaadin/router';
+import {SiteService} from '../../../featured/site/infrastructure/site-service';
+import {emptyCategory, emptySite} from '../../../featured/shared/emptyObjects';
+import {general} from '../../../styles/general';
+import {this_styles} from './header_style';
 
 @customElement("header-c")
 export class Header extends LitElement {
@@ -14,8 +14,8 @@ export class Header extends LitElement {
 
   public static styles = [general, this_styles];
   @property() categories: Partial<Category>[] = [emptyCategory];
-  @property() site;
-  @query("#header") headerElement;
+  @property() site = emptySite;
+  @query("#header") headerElement: HTMLElement | undefined;
 
   render() {
     return this.site
@@ -69,25 +69,26 @@ export class Header extends LitElement {
     await this.siteService.getSite().then(response => {
       response ? (this.site = response) : null;
     });
-    this.headerElement
-      .querySelector("#menu-icon")
-      .addEventListener("click", e => {
-        this.shadowRoot.querySelector("header").classList.toggle("open");
-      });
+    this.headerElement!.querySelector("#menu-icon")!.addEventListener(
+      "click",
+      () => {
+        this.shadowRoot!.querySelector("header")!.classList.toggle("open");
+      }
+    );
     let prevHash = window.location.href;
     const ethis = this;
     if (window.outerWidth < 1024) {
-      window.setInterval(function(e) {
+      window.setInterval(function() {
         if (window.location.href != prevHash) {
           prevHash = window.location.href;
-          ethis.shadowRoot.querySelector("header").classList.remove("open");
+          ethis.shadowRoot!.querySelector("header")!.classList.remove("open");
         }
       }, 100);
     }
     window.addEventListener("scroll", () => {
       window.scrollY > 0
-        ? ethis.shadowRoot.querySelector("header").classList.add("scroll")
-        : ethis.shadowRoot.querySelector("header").classList.remove("scroll");
+        ? ethis.shadowRoot!.querySelector("header")!.classList.add("scroll")
+        : ethis.shadowRoot!.querySelector("header")!.classList.remove("scroll");
     });
   }
   disconnectedCallback() {
@@ -95,8 +96,8 @@ export class Header extends LitElement {
     const ethis = this;
     window.removeEventListener("scroll", () => {
       window.scrollY > 0
-        ? ethis.shadowRoot.querySelector("header").classList.add("scroll")
-        : ethis.shadowRoot.querySelector("header").classList.remove("scroll");
+        ? ethis.shadowRoot!.querySelector("header")!.classList.add("scroll")
+        : ethis.shadowRoot!.querySelector("header")!.classList.remove("scroll");
     });
   }
 }

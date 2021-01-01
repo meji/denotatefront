@@ -1,14 +1,7 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  css,
-  query,
-  PropertyValues
-} from "lit-element";
-import { this_styles } from "./admin-container-styles";
-import { this_styles as adminStyles } from "../public/header_style";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement} from 'lit-element';
+import {this_styles} from './admin-container-styles';
+import {this_styles as adminStyles} from '../public/header_style';
+import {Router} from '@vaadin/router';
 
 @customElement("admin-container-c")
 export class AdminContainer extends LitElement {
@@ -23,7 +16,9 @@ export class AdminContainer extends LitElement {
               alt="logo"
               @click="${() => Router.go("/admin")}"
             />
-            <span id="menu-icon" @click="${e => this.handleClick(e)}"
+            <span
+              id="menu-icon"
+              @click="${(e: MouseEvent) => this.handleClick(e)}"
               ><div></div
             ></span>
           </header>
@@ -38,8 +33,8 @@ export class AdminContainer extends LitElement {
     `;
   }
 
-  handleClick = e => {
-    const el = e.target.closest("#maincontainer");
+  handleClick = (e: any) => {
+    const el = e.target!.closest("#maincontainer");
     el.classList.toggle("open");
   };
 }

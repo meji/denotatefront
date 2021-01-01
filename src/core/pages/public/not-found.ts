@@ -1,4 +1,4 @@
-import { LitElement, html, customElement, css, query } from "lit-element";
+import {css, customElement, html, LitElement, query} from 'lit-element';
 
 @customElement("not-found")
 export class NotFound extends LitElement {

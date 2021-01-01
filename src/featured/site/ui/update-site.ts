@@ -1,19 +1,12 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { serializeForm } from "../../../utils/utils";
-import { SiteService } from "../infrastructure/site-service";
-import { general } from "../../../../styles/general";
-import { Site } from "../domain/site";
-import "color-picker-element";
-import { emptySite } from "../../shared/emptyObjects";
-import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { adminStyles } from "../../../../styles/admin-styles";
+import {css, customElement, html, LitElement, property, query} from 'lit-element';
+import {serializeForm} from '../../../utils/utils';
+import {SiteService} from '../infrastructure/site-service';
+import {general} from '../../../styles/general';
+import {Site} from '../domain/site';
+import 'color-picker-element';
+import {emptySite} from '../../shared/emptyObjects';
+import {ImageHttpService} from '../../images/infrastructure/image-http-service';
+import {adminStyles} from '../../../styles/admin-styles';
 
 @customElement("update-site-c")
 export class UpdateSite extends LitElement {

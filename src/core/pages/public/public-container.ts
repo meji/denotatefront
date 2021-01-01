@@ -1,14 +1,12 @@
-import { LitElement, html, customElement, property, css } from "lit-element";
-import { Commands, Context, Router } from "@vaadin/router";
-import { AuthorizationService } from "../../../featured/shared/auth/authorization-service";
-import { UserHttpService } from "../../../featured/users/infrastructure/user-http-service";
-import { getAdminUrl } from "../../../utils/utils";
-import { SiteService } from "../../../featured/site/infrastructure/site-service";
+import {css, customElement, html, LitElement, property} from 'lit-element';
+import {Router} from '@vaadin/router';
+import {AuthorizationService} from '../../../featured/shared/auth/authorization-service';
+import {UserHttpService} from '../../../featured/users/infrastructure/user-http-service';
+import {getAdminUrl} from '../../../utils/utils';
 
 @customElement("container-c")
 export class PublicContainer extends LitElement {
-  @property({ type: Boolean }) islogged;
-  @property({ type: String }) theme;
+  @property({ type: Boolean }) islogged = false;
 
   userService = new UserHttpService(new AuthorizationService());
   public static styles = css`
@@ -25,7 +23,7 @@ export class PublicContainer extends LitElement {
   `;
   render() {
     return html`
-      <main class="${this.theme}">
+      <main>
         ${this.islogged
           ? html`
               <button-c
@@ -51,11 +49,6 @@ export class PublicContainer extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     this.islogged = await this.userService.thisIsLogged();
-    const siteService = new SiteService();
-    const site = await siteService.getSite();
-    if (site) {
-      this.theme = site.theme;
-    }
   }
 
   handleAdmin = () => {

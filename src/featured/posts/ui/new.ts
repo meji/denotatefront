@@ -1,14 +1,15 @@
-import { customElement, html, LitElement, property, query } from "lit-element";
-import { countErrors, serializeForm } from "../../../utils/utils";
-import { general } from "../../../../styles/general";
-import { Post } from "../domain/post";
-import { PostRepositoryFactory } from "../infrastructure/post-repository-factory";
-import { ImageHttpService } from "../../images/infrastructure/image-http-service";
-import { emptyPost } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/admin-styles";
-import { Category } from "../../categories/domain/category";
-import { CategoryRepositoryFactory } from "../../categories/infrastructure/category-repository-factory";
-import { this_styles } from "./form-styles";
+import {customElement, html, LitElement, property, query} from 'lit-element';
+import {countErrors, serializeForm} from '../../../utils/utils';
+import {general} from '../../../styles/general';
+import {Post} from '../domain/post';
+import {PostRepositoryFactory} from '../infrastructure/post-repository-factory';
+import {ImageHttpService} from '../../images/infrastructure/image-http-service';
+import {emptyPost} from '../../shared/emptyObjects';
+import {adminStyles} from '../../../styles/admin-styles';
+import {Category} from '../../categories/domain/category';
+import {CategoryRepositoryFactory} from '../../categories/infrastructure/category-repository-factory';
+import {this_styles} from './form-styles';
+
 const postRepository = PostRepositoryFactory.build();
 
 @customElement("post-new-c")

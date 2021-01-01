@@ -1,17 +1,10 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { general } from "../../../../styles/general";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
-import { Category } from "../domain/category";
-import { emptyCategory } from "../../shared/emptyObjects";
-import { adminStyles } from "../../../../styles/admin-styles";
-import { Router } from "@vaadin/router";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {CategoryRepositoryFactory} from '../infrastructure/category-repository-factory';
+import {Category} from '../domain/category';
+import {emptyCategory} from '../../shared/emptyObjects';
+import {adminStyles} from '../../../styles/admin-styles';
+import {Router} from '@vaadin/router';
 
 @customElement("admin-category-list-c")
 export class AdminCategoryList extends LitElement {
@@ -45,7 +38,7 @@ export class AdminCategoryList extends LitElement {
                           size="extrasmall"
                           class="transparent"
                           title="Ver descripción"
-                          @click="${e =>
+                          @click="${(e: any) =>
                             e.target
                               .closest("li")
                               .querySelector(".description")
@@ -76,8 +69,8 @@ export class AdminCategoryList extends LitElement {
                           size="extrasmall"
                           class="transparent"
                           title="borrar"
-                          @click="${e =>
-                            this._handleDelete(category.id, category.title)}"
+                          @click="${() =>
+                            this._handleDelete(category.id!, category.title!)}"
                           >🗑️
                         </button-c>
                       </span>
@@ -117,7 +110,7 @@ export class AdminCategoryList extends LitElement {
     this.values = await this.categoryRepository.findAll();
   };
 
-  _handleDelete = async (id, title) => {
+  _handleDelete = async (id: string, title: string) => {
     if (window.confirm(`¿Quieres borrar la categoría ${title} ?`)) {
       this.categoryRepository
         .delete(id)

@@ -1,13 +1,5 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  css,
-  property,
-  query,
-  PropertyValues
-} from "lit-element";
-import { this_styles } from "./option_styles";
+import {customElement, html, LitElement, property, PropertyValues, query} from 'lit-element';
+import {this_styles} from './option_styles';
 
 @customElement("option-c")
 export class Option extends LitElement {

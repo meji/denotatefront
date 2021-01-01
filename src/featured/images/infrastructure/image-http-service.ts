@@ -1,5 +1,5 @@
-import { ImageService } from "../domain/image-service";
-import { http } from "../../shared/http/http";
+import {ImageService} from '../domain/image-service';
+import {http} from '../../shared/http/http';
 
 export class ImageHttpService implements ImageService {
   async getImg(url: string): Promise<any> {
@@ -12,7 +12,7 @@ export class ImageHttpService implements ImageService {
     });
     return response.data;
   }
-  async deleteImage(name): Promise<{}> {
-    return await http.delete(`/images/?name={$name}`);
+  async deleteImage(name: string): Promise<{}> {
+    return await http.delete(`/images/?name=${name}`);
   }
 }

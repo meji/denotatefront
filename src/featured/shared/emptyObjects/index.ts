@@ -1,9 +1,8 @@
-import { Category } from "../../categories/domain/category";
-import { Tag } from "../../tags/domain/tag";
-import { Post } from "../../posts/domain/post";
-import { Site } from "../../site/domain/site";
-import { User } from "../../users/domain/user";
-import { ID } from "../id/id";
+import {Category} from '../../categories/domain/category';
+import {Tag} from '../../tags/domain/tag';
+import {Post} from '../../posts/domain/post';
+import {Site} from '../../site/domain/site';
+import {User} from '../../users/domain/user';
 
 export const emptyCategory: Partial<Category> = {
   title: "",

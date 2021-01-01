@@ -1,20 +1,10 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  query,
-  css
-} from "lit-element";
-import { general } from "../../../../styles/general";
-import { Category } from "../domain/category";
-import { CategoryRepositoryFactory } from "../infrastructure/category-repository-factory";
+import {customElement, html, LitElement, property} from 'lit-element';
+import {general} from '../../../styles/general';
+import {Category} from '../domain/category';
 
 @customElement("category-list-c")
 export class CategoryList extends LitElement {
-  private categoryRepository = CategoryRepositoryFactory.build();
-
-  @property({ type: Object }) values: Category[];
+  @property({ type: Object }) values: Category[] = [];
 
   public static styles = [general];
   render() {
