@@ -50,6 +50,7 @@
     "lit-element": "^2.4.0",
     "lite-form": "^1.0.2",
     "markdown-it": "^12.0.4",
-    "simplemde": "^1.11.2"
+    "simplemde": "^1.11.2",
+    "webpack-dev-server": "^3.11.0"
   }
 }
