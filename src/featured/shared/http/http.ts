@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {AuthorizationService} from '../auth/authorization-service';
+import axios from "axios";
+import { AuthorizationService } from "../auth/authorization-service";
 
 require("dotenv").config();
 
