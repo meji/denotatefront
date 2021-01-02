@@ -26,6 +26,6 @@ class EnvBuilder {
 }
 
 export const env = new EnvBuilder()
-  .withApi('https://denotate-back.herokuapp.com')
+  .withApi('http://localhost:8000')
   .withPort('8080')
   .builder()
