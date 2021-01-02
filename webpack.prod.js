@@ -11,7 +11,9 @@ module.exports = (env, argv) => ({
   entry: {
     app: './src/main.ts'
   },
-  target: 'node',
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true
