@@ -17,7 +17,7 @@ module.exports = (env, argv) => ({
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true
   },
-  devtool: argv.mode === 'production' ? 'none' : 'inline-source-map',
+  devtool: 'inline-source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new Dotenv({ path: path.resolve(__dirname, '.env') }),

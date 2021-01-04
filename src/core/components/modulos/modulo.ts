@@ -3,25 +3,22 @@ import {Post} from '../../../featured/posts/domain/post';
 import {emptyPost} from '../../../featured/shared/emptyObjects';
 import {publicStyles} from '../../../styles/public';
 import {general} from '../../../styles/general';
-import {this_styles} from './moduleStyles';
+import {this_styles} from './styles';
 import {Router} from '@vaadin/router';
 
-@customElement("post-module-c")
+@customElement('post-module-c')
 export class PostHome extends LitElement {
-  @property() post: Partial<Post> = emptyPost;
-  public static styles = [general, publicStyles, this_styles];
+  @property() post: Partial<Post> = emptyPost
+  public static styles = [general, publicStyles, this_styles]
 
   render() {
     return html`
-      <div
-        class="module"
-        @click="${() => Router.go(`/post?id=${this.post.id}`)}"
-      >
+      <div class="module" @click="${() => Router.go(`/post?id=${this.post.id}`)}">
         ${this.post.img
           ? html`
               <div class="img-container">
                 <img
-                  src="${process.env.API_URI + "/uploads/" + this.post.img}"
+                  src="${process.env.API_URI + '/uploads/' + this.post.img}"
                   alt="${this.post.title}"
                   title="${this.post.title}"
                 />
@@ -33,6 +30,6 @@ export class PostHome extends LitElement {
           ${this.post.brief && this.post.brief.substring(1, 70)}...
         </div>
       </div>
-    `;
+    `
   }
 }

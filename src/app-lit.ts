@@ -5,10 +5,12 @@ import {SiteService} from './featured/site/infrastructure/site-service';
 import {Router} from '@vaadin/router';
 import './core/index';
 
-@customElement("app-lit")
+@customElement('app-lit')
 export class AppLit extends LitElement {
-  @property({ type: String }) color = "#4bac95";
-  @property({ type: String }) theme = "light";
+  @property({ type: String }) color = '#4bac95'
+  @property({ type: String }) theme = 'light'
+  @property({ type: String }) notMessage = ''
+  @property({ type: String }) notType = ''
 
   public static styles = [
     theme,
@@ -22,14 +24,15 @@ export class AppLit extends LitElement {
         overflow: auto;
         font-family: var(--body-font);
       }
-      @import url("https://fonts.googleapis.com/css2?family=Cardo&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
     `
-  ];
+  ]
 
   render() {
     return html`
       <div id="wrapper" class="${this.theme}">
+        <notice-c message=${this.notMessage} type=${this.notType}></notice-c>
         <style>
           #wrapper {
             --main-color: ${this.color} !important;
@@ -37,31 +40,40 @@ export class AppLit extends LitElement {
         </style>
         <slot></slot>
       </div>
-    `;
+    `
   }
   async connectedCallback() {
-    super.connectedCallback();
-    const siteService = new SiteService();
-    const site = await siteService.getSite();
+    super.connectedCallback()
+    const siteService = new SiteService()
+    const site = await siteService.getSite()
 
     if (site) {
-      this.color = site.color;
-      this.theme = site.theme;
+      this.color = site.color
+      this.theme = site.theme
     } else {
-      Router.go("/newsite");
+      Router.go('/newsite')
     }
   }
 
   _handleChangeTheme = (e: any) => {
-    this.theme = e.detail.theme;
-  };
+    this.theme = e.detail.theme
+  }
+
+  _updateNotification = (e: any) => {
+    this.notMessage = e.detail.message
+    this.notType = e.detail.type
+    console.log('message', e.detail.message)
+    console.log('type', e.detail.type)
+  }
 
   async firstUpdated() {
-    await new Promise(r => setTimeout(r, 0));
-    this.addEventListener("change-theme", this._handleChangeTheme);
+    await new Promise(r => setTimeout(r, 0))
+    this.addEventListener('change-theme', this._handleChangeTheme)
+    window.addEventListener('notification-event', this._updateNotification)
   }
   disconnectedCallback() {
-    this.removeEventListener("change-theme", this._handleChangeTheme);
-    super.disconnectedCallback();
+    this.removeEventListener('change-theme', this._handleChangeTheme)
+    window.removeEventListener('notification-event', this._updateNotification)
+    super.disconnectedCallback()
   }
 }

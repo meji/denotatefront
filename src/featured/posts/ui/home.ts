@@ -10,15 +10,15 @@ import {Router} from '@vaadin/router';
 import {CategoryRepositoryFactory} from '../../categories/infrastructure/category-repository-factory';
 import {Category} from '../../categories/domain/category';
 
-@customElement("post-home-c")
+@customElement('post-home-c')
 export class PostHome extends LitElement {
-  postRepository = PostRepositoryFactory.build();
-  categoryRepository = CategoryRepositoryFactory.build();
-  @property() post: Partial<Post> = emptyPost;
-  @property() description = "";
-  @property() cats: Category[] = [];
-  @query("#description") descriptionc: HTMLElement | undefined;
-  public static styles = [general, publicStyles];
+  postRepository = PostRepositoryFactory.build()
+  categoryRepository = CategoryRepositoryFactory.build()
+  @property() post: Partial<Post> = emptyPost
+  @property() description = ''
+  @property() cats: Category[] = []
+  @query('#description') descriptionc: HTMLElement | undefined
+  public static styles = [general, publicStyles]
 
   render() {
     return html`
@@ -28,7 +28,7 @@ export class PostHome extends LitElement {
           ? html`
               <div class="img-container featured">
                 <img
-                  src="${process.env.API_URI + "/uploads/" + this.post.img}"
+                  src="${process.env.API_URI + '/uploads/' + this.post.img}"
                   alt="${this.post.title}"
                   title="${this.post.title}"
                 />
@@ -42,37 +42,31 @@ export class PostHome extends LitElement {
               <h4>Tags:</h4>
               ${this.post.tags.map(tag => {
                 return html`
-                  <span
-                    class="tag"
-                    @click="${() => Router.go(`/tag?id=${tag}`)}"
-                    >🏷️ ${tag}</span
-                  >
-                `;
+                  <span class="tag" @click="${() => Router.go(`/tag?id=${tag}`)}">🏷️ ${tag}</span>
+                `
               })}
             `
           : null}
       </div>
-    `;
+    `
   }
   async connectedCallback() {
-    super.connectedCallback();
-    const id = getId();
-    !id ? Router.go("/not-found") : null;
+    super.connectedCallback()
+    const id = getId()
+    !id ? Router.go('/not-found') : null
     if (id) {
       await this.postRepository
         .getById(id)
         .then(response => {
-          this.post = response;
+          this.post = response
           response.cats &&
             response.cats.map(cat => {
-              this.categoryRepository
-                .getById(cat)
-                .then(response => this.cats.push(response));
-            });
+              this.categoryRepository.getById(cat).then(response => this.cats.push(response))
+            })
         })
         .then(() => {
-          this.descriptionc!.innerHTML = md.render(this.post.description);
-        });
+          this.descriptionc!.innerHTML = md.render(this.post.description)
+        })
     }
   }
 }
