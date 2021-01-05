@@ -40,4 +40,4 @@ export const this_styles = css`
       margin: var(--m) auto;
     }
   }
-`;
+`

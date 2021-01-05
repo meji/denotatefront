@@ -36,4 +36,4 @@ export const this_styles = css`
       height: 200px;
     }
   }
-`;
+`
