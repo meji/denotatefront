@@ -1,5 +1,5 @@
-import {css, customElement, html, LitElement} from 'lit-element';
-import {Router} from '@vaadin/router';
+import { css, customElement, html, LitElement } from 'lit-element'
+import { Router } from '@vaadin/router'
 
 @customElement('footer-c')
 export class Footer extends LitElement {

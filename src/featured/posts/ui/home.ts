@@ -1,14 +1,14 @@
-import {customElement, html, LitElement, property, query} from 'lit-element';
-import {PostRepositoryFactory} from '../infrastructure/post-repository-factory';
-import {getId} from '../../../utils/utils';
-import {Post} from '../domain/post';
-import {emptyPost} from '../../shared/emptyObjects';
-import {md} from '../../../core/components/markdownEditor/md';
-import {publicStyles} from '../../../styles/public';
-import {general} from '../../../styles/general';
-import {Router} from '@vaadin/router';
-import {CategoryRepositoryFactory} from '../../categories/infrastructure/category-repository-factory';
-import {Category} from '../../categories/domain/category';
+import { customElement, html, LitElement, property, query } from 'lit-element'
+import { PostRepositoryFactory } from '../infrastructure/post-repository-factory'
+import { getId } from '../../../utils/utils'
+import { Post } from '../domain/post'
+import { emptyPost } from '../../shared/emptyObjects'
+import { md } from '../../../core/components/markdownEditor/md'
+import { publicStyles } from '../../../styles/public'
+import { general } from '../../../styles/general'
+import { Router } from '@vaadin/router'
+import { CategoryRepositoryFactory } from '../../categories/infrastructure/category-repository-factory'
+import { Category } from '../../categories/domain/category'
 
 @customElement('post-home-c')
 export class PostHome extends LitElement {

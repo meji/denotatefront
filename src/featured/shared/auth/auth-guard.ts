@@ -1,9 +1,9 @@
-import {Commands, Context, Router} from '@vaadin/router';
-import {AuthorizationService} from './authorization-service';
-import {PageEnabled} from './page-enabled';
-import {UserRepositoryFactory} from '../../users/infrastructure/user-repository-factory';
-import {UserHttpService} from '../../users/infrastructure/user-http-service';
-import {notify} from '../../../utils/utils';
+import { Commands, Context, Router } from '@vaadin/router'
+import { AuthorizationService } from './authorization-service'
+import { PageEnabled } from './page-enabled'
+import { UserRepositoryFactory } from '../../users/infrastructure/user-repository-factory'
+import { UserHttpService } from '../../users/infrastructure/user-http-service'
+import { notify } from '../../../utils/utils'
 
 export class AuthGuard implements PageEnabled {
   private userService: UserHttpService

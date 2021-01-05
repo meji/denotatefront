@@ -1,1 +1,1 @@
-import './notice';
+import './notice'

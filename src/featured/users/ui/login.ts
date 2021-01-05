@@ -1,10 +1,10 @@
-import {css, customElement, html, LitElement, PropertyValues} from 'lit-element';
-import '../../../core/components';
-import '../../../core/pages/public/special-container';
-import {UserHttpService} from '../infrastructure/user-http-service';
-import {AuthorizationService} from '../../shared/auth/authorization-service';
-import {notify, serializeForm} from '../../../utils/utils';
-import {general} from '../../../styles/general';
+import { css, customElement, html, LitElement, PropertyValues } from 'lit-element'
+import '../../../core/components'
+import '../../../core/pages/public/special-container'
+import { UserHttpService } from '../infrastructure/user-http-service'
+import { AuthorizationService } from '../../shared/auth/authorization-service'
+import { notify, serializeForm } from '../../../utils/utils'
+import { general } from '../../../styles/general'
 
 @customElement('login-page-c')
 export class Home extends LitElement {

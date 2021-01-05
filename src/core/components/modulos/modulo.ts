@@ -1,10 +1,10 @@
-import {customElement, html, LitElement, property} from 'lit-element';
-import {Post} from '../../../featured/posts/domain/post';
-import {emptyPost} from '../../../featured/shared/emptyObjects';
-import {publicStyles} from '../../../styles/public';
-import {general} from '../../../styles/general';
-import {this_styles} from './styles';
-import {Router} from '@vaadin/router';
+import { customElement, html, LitElement, property } from 'lit-element'
+import { Post } from '../../../featured/posts/domain/post'
+import { emptyPost } from '../../../featured/shared/emptyObjects'
+import { publicStyles } from '../../../styles/public'
+import { general } from '../../../styles/general'
+import { this_styles } from './styles'
+import { Router } from '@vaadin/router'
 
 @customElement('post-module-c')
 export class PostHome extends LitElement {

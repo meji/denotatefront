@@ -1,5 +1,5 @@
-import {customElement, html, LitElement, property} from 'lit-element';
-import {this_styles} from './styles';
+import { customElement, html, LitElement, property } from 'lit-element'
+import { this_styles } from './styles'
 
 @customElement('form-container-c')
 export class ContainerForm extends LitElement {

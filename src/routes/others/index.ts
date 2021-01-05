@@ -1,6 +1,6 @@
-import {Router} from '@vaadin/router';
-import {UserHttpService} from '../../featured/users/infrastructure/user-http-service';
-import {AuthorizationService} from '../../featured/shared/auth/authorization-service';
+import { Router } from '@vaadin/router'
+import { UserHttpService } from '../../featured/users/infrastructure/user-http-service'
+import { AuthorizationService } from '../../featured/shared/auth/authorization-service'
 
 export const otherRoutes = [
   {
