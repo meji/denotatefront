@@ -17,7 +17,7 @@ export class UserHttpService implements UserService {
     this.authorizationService.setToken(token)
   }
   async logout(): Promise<void> {
-    this.authorizationService.removeToken()
+    return this.authorizationService.removeToken()
   }
   async signup(user: Partial<User>): Promise<void> {
     const token = (

@@ -1,4 +1,3 @@
-import { Router } from '@vaadin/router'
 import { UserHttpService } from '../../featured/users/infrastructure/user-http-service'
 import { AuthorizationService } from '../../featured/shared/auth/authorization-service'
 
@@ -21,7 +20,7 @@ export const otherRoutes = [
     path: '/logout',
     action: async () => {
       const userHttpService = new UserHttpService(new AuthorizationService())
-      await userHttpService.logout().then(() => Router.go('/'))
+      await userHttpService.logout().then(() => (window.location.href = '/'))
     },
     redirect: '/'
   },
