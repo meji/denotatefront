@@ -15,10 +15,12 @@ export class PublicContainerFull extends LitElement {
       bottom: 10px;
       right: 10px;
     }
+    main {
+      background: var(--background-total-color);
+    }
     .body {
       background: var(--background-total-color);
       padding: var(--xl) var(--m);
-      padding-top: 140px;
     }
   `
   render() {
@@ -36,7 +38,7 @@ export class PublicContainerFull extends LitElement {
               >
             `
           : ''}
-        <header-c></header-c>
+        <header-c transparent=${true}></header-c>
         <slot name="featured"></slot>
         <div class="body">
           <body-container-c>

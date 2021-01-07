@@ -4,26 +4,61 @@ export const this_styles = css`
   * {
     box-sizing: border-box;
   }
-  .slider {
+  .swiper-container {
     width: 100vw;
-    height: 300px;
-    text-align: center;
+    height: 400px;
     overflow: hidden;
   }
 
-  .img-container {
-    position: relative;
-    width: 100vw;
-    height: 300px;
-  }
-  img {
-    object-fit: cover;
+  .swiper-slide:after {
+    content: '';
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-indexz: 0;
+  }
+
+  .img-container {
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    x-index: 0;
+  }
+  img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
   }
+  .data {
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    height: 100%;
+    max-width: 100%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: var(--l);
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .data h2,
+  .data p {
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+  }
+  .data p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .data h2:hover, .data p:hover {opacity: 0.8}
 
   @font-face {
     font-family: swiper-icons;
@@ -145,8 +180,8 @@ export const this_styles = css`
   :root {
     --swiper-navigation-size: 44px;
   }
-  .swiper-button-next,
-  .swiper-button-prev {
+  swiper-container:hover .swiper-button-next,
+  swiper-container:hover .swiper-button-prev {
     position: absolute;
     top: 50%;
     width: calc(var(--swiper-navigation-size) / 44 * 27);
@@ -158,7 +193,10 @@ export const this_styles = css`
     align-items: center;
     justify-content: center;
     color: var(--swiper-navigation-color, var(--swiper-theme-color));
+    opacity:0;
   }
+  .swiper-button-next,
+  .swiper-button-prev {
   .swiper-button-next.swiper-button-disabled,
   .swiper-button-prev.swiper-button-disabled {
     opacity: 0.35;
@@ -182,7 +220,7 @@ export const this_styles = css`
   }
   .swiper-button-prev:after,
   .swiper-container-rtl .swiper-button-next:after {
-    content: 'prev';
+    content: '◀️';
   }
   .swiper-button-next,
   .swiper-container-rtl .swiper-button-prev {
@@ -191,7 +229,7 @@ export const this_styles = css`
   }
   .swiper-button-next:after,
   .swiper-container-rtl .swiper-button-prev:after {
-    content: 'next';
+    content: '▶️';
   }
   .swiper-button-next.swiper-button-white,
   .swiper-button-prev.swiper-button-white {

@@ -16,6 +16,27 @@ export const this_styles = css`
     transition: var(--transition);
     z-index: 10;
   }
+  header.transparent:not(.scroll) {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  //header.transparent:not(.open) img {
+  //  filter: brightness(100%);
+  //}
+  header.transparent:not(.scroll) nav ul li span {
+    color: #fff;
+  }
+  header.transparent:not(.scroll) nav ul li span:hover:after {
+    background: #fff;
+  }
+  header.transparent:not(.scroll) #menu-icon * {
+    background: #fff;
+  }
+  header.transparent:not(.open):not(.scroll) #menu-icon::after,
+  header.transparent:not(.open):not(.scroll) #menu-icon::before,
+  header.transparent:not(.open):not(.scroll) #menu-icon div {
+    background: #fff;
+  }
 
   header.scroll {
     padding: var(--s) var(--m);
@@ -90,6 +111,9 @@ export const this_styles = css`
     header {
       justify-content: space-between;
       padding: var(--m);
+    }
+    header.transparent:not(.scroll) nav ul li span {
+      color: var(--text-body-color);
     }
     nav {
       position: fixed;

@@ -6,10 +6,12 @@ type element = {
   title: string
   img: string
   brief: string
+  id: string
 }
 // import Swiper JS
-import Swiper, { Navigation, Pagination } from 'swiper'
-Swiper.use([Navigation, Pagination])
+import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
+import { Router } from '@vaadin/router'
+Swiper.use([Navigation, Pagination, Autoplay])
 
 @customElement('slider-c')
 export class Slider extends LitElement {
@@ -31,8 +33,12 @@ export class Slider extends LitElement {
                   <img src=${process.env.API_URI + '/uploads/' + el.img} />
                 </div>
                 <div class="data">
-                  <h2>${el.title}</h2>
-                  <p>${el.brief}</p>
+                  <h2 @click=${() => Router.go('/categorias/' + el.title + '?id=' + el.id)}>
+                    ${el.title}
+                  </h2>
+                  <p @click=${() => Router.go('/categorias/' + el.title + '?id=' + el.id)}>
+                    ${el.brief}
+                  </p>
                 </div>
               </div>
             `
@@ -48,6 +54,7 @@ export class Slider extends LitElement {
   protected firstUpdated(_changedProperties: PropertyValues) {
     const ethis = this
     const swiper = new Swiper(ethis.slider, {
+      autoplay: true,
       loop: true,
       pagination: {
         el: ethis.pagination
