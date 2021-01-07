@@ -7,6 +7,7 @@ type element = {
   img: string
   brief: string
 }
+// import Swiper JS
 import Swiper from 'swiper'
 
 @customElement('slider-c')
