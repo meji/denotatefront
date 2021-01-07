@@ -1,4 +1,4 @@
-import { css } from "lit-element";
+import { css } from 'lit-element'
 
 export const this_styles = css`
   header {
@@ -14,6 +14,7 @@ export const this_styles = css`
     left: 0;
     right: 0;
     transition: var(--transition);
+    z-index: 10;
   }
 
   header.scroll {
@@ -55,7 +56,7 @@ export const this_styles = css`
   }
 
   nav ul li span:hover:after {
-    content: "";
+    content: '';
     width: 100%;
     height: 2px;
     background: var(--main-color);
@@ -77,7 +78,7 @@ export const this_styles = css`
   #menu-icon:before,
   #menu-icon div {
     background-color: var(--text-body-color);
-    content: "";
+    content: '';
     display: block;
     height: 1.5px;
     margin: 10px 0;
@@ -163,4 +164,4 @@ export const this_styles = css`
       width: 100%;
     }
   }
-`;
+`

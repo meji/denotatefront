@@ -4,8 +4,8 @@ import { AuthorizationService } from '../../../featured/shared/auth/authorizatio
 import { UserHttpService } from '../../../featured/users/infrastructure/user-http-service'
 import { getAdminUrl } from '../../../utils/utils'
 
-@customElement('container-c')
-export class PublicContainer extends LitElement {
+@customElement('container-full-c')
+export class PublicContainerFull extends LitElement {
   @property({ type: Boolean }) islogged = false
 
   userService = new UserHttpService(new AuthorizationService())

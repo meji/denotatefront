@@ -1,2 +1,2 @@
-import "./switch";
-import "./uploader";
+import './switch'
+import './uploader'

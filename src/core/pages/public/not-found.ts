@@ -1,8 +1,11 @@
-import {css, customElement, html, LitElement, query} from 'lit-element';
+import { css, customElement, html, LitElement, query } from 'lit-element'
 
-@customElement("not-found")
+@customElement('not-found')
 export class NotFound extends LitElement {
   public static styles = css`
+    :host {
+      min-height: 80vh;
+    }
     html,
     body {
       height: 100%;
@@ -10,14 +13,14 @@ export class NotFound extends LitElement {
       margin: 0;
       padding: 0;
       background: #242424;
-      font-family: "Oswald", sans-serif;
+      font-family: 'Oswald', sans-serif;
       background: -webkit-canvas(noise);
       background: -moz-element(#canvas);
       overflow: hidden;
     }
 
     html::after {
-      content: "";
+      content: '';
       background: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
       position: absolute;
       top: 0;
@@ -57,7 +60,7 @@ export class NotFound extends LitElement {
 
     body::after,
     body::before {
-      content: " ";
+      content: ' ';
       display: block;
       position: absolute;
       left: 0;
@@ -140,20 +143,19 @@ export class NotFound extends LitElement {
         filter: blur(3px);
       }
     }
-  `;
-  @query("canvas") canvas: HTMLElement | undefined;
+  `
+  @query('canvas') canvas: HTMLElement | undefined
 
   render() {
     return html`
       <canvas id="canvas" hidden></canvas>
       <div class="center">
         <h1>404</h1>
-
         <p>PAGE NOT FOUND.</p>
       </div>
-    `;
+    `
   }
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback()
   }
 }

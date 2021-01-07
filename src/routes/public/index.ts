@@ -1,43 +1,31 @@
-import {catRoutes} from './categories';
-import {tagRoutes} from './tags';
-import {postsRoutes} from './posts';
-import {setTitleDescription} from '../../utils/utils';
+import { catRoutes } from './categories'
+import { tagRoutes } from './tags'
+import { postsRoutes } from './posts'
 
 export const publicRoute = {
-  path: "/",
+  path: '/',
   action: async () => {
-    await import("../../core/pages/public/public-container");
+    await import('../../core/pages/public/public-container')
   },
-  component: "container-c",
+  component: 'container-c',
   children: [
     {
-      path: "/",
+      path: '/not-found',
       action: async () => {
-        await import("../../core/pages/public/home");
-        setTitleDescription(
-          "Denotate CMS",
-          "Denotate, un CMS construido con Deno, LitElemente y Webcomponents"
-        );
+        await import('../../core/pages/public/not-found')
       },
-      component: "home-c"
-    },
-    {
-      path: "/not-found",
-      action: async () => {
-        await import("../../core/pages/public/not-found");
-      },
-      component: "not-found"
+      component: 'not-found'
     },
     tagRoutes,
     catRoutes,
     // usersRoutes,
     ...postsRoutes,
     {
-      path: "/(.*)",
+      path: '/(.*)',
       action: async () => {
-        await import("../../core/pages/public/not-found");
+        await import('../../core/pages/public/not-found')
       },
-      component: "not-found"
+      redirect: '/not-found'
     }
   ]
-};
+}
