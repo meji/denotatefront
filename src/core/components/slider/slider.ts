@@ -8,7 +8,8 @@ type element = {
   brief: string
 }
 // import Swiper JS
-import Swiper from 'swiper'
+import Swiper, { Navigation, Pagination } from 'swiper'
+Swiper.use([Navigation, Pagination])
 
 @customElement('slider-c')
 export class Slider extends LitElement {
