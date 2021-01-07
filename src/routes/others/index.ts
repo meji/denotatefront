@@ -1,7 +1,6 @@
 import { Router } from '@vaadin/router'
 import { UserHttpService } from '../../featured/users/infrastructure/user-http-service'
 import { AuthorizationService } from '../../featured/shared/auth/authorization-service'
-import { setTitleDescription } from '../../utils/utils'
 
 export const otherRoutes = [
   {
@@ -30,10 +29,6 @@ export const otherRoutes = [
     path: '/',
     action: async () => {
       await import('../../featured/site/ui/home')
-      setTitleDescription(
-        'Denotate CMS',
-        'Denotate, un CMS construido con Deno, LitElemente y Webcomponents'
-      )
     },
     component: 'home-c'
   }

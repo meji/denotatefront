@@ -1,6 +1,6 @@
 import { customElement, html, LitElement, property, query } from 'lit-element'
 import { PostRepositoryFactory } from '../infrastructure/post-repository-factory'
-import { getId } from '../../../utils/utils'
+import { getId, setTitleDescription } from '../../../utils/utils'
 import { Post } from '../domain/post'
 import { emptyPost } from '../../shared/emptyObjects'
 import { md } from '../../../core/components/markdownEditor/md'
@@ -59,6 +59,7 @@ export class PostHome extends LitElement {
         .getById(id)
         .then(response => {
           this.post = response
+          setTitleDescription(response.title, response.brief ? response.brief : '')
           response.cats &&
             response.cats.map(cat => {
               this.categoryRepository.getById(cat).then(response => this.cats.push(response))

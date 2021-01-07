@@ -1,8 +1,9 @@
-import { Post } from "../domain/post";
-import { PostDto } from "./post-dto";
+import { Post } from '../domain/post'
+import { PostDto } from './post-dto'
 
 export class PostDtoToPostMapper {
   map(postDto: PostDto): Post {
+    console.log(postDto)
     return {
       id: postDto._id.$oid,
       title: postDto.title,
@@ -13,6 +14,6 @@ export class PostDtoToPostMapper {
       author: postDto.author ? postDto.author.$oid : undefined,
       cats: postDto.cats ? postDto.cats.map(cat => cat.$oid) : undefined,
       tags: postDto.tags
-    };
+    }
   }
 }

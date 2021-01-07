@@ -5,11 +5,14 @@ import { general } from '../../../styles/general'
 import { publicStyles } from '../../../styles/public'
 import { Category } from '../../categories/domain/category'
 import { CategoryRepositoryFactory } from '../../categories/infrastructure/category-repository-factory'
+import { SiteService } from '../infrastructure/site-service'
+import { setTitleDescription } from '../../../utils/utils'
 
 @customElement('home-c')
 export class HomeComponent extends LitElement {
   postRepository = PostRepositoryFactory.build()
   categoryRepository = CategoryRepositoryFactory.build()
+  siteService = new SiteService()
   @property() posts = [] as Post[]
   @property() categories = [] as Category[]
   public static styles = [general, publicStyles]
@@ -53,6 +56,9 @@ export class HomeComponent extends LitElement {
           return cat.featured == true
         })
       }
+    })
+    await this.siteService.getSite().then(response => {
+      setTitleDescription(response.title, response.brief)
     })
   }
 }

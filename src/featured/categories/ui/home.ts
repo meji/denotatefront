@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from 'lit-element'
-import { getId } from '../../../utils/utils'
+import { getId, setTitleDescription } from '../../../utils/utils'
 import { CategoryRepositoryFactory } from '../infrastructure/category-repository-factory'
 import { Category } from '../domain/category'
 import { general } from '../../../styles/general'
@@ -64,6 +64,7 @@ export class CategoryHome extends LitElement {
           .getById(id)
           .then(response => {
             this.category = response
+            setTitleDescription(response.title, response.brief ? response.brief : '')
             if (response.posts && response.posts.length > 0) {
               response.posts!.map(async post => {
                 this.postRepository.getById(post).then(response => {
