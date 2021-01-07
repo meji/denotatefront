@@ -180,8 +180,8 @@ export const this_styles = css`
   :root {
     --swiper-navigation-size: 44px;
   }
-  swiper-container:hover .swiper-button-next,
-  swiper-container:hover .swiper-button-prev {
+  .swiper-button-next,
+  .swiper-button-prev {
     position: absolute;
     top: 50%;
     width: calc(var(--swiper-navigation-size) / 44 * 27);
@@ -195,6 +195,9 @@ export const this_styles = css`
     color: var(--swiper-navigation-color, var(--swiper-theme-color));
     opacity:0;
   }
+  .swiper-container:hover .swiper-button-next,
+  .swiper-container:hover .swiper-button-prev {opacity: 1}
+  
   .swiper-button-next,
   .swiper-button-prev {
   .swiper-button-next.swiper-button-disabled,

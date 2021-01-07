@@ -9,9 +9,9 @@ type element = {
   id: string
 }
 // import Swiper JS
-import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
+import Swiper, { Navigation, Pagination } from 'swiper'
 import { Router } from '@vaadin/router'
-Swiper.use([Navigation, Pagination, Autoplay])
+Swiper.use([Navigation, Pagination])
 
 @customElement('slider-c')
 export class Slider extends LitElement {
@@ -54,8 +54,6 @@ export class Slider extends LitElement {
   protected firstUpdated(_changedProperties: PropertyValues) {
     const ethis = this
     const swiper = new Swiper(ethis.slider, {
-      autoplay: true,
-      loop: true,
       pagination: {
         el: ethis.pagination
       },

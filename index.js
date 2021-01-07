@@ -11,4 +11,3 @@ app.get('*', (req, res) => {
 app.listen(process.env.PORT || 8080, () =>
   console.log(`Server listening in  port ${process.env.PORT}`)
 )
-console.log('backend-api-uri: ' + process.env.API_URI)

@@ -63,8 +63,6 @@ export class AppLit extends LitElement {
     this.notMessage = e.detail.message
     this.notType = e.detail.type
     setTimeout(() => (this.notMessage = ''), 2000)
-    console.log('message', e.detail.message)
-    console.log('type', e.detail.type)
   }
 
   async firstUpdated() {

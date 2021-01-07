@@ -3,7 +3,6 @@ import { PostDto } from './post-dto'
 
 export class PostDtoToPostMapper {
   map(postDto: PostDto): Post {
-    console.log(postDto)
     return {
       id: postDto._id.$oid,
       title: postDto.title,
