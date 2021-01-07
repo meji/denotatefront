@@ -21,5 +21,6 @@ export const this_styles = css`
     left: 0;
     box-sizing: border-box;
     z-index: 10000000;
+    font-family: var(--title-font);
   }
 `

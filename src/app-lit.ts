@@ -1,9 +1,9 @@
-import {css, customElement, html, LitElement, property} from 'lit-element';
-import {theme} from './styles/theme';
-import {general} from './styles/general';
-import {SiteService} from './featured/site/infrastructure/site-service';
-import {Router} from '@vaadin/router';
-import './core/index';
+import { css, customElement, html, LitElement, property } from 'lit-element'
+import { theme } from './styles/theme'
+import { general } from './styles/general'
+import { SiteService } from './featured/site/infrastructure/site-service'
+import { Router } from '@vaadin/router'
+import './core/index'
 
 @customElement('app-lit')
 export class AppLit extends LitElement {
@@ -62,6 +62,7 @@ export class AppLit extends LitElement {
   _updateNotification = (e: any) => {
     this.notMessage = e.detail.message
     this.notType = e.detail.type
+    setTimeout(() => (this.notMessage = ''), 2000)
     console.log('message', e.detail.message)
     console.log('type', e.detail.type)
   }

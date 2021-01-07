@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, query } from 'lit-element'
-import { countErrors, serializeForm } from '../../../utils/utils'
+import { countErrors, notify, serializeForm } from '../../../utils/utils'
 import { general } from '../../../styles/general'
 import { Category } from '../domain/category'
 import { CategoryRepositoryFactory } from '../infrastructure/category-repository-factory'
@@ -173,6 +173,7 @@ export class CategoryForm extends LitElement {
         ) {
           this.categoryRepository.update(this.id, this.values).then(() => {
             this.requestUpdate()
+            notify('notification', 'Categoría modificada', this)
           })
         }
       })
