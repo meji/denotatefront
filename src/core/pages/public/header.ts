@@ -22,18 +22,23 @@ export class Header extends LitElement {
     return this.site
       ? html`
           <header id="header" class=${this.transparent ? 'transparent' : ''}>
-            <img
-              src=${this.site.logo
-                ? process.env.API_URI + '/uploads/' + this.site.logo
-                : '/logo.svg'}
-              alt="logo"
-              @click="${() => Router.go('/')}"
-              class="${this.site.logo == '' ? 'default' : 'custom'} ${!this.site.logo
-                ? this.site.theme != 'dark'
-                  ? 'invert'
-                  : ''
-                : ''} "
-            />
+            ${this.site.logo
+              ? html`
+                  <img
+                    src=${process.env.API_URI + '/uploads/' + this.site.logo}
+                    alt="logo"
+                    @click="${() => Router.go('/')}"
+                    class="custom"
+                  />
+                `
+              : html`
+                  <img
+                    src="/logo.svg"
+                    alt="logo"
+                    @click="${() => Router.go('/')}"
+                    class="custom ${this.site.theme == 'dark' ? 'invert' : ''}"
+                  />
+                `}
             <nav>
               <ul>
                 ${this.categories.map(

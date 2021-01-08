@@ -38,6 +38,10 @@ export const this_styles = css`
     background: #fff;
   }
 
+  header.transparent:not(.scroll) img:not(.invert) {
+    filter: invert(1);
+  }
+
   header.scroll {
     padding: var(--s) var(--m);
   }
