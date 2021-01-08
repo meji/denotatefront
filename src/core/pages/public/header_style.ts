@@ -38,8 +38,8 @@ export const this_styles = css`
     background: #fff;
   }
 
-  header.transparent:not(.scroll) img:not(.invert) {
-    filter: invert(1);
+  header.transparent:not(.scroll) img {
+    filter: brightness(0) invert(1);
   }
 
   header.scroll {
