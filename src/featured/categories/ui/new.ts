@@ -82,6 +82,12 @@ export class CategoryNew extends LitElement {
             @input=${(e: any) => {
               this.values.description = e.target.value
             }}
+            @blur=${(e: any) => {
+              this.values.description = e.target.value
+            }}
+            @paste=${(e: any) => {
+              this.values.description = e.target.value
+            }}
           ></md-editor-bis-c>
           <p>
             <switch-c

@@ -1,35 +1,35 @@
-import {customElement, html, LitElement, property, query} from 'lit-element';
-import {countErrors, serializeForm} from '../../../utils/utils';
-import {general} from '../../../styles/general';
-import {Post} from '../domain/post';
-import {PostRepositoryFactory} from '../infrastructure/post-repository-factory';
-import {ImageHttpService} from '../../images/infrastructure/image-http-service';
-import {emptyPost} from '../../shared/emptyObjects';
-import {adminStyles} from '../../../styles/admin-styles';
-import {Category} from '../../categories/domain/category';
-import {CategoryRepositoryFactory} from '../../categories/infrastructure/category-repository-factory';
-import {this_styles} from './form-styles';
+import { customElement, html, LitElement, property, query } from 'lit-element'
+import { countErrors, serializeForm } from '../../../utils/utils'
+import { general } from '../../../styles/general'
+import { Post } from '../domain/post'
+import { PostRepositoryFactory } from '../infrastructure/post-repository-factory'
+import { ImageHttpService } from '../../images/infrastructure/image-http-service'
+import { emptyPost } from '../../shared/emptyObjects'
+import { adminStyles } from '../../../styles/admin-styles'
+import { Category } from '../../categories/domain/category'
+import { CategoryRepositoryFactory } from '../../categories/infrastructure/category-repository-factory'
+import { this_styles } from './form-styles'
 
-const postRepository = PostRepositoryFactory.build();
+const postRepository = PostRepositoryFactory.build()
 
-@customElement("post-new-c")
+@customElement('post-new-c')
 export class PostNew extends LitElement {
-  private imageService = new ImageHttpService();
-  private categoryRepositoy = CategoryRepositoryFactory.build();
+  private imageService = new ImageHttpService()
+  private categoryRepositoy = CategoryRepositoryFactory.build()
   @property()
-  values: Partial<Post> = Object.create(emptyPost);
-  @property({ type: Boolean }) edit = false;
-  @property() imgData = "";
-  @property({ type: String }) imgName = "";
-  @property({ type: String }) id = "";
-  @property({ type: Number }) counterUpdated = 0;
-  @property() catsDisp: Partial<Category>[] = [];
-  @property({ type: String }) validityError = "";
-  @property({ type: String }) tag: string = "";
+  values: Partial<Post> = Object.create(emptyPost)
+  @property({ type: Boolean }) edit = false
+  @property() imgData = ''
+  @property({ type: String }) imgName = ''
+  @property({ type: String }) id = ''
+  @property({ type: Number }) counterUpdated = 0
+  @property() catsDisp: Partial<Category>[] = []
+  @property({ type: String }) validityError = ''
+  @property({ type: String }) tag: string = ''
 
-  @query("#switcher") switcher: HTMLElement | undefined;
+  @query('#switcher') switcher: HTMLElement | undefined
 
-  public static styles = [general, adminStyles, this_styles];
+  public static styles = [general, adminStyles, this_styles]
   render() {
     return html`
       <h1>Nuevo Post</h1>
@@ -37,7 +37,7 @@ export class PostNew extends LitElement {
         <form-container-c class="transparent" size="extralarge">
           <form
             @submit="${(e: any) => {
-              this.handleSubmit(e);
+              this.handleSubmit(e)
             }}"
             id="post-form"
           >
@@ -48,14 +48,11 @@ export class PostNew extends LitElement {
                     ? html`
                         <p>Imagen destacada:</p>
                         <p>
-                          <img
-                            src="${process.env.API_URI}/uploads/${this.values
-                              .img}"
-                          />
+                          <img src="${process.env.API_URI}/uploads/${this.values.img}" />
                         </p>
                         <button-c
                           @click="${() => {
-                            this.handleEraseImage();
+                            this.handleEraseImage()
                           }}"
                           >Borrar imagen</button-c
                         >
@@ -66,8 +63,7 @@ export class PostNew extends LitElement {
                           <small>(recomendado 1920pxx800px)</small>
                         </p>
                         <uploader-lab
-                          @input="${(e: any) =>
-                            this.handleUpdatePictureChange(e)}"
+                          @input="${(e: any) => this.handleUpdatePictureChange(e)}"
                         ></uploader-lab>
                       `}
                 </div>
@@ -91,7 +87,13 @@ export class PostNew extends LitElement {
                 ></input-c>
                 <md-editor-bis-c
                   @input=${(e: any) => {
-                    this.values.description = e.target.value;
+                    this.values.description = e.target.value
+                  }}
+                  @blur=${(e: any) => {
+                    this.values.description = e.target.value
+                  }}
+                  @paste=${(e: any) => {
+                    this.values.description = e.target.value
                   }}
                 ></md-editor-bis-c>
                 <p>
@@ -116,7 +118,7 @@ export class PostNew extends LitElement {
                       label="${cat.title}"
                       @input="${(e: any) => this.addCategories(e, cat.id!)}"
                     ></option-c>
-                  `;
+                  `
                 })}
                 <h2>Tags</h2>
                 ${this.values.tags
@@ -127,10 +129,8 @@ export class PostNew extends LitElement {
                           ><span
                             class="cut"
                             @click=${() => {
-                              this.values.tags = this.values.tags!.filter(
-                                tagIn => tagIn != tag
-                              );
-                              this.requestUpdate();
+                              this.values.tags = this.values.tags!.filter(tagIn => tagIn != tag)
+                              this.requestUpdate()
                             }}
                             >✂️</span
                           >
@@ -151,82 +151,78 @@ export class PostNew extends LitElement {
           <p class="error">${this.validityError}</p>
         </form-container-c>
       </div>
-    `;
+    `
   }
   async connectedCallback() {
-    super.connectedCallback();
-    this.values = new Object(emptyPost);
-    this.catsDisp = await this.categoryRepositoy.findAll();
+    super.connectedCallback()
+    this.values = new Object(emptyPost)
+    this.catsDisp = await this.categoryRepositoy.findAll()
   }
   handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
       featured: e.target.shadowRoot.host.el().checked
-    };
-  };
+    }
+  }
 
   handleUpdatePictureChange = (e: any) => {
-    const target = e.target;
+    const target = e.target
     setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
+      this.imgData = target.shadowRoot.querySelector('#selectFile').files[0]
+      this.imgName = target.shadowRoot.host.fileName[0]
+    }, 100)
+  }
   uploadImage = async () => {
     if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.img = response);
-        });
+      await this.imageService.uploadImage(this.imgData, this.imgName).then(response => {
+        this.imgData = ''
+        this.imgName = ''
+        return (this.values.img = response)
+      })
     }
-    return;
-  };
+    return
+  }
 
   handleSubmit = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     this.validityError =
-      countErrors(this) > 0
-        ? `Revisa los ${countErrors(this)} errores en el formulario`
-        : "";
-    if (this.validityError === "") {
-      const target = e.target;
+      countErrors(this) > 0 ? `Revisa los ${countErrors(this)} errores en el formulario` : ''
+    if (this.validityError === '') {
+      const target = e.target
       await this.uploadImage().then(() => {
-        const formValues = serializeForm(target);
-        this.values = { ...this.values, ...formValues };
+        const formValues = serializeForm(target)
+        this.values = { ...this.values, ...formValues }
         postRepository.create(this.values).then(response => {
-          window.location.href = `/post?id=${response.id}`;
-        });
-      });
+          window.location.href = `/post?id=${response.id}`
+        })
+      })
     }
-  };
+  }
 
   handleEraseImage = () => {
-    this.values.img = "";
-  };
+    this.values.img = ''
+  }
 
   addCategories = (e: any, id: string) => {
-    if (e.target.shadowRoot.querySelector("input").checked) {
+    if (e.target.shadowRoot.querySelector('input').checked) {
       this.values.cats && !this.values.cats.includes(id)
         ? (this.values.cats = [...this.values.cats, id])
-        : (this.values.cats = [id]);
+        : (this.values.cats = [id])
     } else {
       this.values.cats && this.values.cats.includes(id)
         ? (this.values.cats = this.values.cats.filter(cat => cat !== id))
-        : null;
+        : null
     }
-  };
+  }
   handleNewTag = async (e: any) => {
-    if (e.key == "Enter") {
-      e.preventDefault();
-      this.values.tags = [...this.values.tags!, e.target.value];
-      e.target.shadowRoot.querySelector("input").value = "";
-      await this.requestUpdate();
-    } else if (e.key == " ") {
-      e.target.shadowRoot.querySelector("input").value = "";
-      await this.requestUpdate();
+    if (e.key == 'Enter') {
+      e.preventDefault()
+      this.values.tags = [...this.values.tags!, e.target.value]
+      e.target.shadowRoot.querySelector('input').value = ''
+      await this.requestUpdate()
+    } else if (e.key == ' ') {
+      e.target.shadowRoot.querySelector('input').value = ''
+      await this.requestUpdate()
     }
-  };
+  }
 }
