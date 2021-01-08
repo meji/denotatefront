@@ -98,7 +98,7 @@ export class CategoryForm extends LitElement {
             required="true"
           ></input-c>
           <md-editor-bis-c
-            initialValue="${this.values.description}"
+            .initialValue="${this.initialValues.description}"
             @input=${(e: any) => {
               this.values.description = e.target.value
             }}
@@ -126,8 +126,8 @@ export class CategoryForm extends LitElement {
     const id = urlParams.get('id')
     if (id) {
       this.id = id
+      this.initialValues = { ...(await this.categoryRepository.getById(id)) }
       this.values = { ...(await this.categoryRepository.getById(id)) }
-      this.initialValues = { ...this.values }
     }
     if (this.values.featured) {
       this.switcher!.shadowRoot!.querySelector('input')!.setAttribute('checked', 'checked')

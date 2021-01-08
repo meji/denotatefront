@@ -27,7 +27,7 @@ export class PostHome extends LitElement {
           : null}
         <h2 class="h4">${this.post.title}</h2>
         <div class="brief">
-          ${this.post.brief && this.post.brief.substring(1, 70)}...
+          ${this.post.brief && this.post.brief.substring(0, 70)}...
         </div>
       </div>
     `

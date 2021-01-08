@@ -37,7 +37,7 @@ export class PostHome extends LitElement {
             `
           : null}
         <div id="description"></div>
-        ${this.post.tags
+        ${this.post.tags && this.post.tags?.length > 0
           ? html`
               <h4>Tags:</h4>
               ${this.post.tags.map(tag => {

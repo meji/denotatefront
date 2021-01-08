@@ -106,7 +106,7 @@ export class PostForm extends LitElement {
                 required="true"
               ></input-c>
               <md-editor-bis-c
-                initialValue="${this.values.description}"
+                .initialValue="${this.initialValues.description}"
                 @input=${(e: any) => {
                   this.values.description = e.target.value
                 }}
@@ -173,8 +173,8 @@ export class PostForm extends LitElement {
     this.catsDisp = await this.categoryRepositoy.findAll()
     if (id) {
       this.id = id
+      this.initialValues = { ...(await this.postRepository.getById(id)) }
       this.values = { ...(await this.postRepository.getById(id)) }
-      this.initialValues = { ...this.values }
     }
     if (this.values.featured) {
       this.switcher!.shadowRoot!.querySelector('input')!.setAttribute('checked', 'checked')
