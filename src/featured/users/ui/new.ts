@@ -1,24 +1,21 @@
-import {customElement, html, LitElement, property} from 'lit-element';
-import '../../../core/pages/public/special-container';
-import {countErrors, serializeForm} from '../../../utils/utils';
-import {UserRepositoryFactory} from '../infrastructure/user-repository-factory';
-import {general} from '../../../styles/general';
-import {adminStyles} from '../../../styles/admin-styles';
+import { customElement, html, LitElement, property } from 'lit-element'
+import '../../../core/pages/public/special-container'
+import { countErrors, notify, serializeForm } from '../../../utils/utils'
+import { UserRepositoryFactory } from '../infrastructure/user-repository-factory'
+import { general } from '../../../styles/general'
+import { adminStyles } from '../../../styles/admin-styles'
 
-@customElement("user-new-c")
+@customElement('user-new-c')
 export class NewUser extends LitElement {
-  private userRepository = UserRepositoryFactory.build();
-  public static styles = [general, adminStyles];
-  @property({ type: String }) validityError = "";
+  private userRepository = UserRepositoryFactory.build()
+  public static styles = [general, adminStyles]
+  @property({ type: String }) validityError = ''
 
   render() {
     return html`
       <h1>Nuevo usuario</h1>
       <form-container-c class="transparent">
-        <form
-          @submit="${(e: any) => this.handleSubmitRegister(e)}"
-          id="register-form"
-        >
+        <form @submit="${(e: any) => this.handleSubmitRegister(e)}" id="register-form">
           <input-c
             id="firstName"
             type="text"
@@ -64,24 +61,22 @@ export class NewUser extends LitElement {
           <p class="error">${this.validityError}</p>
         </form>
       </form-container-c>
-    `;
+    `
   }
 
   handleSubmitRegister = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
     this.validityError =
-      countErrors(this) > 0
-        ? `Revisa los ${countErrors(this)} errores en el formulario`
-        : "";
-    if (this.validityError === "") {
-      e.preventDefault();
-      const target = e.target;
-      const values = serializeForm(target);
-      await this.userRepository
-        .newUser({ ...values, admin: false })
-        .then(response => {
-          window.location.href = `/admin/users/edit?id=${response}`;
-        });
+      countErrors(this) > 0 ? `Revisa los ${countErrors(this)} errores en el formulario` : ''
+    if (this.validityError === '') {
+      e.preventDefault()
+      const target = e.target
+      const values = serializeForm(target)
+      await this.userRepository.newUser({ ...values, admin: false }).then(response => {
+        !response.data
+          ? notify('error', 'El usuario ya existe', this)
+          : (window.location.href = `/admin/users/edit?id=${response.data}`)
+      })
     }
-  };
+  }
 }
