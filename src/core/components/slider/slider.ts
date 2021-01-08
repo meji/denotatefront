@@ -8,10 +8,8 @@ type element = {
   brief: string
   id: string
 }
-// import Swiper JS
-import Swiper, { Navigation, Pagination } from 'swiper'
+import Swiper from 'swiper/bundle'
 import { Router } from '@vaadin/router'
-Swiper.use([Navigation, Pagination])
 
 @customElement('slider-c')
 export class Slider extends LitElement {
@@ -24,6 +22,7 @@ export class Slider extends LitElement {
 
   render() {
     return html`
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
       <div class="swiper-container">
         <div class="swiper-wrapper">
           ${this.elements.map((el: element) => {
@@ -53,15 +52,22 @@ export class Slider extends LitElement {
 
   protected firstUpdated(_changedProperties: PropertyValues) {
     const ethis = this
-    const swiper = new Swiper(ethis.slider, {
-      pagination: {
-        el: ethis.pagination
-      },
-      navigation: {
-        nextEl: ethis.next,
-        prevEl: ethis.prev
-      }
-    })
-    return swiper
+    setTimeout(() => {
+      new Swiper(ethis.slider, {
+        autoplay: true,
+        loop: true,
+        pagination: {
+          el: ethis.pagination
+        },
+        navigation: {
+          nextEl: ethis.next,
+          prevEl: ethis.prev
+        },
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        }
+      })
+    }, 2000)
   }
 }
