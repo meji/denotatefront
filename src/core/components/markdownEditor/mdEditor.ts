@@ -32,7 +32,7 @@ export class MdEditor extends LitElement {
       forceSync: true
     }
     this.simpleMde = new SimpleMde(properties)
-    setTimeout(() => this.simpleMde.value(this.initialValue), 1000)
+    setTimeout(() => this.simpleMde.value(this.initialValue), 1500)
   }
 
   _hadleChange = () => {
