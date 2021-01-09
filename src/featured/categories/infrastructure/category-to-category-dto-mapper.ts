@@ -1,5 +1,5 @@
-import { CategoryDto } from "./category-dto";
-import { Category } from "../domain/category";
+import { CategoryDto } from './category-dto'
+import { Category } from '../domain/category'
 
 export class CategoryToCategoryDtoMapper {
   map(category: Category): CategoryDto {
@@ -9,17 +9,17 @@ export class CategoryToCategoryDtoMapper {
       brief: category.brief,
       description: category.description,
       img: category.img,
-      featured: category.featured,
-      cats: category.cats
-        ? category.cats.map(cat => {
-            return { $oid: cat };
-          })
-        : undefined,
-      posts: category.posts
-        ? category.posts.map(post => {
-            return { $oid: post };
-          })
-        : undefined
-    };
+      featured: category.featured
+    }
+  }
+
+  mapPartial(category: Partial<Category>): Partial<CategoryDto> {
+    return {
+      title: category.title,
+      brief: category.brief,
+      description: category.description,
+      img: category.img,
+      featured: category.featured
+    }
   }
 }
