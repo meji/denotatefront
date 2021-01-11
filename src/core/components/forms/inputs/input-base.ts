@@ -1,20 +1,20 @@
-import {customElement, html, LitElement, property} from 'lit-element';
-import {classMap} from 'lit-html/directives/class-map';
-import {this_styles} from './input_styles';
+import { customElement, html, LitElement, property } from 'lit-element'
+import { classMap } from 'lit-html/directives/class-map'
+import { this_styles } from './input_styles'
 
-@customElement("input-c")
+@customElement('input-c')
 export class Input extends LitElement {
-  static styles = [this_styles];
-  @property({ type: String }) value = "";
-  @property({ type: String }) errMsg = "";
-  @property({ type: String }) name = "";
-  @property({ type: String }) placeholder = "";
-  @property({ type: String }) label = "";
-  @property({ type: String }) type = "";
-  @property({ type: Boolean }) required = false;
-  @property({ type: Boolean }) disabled = false;
-  @property({ type: String }) size = "";
-  @property({ type: Boolean }) outline = true;
+  static styles = [this_styles]
+  @property({ type: String }) value = ''
+  @property({ type: String }) errMsg = ''
+  @property({ type: String }) name = ''
+  @property({ type: String }) placeholder = ''
+  @property({ type: String }) label = ''
+  @property({ type: String }) type = ''
+  @property({ type: Boolean }) required = false
+  @property({ type: Boolean }) disabled = false
+  @property({ type: String }) size = ''
+  @property({ type: Boolean }) outline = true
 
   render() {
     return html`
@@ -27,6 +27,7 @@ export class Input extends LitElement {
           autocomplete="off"
           type=${this.type}
           value=${this.value}
+          style=${this.type == 'color' ? 'background: ' + this.value : null}
           .placeholder="${this.placeholder}"
           .name="${this.name}"
           .disabled="${this.disabled}"
@@ -35,7 +36,7 @@ export class Input extends LitElement {
           @keyup="${(e: any) => this.handleChange(e)}"
           @keypress="${(e: any) => this.handleKeyPress(e)}"
           @blur="${(e: any) => {
-            this.checkValidity(e.target);
+            this.checkValidity(e.target)
           }}"
         />
         ${this.label
@@ -49,44 +50,40 @@ export class Input extends LitElement {
             `
           : null}
       </div>
-    `;
+    `
   }
   private handleKeyPress = (e: any) => {
-    if (e.key == "Enter") {
-      e.preventDefault();
-      const fakeSubmit = document.createElement("button");
-      fakeSubmit.type = "submit";
-      fakeSubmit.style.display = "none";
-      this.closestElement("form").appendChild(fakeSubmit);
-      fakeSubmit.click();
-      fakeSubmit.remove();
+    if (e.key == 'Enter') {
+      e.preventDefault()
+      const fakeSubmit = document.createElement('button')
+      fakeSubmit.type = 'submit'
+      fakeSubmit.style.display = 'none'
+      this.closestElement('form').appendChild(fakeSubmit)
+      fakeSubmit.click()
+      fakeSubmit.remove()
     }
-  };
+  }
   private handleChange = (e: any) => {
-    const { value, name } = this;
-    const el = this.closestElement("form");
-    this.renderInputOutsideShadowRoot(el, name, value);
-    this.value = e.target.value;
-    this.name = e.target.name;
-  };
-  private renderInputOutsideShadowRoot(
-    container: HTMLElement,
-    name: string,
-    value: string | null
-  ) {
+    const { value, name } = this
+    const el = this.closestElement('form')
+    this.renderInputOutsideShadowRoot(el, name, value)
+    this.value = e.target.value
+    this.name = e.target.name
+  }
+  private renderInputOutsideShadowRoot(container: HTMLElement, name: string, value: string | null) {
     let input = container.querySelector(
-      "input.hidden-input.input-" + this.name
-    ) as HTMLInputElement | null;
+      'input.hidden-input.input-' + this.name
+    ) as HTMLInputElement | null
     if (!input) {
-      input = container.ownerDocument.createElement("input");
-      input.type = "hidden";
-      input.classList.add("hidden-input");
-      input.classList.add("input-" + this.name);
-      input.name = name;
-      input.value = value || "";
-      container.appendChild(input);
+      input = container.ownerDocument.createElement('input')
+      input.type = 'hidden'
+      input.classList.add('hidden-input')
+      input.classList.add('input-' + this.name)
+      input.name = name
+      input.value = value || ''
+      container.appendChild(input)
     } else {
-      input.value = value || "";
+      input.value = value || ''
     }
   }
   private closestElement(
@@ -99,10 +96,10 @@ export class Input extends LitElement {
         ? found
         : __Closest(el.getRootNode().host)
   ) {
-    return __Closest(base);
+    return __Closest(base)
   }
 
   checkValidity = (input: HTMLInputElement) => {
-    this.errMsg = input.validationMessage ? input.validationMessage : "";
-  };
+    this.errMsg = input.validationMessage ? input.validationMessage : ''
+  }
 }

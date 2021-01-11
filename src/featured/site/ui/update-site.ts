@@ -1,33 +1,30 @@
-import {css, customElement, html, LitElement, property, query} from 'lit-element';
-import {serializeForm} from '../../../utils/utils';
-import {SiteService} from '../infrastructure/site-service';
-import {general} from '../../../styles/general';
-import {Site} from '../domain/site';
-import 'color-picker-element';
-import {emptySite} from '../../shared/emptyObjects';
-import {ImageHttpService} from '../../images/infrastructure/image-http-service';
-import {adminStyles} from '../../../styles/admin-styles';
+import { css, customElement, html, LitElement, property, query } from 'lit-element'
+import { notify, serializeForm } from '../../../utils/utils'
+import { SiteService } from '../infrastructure/site-service'
+import { general } from '../../../styles/general'
+import { Site } from '../domain/site'
+import 'color-picker-element'
+import { emptySite } from '../../shared/emptyObjects'
+import { ImageHttpService } from '../../images/infrastructure/image-http-service'
+import { adminStyles } from '../../../styles/admin-styles'
 
-@customElement("update-site-c")
+@customElement('update-site-c')
 export class UpdateSite extends LitElement {
-  siteService = new SiteService();
-  private imageService = new ImageHttpService();
-  @property({ type: Object }) values: Partial<Site> = emptySite;
-  @property() imgData = "";
-  @property({ type: String }) imgName = "";
-  @query("#switcher") switcher: HTMLElement | undefined;
+  siteService = new SiteService()
+  private imageService = new ImageHttpService()
+  @property({ type: Object }) values: Partial<Site> = emptySite
+  @property() imgData = ''
+  @property({ type: String }) imgName = ''
+  @query('#switcher') switcher: HTMLElement | undefined
 
   async connectedCallback() {
-    super.connectedCallback();
-    const site = await this.siteService.getSite();
+    super.connectedCallback()
+    const site = await this.siteService.getSite()
     if (site) {
-      this.values = { ...site };
+      this.values = { ...site }
     }
-    if (this.values.theme == "dark") {
-      this.switcher!.shadowRoot!.querySelector("input")!.setAttribute(
-        "checked",
-        "checked"
-      );
+    if (this.values.theme == 'dark') {
+      this.switcher!.shadowRoot!.querySelector('input')!.setAttribute('checked', 'checked')
     }
   }
 
@@ -52,12 +49,13 @@ export class UpdateSite extends LitElement {
         display: block;
       }
     `
-  ];
+  ]
   render() {
     return html`
       <h1>Actualizar datos del site</h1>
       <form-container-c class="transparent">
         <p>Elige un color para el site</p>
+
         <color-picker
           value="${this.values.color}"
           id="picker"
@@ -70,14 +68,12 @@ export class UpdateSite extends LitElement {
             ? html`
                 <p>Logotipo:</p>
                 <div class="image-preview-container">
-                  <img
-                    src="${process.env.API_URI}/uploads/${this.values.logo}"
-                  />
+                  <img src="${process.env.API_URI}/uploads/${this.values.logo}" />
                 </div>
                 <div class="btn-container">
                   <button-c
                     @click="${() => {
-                      this.handleEraseImage();
+                      this.handleEraseImage()
                     }}"
                     >Borrar imagen</button-c
                   >
@@ -98,9 +94,9 @@ export class UpdateSite extends LitElement {
           <switch-c
             id="switcher"
             round
-            ?label=${this.values.theme == "dark" ? "Oscuro" : "Claro"}
+            ?label=${this.values.theme == 'dark' ? 'Oscuro' : 'Claro'}
             name="featured"
-            ?checked="${this.values.theme == "dark"}"
+            ?checked="${this.values.theme == 'dark'}"
             @input="${(e: any) => this.handleSwitchChange(e)}"
           ></switch-c>
         </p>
@@ -125,59 +121,58 @@ export class UpdateSite extends LitElement {
         </form>
         <slot></slot>
       </form-container-c>
-    `;
+    `
   }
   handleUpdatePictureChange = (e: any) => {
-    const target = e.target;
+    const target = e.target
     setTimeout(() => {
-      this.imgData = target.shadowRoot.querySelector("#selectFile").files[0];
-      this.imgName = target.shadowRoot.host.fileName[0];
-    }, 100);
-  };
+      this.imgData = target.shadowRoot.querySelector('#selectFile').files[0]
+      this.imgName = target.shadowRoot.host.fileName[0]
+    }, 100)
+  }
 
   handleSwitchChange = (e: any) => {
     this.values = {
       ...this.values,
-      theme: e.target.shadowRoot.host.el().checked ? "dark" : "light"
-    };
-    const changeTheme = new CustomEvent("change-theme", {
+      theme: e.target.shadowRoot.host.el().checked ? 'dark' : 'light'
+    }
+    const changeTheme = new CustomEvent('change-theme', {
       detail: { theme: this.values.theme },
       bubbles: true,
       composed: true
-    });
-    this.dispatchEvent(changeTheme);
-  };
+    })
+    this.dispatchEvent(changeTheme)
+  }
 
   handleColorChange = (e: any) => {
-    this.values["color"] = e.target.value;
-  };
+    this.values.color = e.target.value
+  }
   uploadImage = async () => {
     if (this.imgData && this.imgName) {
-      await this.imageService
-        .uploadImage(this.imgData, this.imgName)
-        .then(response => {
-          this.imgData = "";
-          this.imgName = "";
-          return (this.values.logo = response);
-        });
+      await this.imageService.uploadImage(this.imgData, this.imgName).then(response => {
+        this.imgData = ''
+        this.imgName = ''
+        return (this.values.logo = response)
+      })
     }
-    return;
-  };
+    return
+  }
   handleEraseImage = () => {
-    this.values.logo = "";
+    this.values.logo = ''
     this.siteService.updateSite(this.values).then(() => {
-      this.requestUpdate();
-    });
-  };
+      this.requestUpdate()
+    })
+  }
   handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const target = e.target;
+    e.preventDefault()
+    const target = e.target
     await this.uploadImage().then(() => {
-      const formValues = serializeForm(target);
-      this.values = { ...this.values, ...formValues };
+      const formValues = serializeForm(target)
+      this.values = { ...this.values, ...formValues }
       this.siteService.updateSite(this.values).then(() => {
-        this.requestUpdate();
-      });
-    });
-  };
+        notify('notification', 'Configuración actualizada', this)
+        window.location.href = '/admin/update-site'
+      })
+    })
+  }
 }
